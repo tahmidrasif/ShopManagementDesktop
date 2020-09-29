@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="59a800141f6849bfa88f7b840f41816b" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopDBModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.MasterInventory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.MasterInventoryLog" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.OrderLog" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Payment" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Product" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Stock" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.StockLog" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Vendor" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBModel.Unit" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="ShopDBModel.Enumaration" Width="1.5" PointX="3.375" PointY="11.75" />
+        <EntityTypeShape EntityType="ShopDBModel.GroupProduct" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ShopDBModel.OrderDetails" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="ShopDBModel.SpecialOffer" Width="1.5" PointX="13.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopDBModel.SubCategory" Width="1.5" PointX="9.375" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
