@@ -66,7 +66,8 @@ namespace ShopManagement.DAL.Repository
         {
             if (expression == null)
             {
-                return db.SubCategory.Where(x => x.IsActive == true).ToList();
+                var subcat = db.SubCategory.Where(x => x.IsActive == true).ToList();
+                return subcat;// db.SubCategory.Where(x => x.IsActive == true).ToList();
             }
             return db.SubCategory.Where(expression).Where(x => x.IsActive == true).ToList();
         }

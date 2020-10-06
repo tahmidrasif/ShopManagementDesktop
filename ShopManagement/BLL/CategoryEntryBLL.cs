@@ -71,10 +71,10 @@ namespace ShopManagement.BLL.Request
                         oUnitOfWork.repoCategory.GetCategoryByNameOrCode(x => x.CategoryCode == txtSearch);
                 }
             }
-            else
-            {
-                categories = oUnitOfWork.repoCategory.GetCategoryByNameOrCode(null);
-            }
+            //else
+            //{
+            //    categories = oUnitOfWork.repoCategory.GetCategoryByNameOrCode(null);
+            //}
             if (categories.Count > 0)
             {
                 List<CategoryVM> cvmList = new List<CategoryVM>();
@@ -243,6 +243,7 @@ namespace ShopManagement.BLL.Request
         public SubCatSearchResponse GetSubCategory(string txtSearch, string type)
         {
             List<SubCategory> subCategories = new List<SubCategory>();
+            subcatresponse = new SubCatSearchResponse();
             if (!string.IsNullOrEmpty(txtSearch))
             {
                 if (type == "Name")
@@ -256,10 +257,7 @@ namespace ShopManagement.BLL.Request
                         oUnitOfWork.repoCategory.GetSubCategory(x => x.SubCategoryCode == txtSearch);
                 }
             }
-            else
-            {
-                subCategories = oUnitOfWork.repoCategory.GetSubCategory(null);
-            }
+          
             if (subCategories.Count > 0)
             {
                 List<SubCatVM> cvmList = new List<SubCatVM>();
@@ -277,11 +275,48 @@ namespace ShopManagement.BLL.Request
                     cvmList.Add(cvm);
                 }
 
-                subcatresponse = new SubCatSearchResponse()
+                subcatresponse.ResponseCode = "000";
+                subcatresponse.SubCategoryVM = cvmList;
+
+                return subcatresponse;
+            }
+            else
+            {
+                subcatresponse.ResponseCode = null;
+                subcatresponse.SubCategoryVM = new List<SubCatVM>();
+                return subcatresponse;
+            }
+        }
+
+        public SubCatSearchResponse GetAllSubCategory()
+        {
+            List<SubCategory> subCategories = new List<SubCategory>();
+            subcatresponse = new SubCatSearchResponse();
+
+
+
+            subCategories = oUnitOfWork.repoCategory.GetSubCategory(null);
+
+            if (subCategories.Count > 0)
+            {
+                List<SubCatVM> cvmList = new List<SubCatVM>();
+
+                foreach (var item in subCategories)
                 {
-                    ResponseCode = "000",
-                    SubCategoryVM = cvmList
-                };
+                    SubCatVM cvm = new SubCatVM();
+                    cvm.Name = item.Name;
+                    cvm.SubCategoryID = item.SubCategoryID;
+                    cvm.SubCategoryCode = item.SubCategoryCode;
+                    cvm.Description = item.Description;
+                    cvm.CategoryID = (long)item.CategoryID;
+                    cvm.CategoryName =
+                        oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
+                    cvmList.Add(cvm);
+                }
+
+                subcatresponse.ResponseCode = "000";
+                subcatresponse.SubCategoryVM = cvmList;
+
                 return subcatresponse;
             }
             else

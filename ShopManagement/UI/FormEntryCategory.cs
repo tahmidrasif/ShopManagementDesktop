@@ -22,6 +22,7 @@ namespace ShopManagement.UI
         private long SubCategoryId = 0;
         private CategoryVM categoryVm = null;
         private SubCatVM subCatVm = null;
+
         #endregion
 
 
@@ -37,8 +38,35 @@ namespace ShopManagement.UI
 
             IntializeCatGrid();
             InitializeSubCatGrid();
+            LoadSearchCatCombo();
+            LoadSearchSubCatCombo();
             LoadSubCatagoryCombo();
         }
+
+        private void LoadSearchSubCatCombo()
+        {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("Sub Category Name", "Name");
+            dictionary.Add("Sub Category Code", "Code");
+
+
+            comboSearchSubCat.DataSource = new BindingSource(dictionary, null);
+            comboSearchSubCat.DisplayMember = "Key";
+            comboSearchSubCat.ValueMember = "Value";
+        }
+
+        private void LoadSearchCatCombo()
+        {
+
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("Category Name", "Name");
+            dictionary.Add("Category Code", "Code");
+
+            comboSearchCat.DataSource = new BindingSource(dictionary, null);
+            comboSearchCat.DisplayMember = "Key";
+            comboSearchCat.ValueMember = "Value";
+        }
+
 
 
 
@@ -83,7 +111,7 @@ namespace ShopManagement.UI
                 };
                 serviceCatEntry.InsertCategory(oCategoryEntryRequest);
                 MessageBox.Show("Successfully Saved");
-                LoadGridView(null);
+                LoadGridView();
                 LoadSubCatagoryCombo();
                 ClearCategoryControl();
 
@@ -126,41 +154,41 @@ namespace ShopManagement.UI
 
         }
 
-        private void txtCategoryName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                string categoryName = txtCategoryName.Text;
-                CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryName, "Name");
+        //private void txtCategoryName_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    try
+        //    {
+        //        string categoryName = txtCategoryName.Text;
+        //        CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryName, "Name");
 
-                if (resp != null)
-                {
-                    LoadGridView(resp.CategoryVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error");
-            }
-        }
+        //        if (resp != null)
+        //        {
+        //            LoadGridView(resp.CategoryVM);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error");
+        //    }
+        //}
 
-        private void txtCategoryCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                string categoryCode = txtCategoryCode.Text;
-                CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryCode, "Code");
+        //private void txtCategoryCode_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    try
+        //    {
+        //        string categoryCode = txtCategoryCode.Text;
+        //        CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryCode, "Code");
 
-                if (resp != null)
-                {
-                    LoadGridView(resp.CategoryVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error");
-            }
-        }
+        //        if (resp != null)
+        //        {
+        //            LoadGridView(resp.CategoryVM);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error");
+        //    }
+        //}
 
         private void btnCategoryClear_Click(object sender, EventArgs e)
         {
@@ -275,24 +303,18 @@ namespace ShopManagement.UI
             dgvCategory.Columns[3].Name = "Description";
             dgvCategory.Columns[3].DataPropertyName = "Description";
 
-            LoadGridView(null);
+            LoadGridView();
         }
 
-        private void LoadGridView(List<CategoryVM> categoryVM)
+        private void LoadGridView()
         {
             try
             {
+                CategorySearchResponse resp = null;
+                resp = serviceCatEntry.GetAllCategory();
                 dgvCategory.DataSource = null;
-                if (categoryVM == null)
-                {
-                    CategorySearchResponse resp = serviceCatEntry.GetAllCategory();
-                    if (resp.ResponseCode == "000")
-                        dgvCategory.DataSource = resp.CategoryVM;
-                }
-                else if (categoryVM.Count > 0)
-                {
-                    dgvCategory.DataSource = categoryVM;
-                }
+                dgvCategory.DataSource = resp.CategoryVM;
+
             }
             catch (Exception ex)
             {
@@ -325,7 +347,7 @@ namespace ShopManagement.UI
             btnCategoryRemove.Enabled = false;
             txtCategoryCode.ReadOnly = false;
             ClearCategoryControl();
-            LoadGridView(null);
+            LoadGridView();
         }
 
 
@@ -385,7 +407,7 @@ namespace ShopManagement.UI
                 };
                 CrudResponse crudResponse = serviceCatEntry.InsertSubCategory(osubcatentryReq);
                 MessageBox.Show(crudResponse.ResponseMessage);
-                LoadSubCatGridView(null);
+                LoadSubCatGridView();
                 LoadSubCatagoryCombo();
                 ClearCategoryControl();
                 ClearSubCategoryCombo();
@@ -444,7 +466,7 @@ namespace ShopManagement.UI
                 };
                 serviceCatEntry.UpdateSubCategory(SubCategoryId, oSubCatUpdateRequest);
                 MessageBox.Show("Successfully Saved");
-                LoadSubCatGridView(null);
+                LoadSubCatGridView();
                 LoadSubCatagoryCombo();
                 ClearSubCategoryCombo();
                 SubCategoryClear();
@@ -490,43 +512,11 @@ namespace ShopManagement.UI
             ClearSubCategoryCombo();
         }
 
-        private void txtSubCatName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                string subcategoryName = txtSubCatName.Text;
-                SubCatSearchResponse resp = serviceCatEntry.GetSubCategory(subcategoryName, "Name");
-
-                if (resp != null)
-                {
-                    LoadSubCatGridView(resp.SubCategoryVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error");
-            }
-        }
 
 
 
-        private void txtSubCatCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            try
-            {
-                string subCatCode = txtSubCatCode.Text;
-                SubCatSearchResponse resp = serviceCatEntry.GetSubCategory(subCatCode, "Code");
 
-                if (resp != null)
-                {
-                    LoadSubCatGridView(resp.SubCategoryVM);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error");
-            }
-        }
+
 
         private void dgvSubCat_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -604,12 +594,12 @@ namespace ShopManagement.UI
             dgvSubCat.Columns[5].DataPropertyName = "CategoryID";
             dgvSubCat.Columns[5].Visible = false;
 
-            LoadSubCatGridView(null);
+            LoadSubCatGridView();
         }
 
         private void LoadSubCatagoryCombo()
         {
-            var resp = serviceCatEntry.GetCategoryByProductNameOrCode("", "");
+            var resp = serviceCatEntry.GetAllCategory();
             resp.CategoryVM.Insert(0, new CategoryVM() { CategoryID = 0, CategoryName = "--Select--" });
             cmbCatType.DataSource = resp.CategoryVM;
             cmbCatType.DisplayMember = "CategoryName";
@@ -642,24 +632,18 @@ namespace ShopManagement.UI
             btnSubCatRemove.Enabled = false;
             txtSubCatCode.ReadOnly = false;
             ClearCategoryControl();
-            LoadGridView(null);
+            LoadSubCatGridView();
         }
 
-        private void LoadSubCatGridView(List<SubCatVM> list)
+        private void LoadSubCatGridView()
         {
             try
             {
-
+                SubCatSearchResponse resp = serviceCatEntry.GetAllSubCategory();
+                dgvSubCat.DataSource = resp.SubCategoryVM;
                 dgvSubCat.DataSource = null;
-                if (list == null)
-                {
-                    SubCatSearchResponse resp = serviceCatEntry.GetSubCategory("", "");
-                    dgvSubCat.DataSource = resp.SubCategoryVM;
-                }
-                else if (list.Count > 0)
-                {
-                    dgvSubCat.DataSource = list;
-                }
+                dgvSubCat.DataSource = resp.SubCategoryVM;
+
             }
             catch (Exception ex)
             {
@@ -668,47 +652,137 @@ namespace ShopManagement.UI
         }
         #endregion
 
+        private void btnSearchCat_Click(object sender, EventArgs e)
+        {
+
+            if (comboSearchCat.SelectedValue == "Name")
+            {
+                if (!string.IsNullOrEmpty(txtSearcCat.Text))
+                {
+                    var resp = serviceCatEntry.GetCategoryByProductNameOrCode(txtSearcCat.Text, "Name");
+                    dgvCategory.DataSource = null;
+                    dgvCategory.DataSource = resp.CategoryVM;
+                }
+                else
+                {
+                    LoadGridView();
+                }
+
+            }
+
+            if (comboSearchCat.SelectedValue == "Code")
+            {
+                if (!string.IsNullOrEmpty(txtSearcCat.Text))
+                {
+                    var resp = serviceCatEntry.GetCategoryByProductNameOrCode(txtSearcCat.Text, "Code");
+                    dgvCategory.DataSource = null;
+                    dgvCategory.DataSource = resp.CategoryVM;
+                }
+                else
+                {
+                    LoadGridView();
+                }
+
+            }
+        }
+
 
         #endregion
 
-        private void txtCategoryName_TextChanged(object sender, EventArgs e)
+        private void btnSearchSubCat_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    string categoryName = txtCategoryName.Text;
-            //    CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryName, "Name");
+            if (comboSearchSubCat.SelectedValue == "Name")
+            {
+                if (!string.IsNullOrEmpty(txtSearchSubCat.Text))
+                {
+                    var resp = serviceCatEntry.GetSubCategory(txtSearchSubCat.Text, "Name");
 
-            //    if (resp != null)
-            //    {
-            //        LoadGridView(resp.CategoryVM);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error");
-            //}
+                    dgvSubCat.DataSource = null;
+                    dgvSubCat.DataSource = resp.SubCategoryVM;
+                }
+                else
+                {
+                    LoadSubCatGridView();
+                }
 
+            }
+
+            if (comboSearchSubCat.SelectedValue == "Code")
+            {
+                if (!string.IsNullOrEmpty(txtSearcCat.Text))
+                {
+                    var resp = serviceCatEntry.GetCategoryByProductNameOrCode(txtSearcCat.Text, "Code");
+                    dgvSubCat.DataSource = null;
+                    dgvSubCat.DataSource = resp.CategoryVM;
+                }
+                else
+                {
+                    LoadSubCatGridView();
+                }
+
+            }
         }
 
-        private void txtCategoryCode_TextChanged(object sender, EventArgs e)
-        {
+        //private void txtCategoryName_TextChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (isTextChangeCategoryName == true)
+        //        {
+        //            if(!String.IsNullOrEmpty(txtCategoryName.Text))
+        //            {
+        //                categories = categories.Where(x => x.CategoryName == txtCategoryName.Text).ToList();
+        //                dgvCategory.DataSource = null;
+        //                dgvCategory.DataSource = categories;
+        //            }
+        //            else
+        //            {
+        //                LoadGridView();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            isTextChangeCategoryName = true;
+        //        }
 
-            //try
-            //{
-            //    string categoryCode = txtCategoryCode.Text;
-            //    CategorySearchResponse resp = serviceCatEntry.GetCategoryByProductNameOrCode(categoryCode, "Code");
 
-            //    if (resp != null)
-            //    {
-            //        LoadGridView(resp.CategoryVM);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error");
-            //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error");
+        //    }
 
-        }
+        //}
+
+        //private void txtCategoryCode_TextChanged(object sender, EventArgs e)
+        //{
+
+        //    try
+        //    {
+        //        if (isTextChangeCategoryCode == true)
+        //        {
+        //            if (!String.IsNullOrEmpty(txtCategoryCode.Text))
+        //            {
+        //                categories = categories.Where(x => x.CategoryCode == txtCategoryCode.Text).ToList();
+        //                dgvCategory.DataSource = null;
+        //                dgvCategory.DataSource = categories;
+        //            }
+        //            else
+        //            {
+        //                LoadGridView();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            isTextChangeCategoryCode = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error");
+        //    }
+
+        //}
 
     }
 }
