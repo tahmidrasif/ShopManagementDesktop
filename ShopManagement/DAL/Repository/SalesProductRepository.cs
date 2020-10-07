@@ -31,7 +31,7 @@ namespace ShopManagement.DAL.Repository
 
                         var stock = db.Stock.FirstOrDefault(x => x.ProductID == product.ProductID);
                         var unit = db.Unit.FirstOrDefault(x => x.UnitID == product.UnitID);
-
+                        var productPrice = db.ProductPrice.FirstOrDefault(x => x.ProductID == product.ProductID);
 
                         if (stock == null || unit == null)
                         {
@@ -48,12 +48,12 @@ namespace ShopManagement.DAL.Repository
                                 ProductCode = product.ProductCode,
                                 ProductUnit = unit,
                                 ProductUnitType = unitList,
-                                UnitSalesPrice = (long)product.UnitSalesPrice,
-                                SPVatIncluded = (bool)product.SPVatIncluded,
-                                SPVatPercent = (long)product.SPVatPercent,
-                                SPVat = (long)product.SPVat,
-                                SPOtherCharge = (long)product.SPOtherCharge,
-                                TotalSalesPrice = (long)product.TotalSalesPrice,
+                                UnitSalesPrice = (long)productPrice.UnitSalesPrice,
+                                SPVatIncluded = (bool)productPrice.SPVatIncluded,
+                                SPVatPercent = (long)productPrice.SPVatPercent,
+                                SPVat = (long)productPrice.SPVat,
+                                SPOtherCharge = (long)productPrice.SPOtherCharge,
+                                TotalSalesPrice = (long)productPrice.TotalSalesPrice,
                                 AvaliableQty = (long)stock.Quantity
                             };
 

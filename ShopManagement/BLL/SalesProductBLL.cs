@@ -63,6 +63,7 @@ namespace ShopManagement.BLL
                         foreach (var result in results)
                         {
                             var stock = GetStockByProductId(result.ProductID);
+                            var productPrice = oUnitOfWork.repoProduct.GetSingleProductPrice(result.ProductID);
 
                             ProductSearchResultVM prodSearchResultVm = new ProductSearchResultVM();
                             prodSearchResultVm.ProductID = result.ProductID;
@@ -71,12 +72,12 @@ namespace ShopManagement.BLL
                             prodSearchResultVm.ProductUnit = GetUnitByProductId((long)result.UnitID);
                             prodSearchResultVm.UnitName = prodSearchResultVm.ProductUnit.UnitName;
                             prodSearchResultVm.ProductUnitType = GetUnitListByUnitType(result.UnitType);
-                            prodSearchResultVm.UnitSalesPrice = (long)result.UnitSalesPrice;
-                            prodSearchResultVm.SPVatIncluded = (bool)result.SPVatIncluded;
-                            prodSearchResultVm.SPVatPercent = (long)result.SPVatPercent;
-                            prodSearchResultVm.SPVat = (long)result.SPVat;
-                            prodSearchResultVm.SPOtherCharge = (long)result.SPOtherCharge;
-                            prodSearchResultVm.TotalSalesPrice = (long)result.TotalSalesPrice;
+                            prodSearchResultVm.UnitSalesPrice = (long)productPrice.UnitSalesPrice;
+                            prodSearchResultVm.SPVatIncluded = (bool)productPrice.SPVatIncluded;
+                            prodSearchResultVm.SPVatPercent = (long)productPrice.SPVatPercent;
+                            prodSearchResultVm.SPVat = (long)productPrice.SPVat;
+                            prodSearchResultVm.SPOtherCharge = (long)productPrice.SPOtherCharge;
+                            prodSearchResultVm.TotalSalesPrice = (long)productPrice.TotalSalesPrice;
                             prodSearchResultVm.AvaliableQty = (long)stock.Quantity;
 
                             lstprodSearchResultVm.Add(prodSearchResultVm);

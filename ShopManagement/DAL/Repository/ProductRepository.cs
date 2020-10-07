@@ -46,5 +46,10 @@ namespace ShopManagement.DAL.Repository
         {
             return db.Product.Where(x => x.IsActive==true).ToList();
         }
+
+        public ProductPrice GetSingleProductPrice(long productId)
+        {
+            return db.ProductPrice.FirstOrDefault(x => x.IsActive == true && x.ProductID==productId);
+        }
     }
 }

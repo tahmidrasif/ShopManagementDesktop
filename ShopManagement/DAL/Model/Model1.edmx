@@ -179,8 +179,6 @@
           <Property Name="ProductID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="UnitPurchasePrice" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="UnitSalesPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="UnitID" Type="bigint" />
           <Property Name="CategoryID" Type="bigint" />
           <Property Name="SubCategoryID" Type="bigint" />
@@ -190,17 +188,56 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="ProductPriceID" />
+          </Key>
+          <Property Name="ProductPriceID" Type="bigint" Nullable="false" />
+          <Property Name="ProductID" Type="bigint" />
+          <Property Name="UnitPurchasePrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PPVatIncluded" Type="bit" />
           <Property Name="PPVatPercent" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PPVat" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PPOtherCharge" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalPurchasePrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitSalesPrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SPVatIncluded" Type="bit" />
           <Property Name="SPVatPercent" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SPVat" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SPOtherCharge" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalSalesPrice" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="UnitType" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProductPriceLog">
+          <Key>
+            <PropertyRef Name="ProductPriceLogID" />
+          </Key>
+          <Property Name="ProductPriceLogID" Type="bigint" Nullable="false" />
+          <Property Name="ProductPriceID" Type="bigint" />
+          <Property Name="ProductID" Type="bigint" />
+          <Property Name="UnitPurchasePrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PPVatIncluded" Type="bit" />
+          <Property Name="PPVatPercent" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PPVat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PPOtherCharge" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPurchasePrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="UnitSalesPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SPVatIncluded" Type="bit" />
+          <Property Name="SPVatPercent" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SPVat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SPOtherCharge" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalSalesPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="SpecialOffer">
           <Key>
@@ -311,6 +348,8 @@
           <EntitySet Name="OrderLog" EntityType="Self.OrderLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPrice" EntityType="Self.ProductPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPriceLog" EntityType="Self.ProductPriceLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SpecialOffer" EntityType="Self.SpecialOffer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockLog" EntityType="Self.StockLog" Schema="dbo" store:Type="Tables" />
@@ -435,36 +474,6 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UnitPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitSalesPrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitID" Type="Int64" />
-          <Property Name="CategoryID" Type="Int64" />
-          <Property Name="SubCategoryID" Type="Int64" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PPVatIncluded" Type="Boolean" />
-          <Property Name="PPVatPercent" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PPVat" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TotalPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SPVatIncluded" Type="Boolean" />
-          <Property Name="SPVatPercent" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SPVat" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TotalSalesPrice" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Stock">
           <Key>
             <PropertyRef Name="StockID" />
@@ -518,7 +527,6 @@
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="OrderLog" EntityType="Self.OrderLog" />
           <EntitySet Name="Payment" EntityType="Self.Payment" />
-          <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="Stock" EntityType="Self.Stock" />
           <EntitySet Name="StockLog" EntityType="Self.StockLog" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" />
@@ -528,6 +536,9 @@
           <EntitySet Name="OrderDetails" EntityType="ShopDBModel.OrderDetails" />
           <EntitySet Name="SpecialOffer" EntityType="ShopDBModel.SpecialOffer" />
           <EntitySet Name="SubCategory" EntityType="ShopDBModel.SubCategory" />
+          <EntitySet Name="ProductPrice" EntityType="ShopDBModel.ProductPrice" />
+          <EntitySet Name="ProductPriceLog" EntityType="ShopDBModel.ProductPriceLog" />
+          <EntitySet Name="Product" EntityType="ShopDBModel.Product" />
         </EntityContainer>
         <EntityType Name="Unit">
           <Key>
@@ -634,6 +645,73 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="SubCategoryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductPrice">
+          <Key>
+            <PropertyRef Name="ProductPriceID" />
+          </Key>
+          <Property Name="ProductPriceID" Type="Int64" Nullable="false" />
+          <Property Name="ProductID" Type="Int64" />
+          <Property Name="UnitPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPVatIncluded" Type="Boolean" />
+          <Property Name="PPVatPercent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitSalesPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPVatIncluded" Type="Boolean" />
+          <Property Name="SPVatPercent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalSalesPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ProductPriceLog">
+          <Key>
+            <PropertyRef Name="ProductPriceLogID" />
+          </Key>
+          <Property Name="ProductPriceLogID" Type="Int64" Nullable="false" />
+          <Property Name="ProductPriceID" Type="Int64" />
+          <Property Name="ProductID" Type="Int64" />
+          <Property Name="UnitPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPVatIncluded" Type="Boolean" />
+          <Property Name="PPVatPercent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalPurchasePrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="UnitSalesPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPVatIncluded" Type="Boolean" />
+          <Property Name="SPVatPercent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPOtherCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalSalesPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UnitID" Type="Int64" />
+          <Property Name="CategoryID" Type="Int64" />
+          <Property Name="SubCategoryID" Type="Int64" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -757,37 +835,6 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Product">
-            <EntityTypeMapping TypeName="ShopDBModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="UnitType" ColumnName="UnitType" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="UnitPurchasePrice" ColumnName="UnitPurchasePrice" />
-                <ScalarProperty Name="UnitSalesPrice" ColumnName="UnitSalesPrice" />
-                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
-                <ScalarProperty Name="PPVatIncluded" ColumnName="PPVatIncluded" />
-                <ScalarProperty Name="PPVatPercent" ColumnName="PPVatPercent" />
-                <ScalarProperty Name="PPVat" ColumnName="PPVat" />
-                <ScalarProperty Name="PPOtherCharge" ColumnName="PPOtherCharge" />
-                <ScalarProperty Name="TotalPurchasePrice" ColumnName="TotalPurchasePrice" />
-                <ScalarProperty Name="SPVatIncluded" ColumnName="SPVatIncluded" />
-                <ScalarProperty Name="SPVatPercent" ColumnName="SPVatPercent" />
-                <ScalarProperty Name="SPVat" ColumnName="SPVat" />
-                <ScalarProperty Name="SPOtherCharge" ColumnName="SPOtherCharge" />
-                <ScalarProperty Name="TotalSalesPrice" ColumnName="TotalSalesPrice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -949,6 +996,76 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPrice">
+            <EntityTypeMapping TypeName="ShopDBModel.ProductPrice">
+              <MappingFragment StoreEntitySet="ProductPrice">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TotalSalesPrice" ColumnName="TotalSalesPrice" />
+                <ScalarProperty Name="SPOtherCharge" ColumnName="SPOtherCharge" />
+                <ScalarProperty Name="SPVat" ColumnName="SPVat" />
+                <ScalarProperty Name="SPVatPercent" ColumnName="SPVatPercent" />
+                <ScalarProperty Name="SPVatIncluded" ColumnName="SPVatIncluded" />
+                <ScalarProperty Name="UnitSalesPrice" ColumnName="UnitSalesPrice" />
+                <ScalarProperty Name="TotalPurchasePrice" ColumnName="TotalPurchasePrice" />
+                <ScalarProperty Name="PPOtherCharge" ColumnName="PPOtherCharge" />
+                <ScalarProperty Name="PPVat" ColumnName="PPVat" />
+                <ScalarProperty Name="PPVatPercent" ColumnName="PPVatPercent" />
+                <ScalarProperty Name="PPVatIncluded" ColumnName="PPVatIncluded" />
+                <ScalarProperty Name="UnitPurchasePrice" ColumnName="UnitPurchasePrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPriceID" ColumnName="ProductPriceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPriceLog">
+            <EntityTypeMapping TypeName="ShopDBModel.ProductPriceLog">
+              <MappingFragment StoreEntitySet="ProductPriceLog">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TotalSalesPrice" ColumnName="TotalSalesPrice" />
+                <ScalarProperty Name="SPOtherCharge" ColumnName="SPOtherCharge" />
+                <ScalarProperty Name="SPVat" ColumnName="SPVat" />
+                <ScalarProperty Name="SPVatPercent" ColumnName="SPVatPercent" />
+                <ScalarProperty Name="SPVatIncluded" ColumnName="SPVatIncluded" />
+                <ScalarProperty Name="UnitSalesPrice" ColumnName="UnitSalesPrice" />
+                <ScalarProperty Name="TotalPurchasePrice" ColumnName="TotalPurchasePrice" />
+                <ScalarProperty Name="PPOtherCharge" ColumnName="PPOtherCharge" />
+                <ScalarProperty Name="PPVat" ColumnName="PPVat" />
+                <ScalarProperty Name="PPVatPercent" ColumnName="PPVatPercent" />
+                <ScalarProperty Name="PPVatIncluded" ColumnName="PPVatIncluded" />
+                <ScalarProperty Name="UnitPurchasePrice" ColumnName="UnitPurchasePrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductPriceID" ColumnName="ProductPriceID" />
+                <ScalarProperty Name="ProductPriceLogID" ColumnName="ProductPriceLogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="ShopDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

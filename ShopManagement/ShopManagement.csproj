@@ -141,6 +141,12 @@
     <Compile Include="DAL\Model\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Model\ProductPrice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Model\ProductPriceLog.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Model\SpecialOffer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

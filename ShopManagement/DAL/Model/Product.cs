@@ -17,8 +17,6 @@ namespace ShopManagement.DAL.Model
         public long ProductID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> UnitPurchasePrice { get; set; }
-        public Nullable<decimal> UnitSalesPrice { get; set; }
         public Nullable<long> UnitID { get; set; }
         public Nullable<long> CategoryID { get; set; }
         public Nullable<long> SubCategoryID { get; set; }
@@ -28,16 +26,6 @@ namespace ShopManagement.DAL.Model
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string ProductCode { get; set; }
-        public Nullable<bool> PPVatIncluded { get; set; }
-        public Nullable<decimal> PPVatPercent { get; set; }
-        public Nullable<decimal> PPVat { get; set; }
-        public Nullable<decimal> PPOtherCharge { get; set; }
-        public Nullable<decimal> TotalPurchasePrice { get; set; }
-        public Nullable<bool> SPVatIncluded { get; set; }
-        public Nullable<decimal> SPVatPercent { get; set; }
-        public Nullable<decimal> SPVat { get; set; }
-        public Nullable<decimal> SPOtherCharge { get; set; }
-        public Nullable<decimal> TotalSalesPrice { get; set; }
         public string UnitType { get; set; }
     }
 }
