@@ -18,19 +18,39 @@ namespace ShopManagement.UI
         public List<ProductViewModel> _lstProduct = null;
         private ProductBLL _serviceProduct = null;
         private CategoryEntryBLL _serviceCategory = null;
+        private UnitBLL _serviceUnit = null;
         public FormProductDetails()
         {
             _serviceCategory = new CategoryEntryBLL();
+            _serviceUnit = new UnitBLL();
+            _serviceProduct = new ProductBLL();
             InitializeComponent();
             InitializeProductGrid();
             LoadSearchCategoryCombo();
             LoadSearchSubCategoryCombo();
             LoadCategoryCombo();
             LoadSubCategoryCombo();
+            LoadUnitCombo();
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+     
+        }
+
+        private void LoadUnitCombo()
+        {
+            
+            var unitLst = _serviceUnit.GetAllUnit();
+            unitLst.Insert(0,new UnitVM(){UnitID = 0,UnitName = "--Select--"});
+            cmbUnit.DataSource = unitLst;
+            cmbUnit.DisplayMember = "UnitName";
+            cmbUnit.ValueMember = "UnitID";
+            
         }
 
         private void LoadSubCategoryCombo()
         {
+            cmbSubCategory.DataSource = null;
             var subcat = _serviceCategory.GetAllSubCategory();
             if(subcat.ResponseCode=="000")
             {
@@ -167,7 +187,16 @@ namespace ShopManagement.UI
 
         private void cmbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            long categodyId= Convert.ToInt64(cmbCategory.SelectedValue);
+            long categodyId = 0;
+            try
+            {
+               categodyId = Convert.ToInt64(cmbCategory.SelectedValue);
+            }
+            catch (Exception)
+            { 
+               
+            }
+            
             var subcat = _serviceCategory.GetAllSubCategoryByCategoryId(categodyId);
             if (subcat.ResponseCode == "000")
             {
@@ -183,6 +212,88 @@ namespace ShopManagement.UI
 
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            
+            if (String.IsNullOrEmpty(txtProductName.Text))
+            {
+                MessageBox.Show("Please Enter Product Name");
+                return;
+            }
+            if (cmbCategory.SelectedValue.ToString()=="0")
+            {
+                MessageBox.Show("Please Select Category");
+                return;
+            }
+            if (cmbSubCategory.SelectedValue.ToString() == "0")
+            {
+                MessageBox.Show("Please Select Sub-Category");
+                return;
+            }
+            if (String.IsNullOrEmpty(txtProductCode.Text))
+            {
+                MessageBox.Show("Please Enter Product Code");
+                return;
+            }
+
+            if (String.IsNullOrEmpty(txtTotalPrice.Text))
+            {
+                MessageBox.Show("Please Calculate Total Price");
+                return;
+            }
+
+            ProductViewModel productVM=new ProductViewModel();
+            productVM.ProductName = txtProductName.Text;
+            productVM.ProductCode = txtProductCode.Text;
+            productVM.CategoryID = (long)cmbCategory.SelectedValue;
+            productVM.SubCategoryID = (long)cmbSubCategory.SelectedValue;
+            productVM.UnitID = (long)cmbUnit.SelectedValue;
+            productVM.UnitSalesPrice = Convert.ToDecimal(txtUnitSalePrice.Text);
+            productVM.SPVat = Convert.ToDecimal(txtVat.Text);
+            productVM.SPOtherCharge = Convert.ToDecimal(txtOtherCharge.Text);
+            productVM.Discount = Convert.ToDecimal(txtDiscount.Text);
+            productVM.TotalSalesPrice = Convert.ToDecimal(txtTotalPrice.Text);
+
+            string msg=_serviceProduct.InsertProduct(productVM);
+            MessageBox.Show(msg);
+            LoadGridView();
+            ClearControl();
+        }
+
+        private void ClearControl()
+        {
+            txtProductCode.Text = string.Empty;
+            txtProductName.Text = string.Empty;
+            cmbCategory.SelectedIndex = 0;
+            LoadSubCategoryCombo();
+            cmbSubCategory.SelectedIndex = 0;
+            txtDescription.Text = string.Empty;
+            cmbUnit.SelectedIndex = 0;
+            txtUnitSalePrice.Text = string.Empty;
+            txtVat.Text = string.Empty;
+            txtOtherCharge.Text = string.Empty;
+            txtDiscount.Text = string.Empty;
+            txtTotalPrice.Text = string.Empty;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearControl();
+            LoadGridView();
+        }
+
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            decimal unitsalesprice = Convert.ToDecimal(txtUnitSalePrice.Text);
+            decimal vat = Convert.ToDecimal(txtVat.Text);
+            decimal otherCharge = Convert.ToDecimal(txtOtherCharge.Text);
+
+            decimal totalPrice = unitsalesprice + vat + otherCharge;
+
+            txtTotalPrice.Text = totalPrice.ToString();
+        }
+
+    
        
       
     }

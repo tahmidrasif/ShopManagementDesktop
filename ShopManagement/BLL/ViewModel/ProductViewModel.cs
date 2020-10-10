@@ -22,5 +22,6 @@ namespace ShopManagement.BLL.ViewModel
         public decimal SPOtherCharge { get; set; }
         public decimal TotalSalesPrice { get; set; }
         public decimal AvaliableQty { get; set; }
+        public decimal Discount { get; set; }
     }
 }

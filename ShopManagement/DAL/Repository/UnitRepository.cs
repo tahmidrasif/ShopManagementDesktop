@@ -1,4 +1,5 @@
-﻿using ShopManagement.DAL.Model;
+﻿using ShopManagement.BLL.ViewModel;
+using ShopManagement.DAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,11 @@ namespace ShopManagement.DAL.Repository
             }
 
             return objUnitList;
+        }
+
+        public List<Unit> GetAll()
+        {
+            return  db.Unit.Where(x=>x.IsActive==true).ToList();
         }
     }
 }

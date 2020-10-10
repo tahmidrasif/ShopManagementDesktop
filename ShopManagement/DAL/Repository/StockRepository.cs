@@ -45,5 +45,10 @@ namespace ShopManagement.DAL.Repository
         {
 
         }
+
+        public void Insert(Stock objStock)
+        {
+            db.Stock.Add(objStock);
+        }
     }
 }

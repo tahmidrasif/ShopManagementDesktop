@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ShopManagement.BLL.ViewModel;
+using ShopManagement.DAL.Model;
 using ShopManagement.DAL.Repository;
 
 namespace ShopManagement.BLL
@@ -79,6 +80,84 @@ namespace ShopManagement.BLL
             }
 
             return productvmList;
+        }
+
+        public string InsertProduct(ProductViewModel productVM)
+        {
+            try
+            {
+                Product objProduct = new Product();
+                ProductPrice objProductPrice = new ProductPrice();
+                Stock objStock=new Stock();
+
+                if (productVM != null)
+                {
+                    if (IsProductAlreadyAvailable(productVM.ProductName,productVM.ProductCode))
+                    {
+                        return "Product is already available";
+                    }
+
+                    objProduct.ProductCode = productVM.ProductCode;
+                    objProduct.Name = productVM.ProductName;
+                    objProduct.IsActive = true;
+                    objProduct.CategoryID = productVM.CategoryID;
+                    objProduct.SubCategoryID = productVM.SubCategoryID;
+                    objProduct.UnitID = productVM.UnitID;
+                    objProduct.CreatedBy = "Tahmid";
+                    objProduct.CreatedOn = DateTime.Now;
+
+                    _unitOfWork.BeginTrnsaction();
+                    _unitOfWork.repoProduct.Insert(objProduct);
+                    _unitOfWork.Save();
+
+                    objProductPrice.ProductID = objProduct.ProductID;
+                    objProductPrice.UnitSalesPrice = productVM.UnitSalesPrice;
+                    objProductPrice.SPVat = productVM.SPVat;
+                    objProductPrice.SPOtherCharge = productVM.SPOtherCharge;
+                    objProductPrice.SPDiscount = productVM.Discount;
+                    objProductPrice.TotalSalesPrice = productVM.TotalSalesPrice;
+                    objProductPrice.IsActive = true;
+                    objProductPrice.CreatedBy = "Tahmid";
+                    objProductPrice.CreatedOn = DateTime.Now;
+                    _unitOfWork.repoProduct.InsertProductPrice(objProductPrice);
+                    _unitOfWork.Save();
+
+                    objStock.ProductID = objProduct.ProductID;
+                    objStock.Quantity = 0;
+                    objStock.CreatedBy = "Tahmid";
+                    objStock.CreatedOn = DateTime.Now;
+                    objStock.IsActive = true;
+
+                    _unitOfWork.repoStock.Insert(objStock);
+                    _unitOfWork.Save();
+
+                    _unitOfWork.CommitTransaction();
+
+                    return "Successfully Inserted the product";
+                }
+                return "Error in Inserting Product";
+            }
+            catch (Exception exception)
+            {
+                _unitOfWork.RollbackTransaction();
+                return exception.Message;
+            }
+            
+        }
+
+        private bool IsProductAlreadyAvailable(string productName, string productCode)
+        {
+            var productByName = _unitOfWork.repoProduct.GetSingleByProductName(productName);
+            if (productByName != null)
+            {
+                return true;
+            }
+            var productByCode = _unitOfWork.repoProduct.GetSingleByProductCode(productCode);
+            if (productByCode != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

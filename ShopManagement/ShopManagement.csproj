@@ -87,6 +87,7 @@
     <Compile Include="BLL\Response\SalesProductSearchResponse.cs" />
     <Compile Include="BLL\Response\SubCatSearchResponse.cs" />
     <Compile Include="BLL\SalesProductBLL.cs" />
+    <Compile Include="BLL\UnitBLL.cs" />
     <Compile Include="BLL\ViewModel\CartVM.cs" />
     <Compile Include="BLL\ViewModel\CategoryVM.cs" />
     <Compile Include="BLL\ViewModel\CheckOutVM.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="BLL\ViewModel\ProductSearchResultVM.cs" />
     <Compile Include="BLL\ViewModel\ProductViewModel.cs" />
     <Compile Include="BLL\ViewModel\SubCatVM.cs" />
+    <Compile Include="BLL\ViewModel\UnitVM.cs" />
     <Compile Include="DAL\Model\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

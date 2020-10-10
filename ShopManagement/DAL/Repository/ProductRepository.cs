@@ -51,5 +51,42 @@ namespace ShopManagement.DAL.Repository
         {
             return db.ProductPrice.FirstOrDefault(x => x.IsActive == true && x.ProductID==productId);
         }
+
+        public Product GetSingleByProductName(string productName)
+        {
+            return db.Product.FirstOrDefault(x => x.IsActive == true && x.Name == productName);
+        }
+
+        public Product GetSingleByProductCode(string productCode)
+        {
+            return db.Product.FirstOrDefault(x => x.IsActive == true && x.ProductCode==productCode);
+        }
+
+        public void Insert(Product objProduct)
+        {
+            try
+            {
+                db.Product.Add(objProduct);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+           
+        }
+
+        public void InsertProductPrice(ProductPrice objProductPrice)
+        {
+            try
+            {
+                db.ProductPrice.Add(objProductPrice);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
