@@ -59,12 +59,22 @@ namespace ShopManagement.BLL
                     obj.CategoryName = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == obj.CategoryID).CategoryName;
                     //var category = _unitOfWork.repoCategory.GetSingle(x => x.CategoryID == obj.CategoryID);
                 }
+                if(product.SubCategoryID!=null)
+                {
+                    obj.SubCategoryID = (long)product.SubCategoryID;
+                    obj.SubCategoryName = _unitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == obj.SubCategoryID).Name;
+                }
                 if (product.UnitID != null)
                 {
                     obj.UnitID = (long) product.UnitID;
                     obj.UnitName = _unitOfWork.repoUnit.GetSingleById((long)product.UnitID).UnitName;
                 }
-
+                var productPrice = _unitOfWork.repoProduct.GetSingleProductPrice(product.ProductID);
+                obj.UnitSalesPrice = (decimal)productPrice.UnitSalesPrice;
+                obj.SPVat = (decimal)productPrice.SPVat;
+                obj.SPOtherCharge = (decimal)productPrice.SPOtherCharge;
+                obj.TotalSalesPrice = (decimal)productPrice.TotalSalesPrice;
+                obj.AvaliableQty = (decimal)_unitOfWork.repoStock.GetByProductId(product.ProductID).Quantity;
                 productvmList.Add(obj);
             }
 

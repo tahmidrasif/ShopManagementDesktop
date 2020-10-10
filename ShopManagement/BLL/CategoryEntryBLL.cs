@@ -327,6 +327,46 @@ namespace ShopManagement.BLL.Request
             }
         }
 
+
+        public SubCatSearchResponse GetAllSubCategoryByCategoryId(long categoryId)
+        {
+            List<SubCategory> subCategories = new List<SubCategory>();
+            subcatresponse = new SubCatSearchResponse();
+
+
+
+            subCategories = oUnitOfWork.repoCategory.GetSubCategory(x => x.CategoryID == categoryId);
+
+            if (subCategories.Count > 0)
+            {
+                List<SubCatVM> cvmList = new List<SubCatVM>();
+
+                foreach (var item in subCategories)
+                {
+                    SubCatVM cvm = new SubCatVM();
+                    cvm.Name = item.Name;
+                    cvm.SubCategoryID = item.SubCategoryID;
+                    cvm.SubCategoryCode = item.SubCategoryCode;
+                    cvm.Description = item.Description;
+                    cvm.CategoryID = (long)item.CategoryID;
+                    cvm.CategoryName =
+                        oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
+                    cvmList.Add(cvm);
+                }
+
+                subcatresponse.ResponseCode = "000";
+                subcatresponse.SubCategoryVM = cvmList;
+
+                return subcatresponse;
+            }
+            else
+            {
+                subcatresponse.ResponseCode = null;
+                subcatresponse.SubCategoryVM = new List<SubCatVM>();
+                return subcatresponse;
+            }
+        }
+
         public CrudResponse InsertSubCategory(SubCatEntryRequest osubcatentryReq)
         {
             try

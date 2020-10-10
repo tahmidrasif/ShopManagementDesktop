@@ -41,6 +41,12 @@ namespace ShopManagement.UI
             report.Show();
         }
 
+        private void productsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormProductDetails frmProdDetails = new FormProductDetails();
+            frmProdDetails.Show();
+        }
+
        
 
        

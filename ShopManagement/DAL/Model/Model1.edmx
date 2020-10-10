@@ -194,7 +194,7 @@
           <Key>
             <PropertyRef Name="ProductPriceID" />
           </Key>
-          <Property Name="ProductPriceID" Type="bigint" Nullable="false" />
+          <Property Name="ProductPriceID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProductID" Type="bigint" />
           <Property Name="UnitPurchasePrice" Type="decimal" Precision="18" Scale="2" />
           <Property Name="PPVatIncluded" Type="bit" />
@@ -213,6 +213,8 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="PPDiscount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SPDiscount" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProductPriceLog">
           <Key>
@@ -669,6 +671,8 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="PPDiscount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SPDiscount" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="ProductPriceLog">
           <Key>
@@ -1002,6 +1006,8 @@
           <EntitySetMapping Name="ProductPrice">
             <EntityTypeMapping TypeName="ShopDBModel.ProductPrice">
               <MappingFragment StoreEntitySet="ProductPrice">
+                <ScalarProperty Name="SPDiscount" ColumnName="SPDiscount" />
+                <ScalarProperty Name="PPDiscount" ColumnName="PPDiscount" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />

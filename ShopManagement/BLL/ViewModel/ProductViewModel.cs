@@ -17,5 +17,10 @@ namespace ShopManagement.BLL.ViewModel
         public long CategoryID { get; set; }
         public string CategoryName { get; set; }
         public long SubCategoryID { get; set; }
+        public string SubCategoryName { get; set; }
+        public decimal SPVat { get; set; }
+        public decimal SPOtherCharge { get; set; }
+        public decimal TotalSalesPrice { get; set; }
+        public decimal AvaliableQty { get; set; }
     }
 }
