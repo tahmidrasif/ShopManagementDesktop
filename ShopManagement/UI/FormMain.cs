@@ -45,6 +45,10 @@ namespace ShopManagement.UI
         {
             FormProductDetails frmProdDetails = new FormProductDetails();
             frmProdDetails.Show();
+            frmProdDetails.WindowState = FormWindowState.Normal;
+            frmProdDetails.BringToFront();
+            frmProdDetails.TopLevel = true;
+            frmProdDetails.Focus();
         }
 
        

@@ -159,5 +159,139 @@ namespace ShopManagement.BLL
             }
             return false;
         }
+
+        public ProductViewModel GetProductByProductID(long porductID)
+        {
+            try
+            {
+                var product=_unitOfWork.repoProduct.GetProduct(porductID);
+                ProductViewModel obj = new ProductViewModel();
+                obj.ProductCode = product.ProductCode;
+                obj.ProductID = product.ProductID;
+                obj.ProductName = product.Name;
+                if (product.CategoryID != null)
+                {
+                    obj.CategoryID = (long)product.CategoryID;
+                    obj.CategoryName = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == obj.CategoryID).CategoryName;
+                    //var category = _unitOfWork.repoCategory.GetSingle(x => x.CategoryID == obj.CategoryID);
+                }
+                if (product.SubCategoryID != null)
+                {
+                    obj.SubCategoryID = (long)product.SubCategoryID;
+                    obj.SubCategoryName = _unitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == obj.SubCategoryID).Name;
+                }
+                if (product.UnitID != null)
+                {
+                    obj.UnitID = (long)product.UnitID;
+                    obj.UnitName = _unitOfWork.repoUnit.GetSingleById((long)product.UnitID).UnitName;
+                }
+                var productPrice = _unitOfWork.repoProduct.GetSingleProductPrice(product.ProductID);
+                obj.UnitSalesPrice = (decimal)productPrice.UnitSalesPrice;
+                obj.SPVat = (decimal)productPrice.SPVat;
+                obj.SPOtherCharge = (decimal)productPrice.SPOtherCharge;
+                obj.TotalSalesPrice = (decimal)productPrice.TotalSalesPrice;
+                obj.AvaliableQty = (decimal)_unitOfWork.repoStock.GetByProductId(product.ProductID).Quantity;
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+        }
+
+        public string UpdateProduct(ProductViewModel productVM)
+        {
+            try
+            {
+                Product objProduct = null;
+                ProductPrice objProductPrice = null;
+                Stock objStock = new Stock();
+
+                if (productVM != null)
+                {
+                    if (productVM.ProductID==0)
+                    {
+                        return "Error in updating product";
+                    }
+
+                    objProduct = _unitOfWork.repoProduct.GetProduct(productVM.ProductID);
+                    if (objProduct == null)
+                    {
+                        return "Product Not Found";
+                    }
+
+                    objProduct.ProductCode = productVM.ProductCode;
+                    objProduct.Name = productVM.ProductName;
+                    objProduct.CategoryID = productVM.CategoryID;
+                    objProduct.SubCategoryID = productVM.SubCategoryID;
+                    objProduct.UnitID = productVM.UnitID;
+                    objProduct.UpdatedBy = "Tahmid";
+                    objProduct.UpdatedOn = DateTime.Now;
+
+                    _unitOfWork.BeginTrnsaction();
+                    _unitOfWork.repoProduct.Update(objProduct);
+                    _unitOfWork.Save();
+
+                    objProductPrice = _unitOfWork.repoProduct.GetSingleProductPrice(productVM.ProductID);
+                    if (objProductPrice == null)
+                    {
+                        _unitOfWork.RollbackTransaction();
+                        return "Error in updating product";
+                    }
+                    objProductPrice.UnitSalesPrice = productVM.UnitSalesPrice;
+                    objProductPrice.SPVat = productVM.SPVat;
+                    objProductPrice.SPOtherCharge = productVM.SPOtherCharge;
+                    objProductPrice.SPDiscount = productVM.Discount;
+                    objProductPrice.TotalSalesPrice = productVM.TotalSalesPrice;
+                    objProductPrice.ModifiedBy = "Tahmid";
+                    objProductPrice.ModifiedOn = DateTime.Now;
+                    _unitOfWork.repoProduct.UpdateProductPrice(objProductPrice);
+                    _unitOfWork.Save();
+
+
+
+                    _unitOfWork.CommitTransaction();
+
+                    return "Successfully Updated the product";
+                }
+                return "Error in Updating Product";
+            }
+            catch (Exception exception)
+            {
+                _unitOfWork.RollbackTransaction();
+                return exception.Message;
+            }
+        }
+
+        internal string Delete(long porductID)
+        {
+            try
+            {
+                Product objProduct = null;
+                ProductPrice objProductPrice = null;
+                objProduct = _unitOfWork.repoProduct.GetProduct(porductID);
+                if (objProduct == null)
+                {
+                    return "Product Not Found";
+                }
+
+                objProduct.IsActive = false;
+                objProduct.UpdatedBy = "Tahmid";
+                objProduct.UpdatedOn = DateTime.Now;
+
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoProduct.Delete(objProduct);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
+                return "Data Deleted Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollbackTransaction();
+                throw ex;
+            }
+        }
     }
 }

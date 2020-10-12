@@ -1,6 +1,7 @@
 ﻿using ShopManagement.DAL.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,6 +82,45 @@ namespace ShopManagement.DAL.Repository
             try
             {
                 db.ProductPrice.Add(objProductPrice);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        internal void Update(Product objProduct)
+        {
+            try
+            {
+                db.Entry(objProduct).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        internal void UpdateProductPrice(ProductPrice objProductPrice)
+        {
+            try
+            {
+                db.Entry(objProductPrice).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        internal void Delete(Product objProduct)
+        {
+            try
+            {
+                db.Entry(objProduct).State = EntityState.Modified;
             }
             catch (Exception ex)
             {
