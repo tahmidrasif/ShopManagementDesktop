@@ -216,11 +216,23 @@
     <Compile Include="UI\FormProductList.Designer.cs">
       <DependentUpon>FormProductList.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormProductPurchase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormProductPurchase.Designer.cs">
+      <DependentUpon>FormProductPurchase.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormProducts.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\FormProducts.Designer.cs">
       <DependentUpon>FormProducts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormProductVMSearchList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormProductVMSearchList.Designer.cs">
+      <DependentUpon>FormProductVMSearchList.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormProductSeachList.cs">
       <SubType>Form</SubType>
@@ -268,6 +280,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormProductList.resx">
       <DependentUpon>FormProductList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormProductPurchase.resx">
+      <DependentUpon>FormProductPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormProductVMSearchList.resx">
+      <DependentUpon>FormProductVMSearchList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormProductSeachList.resx">
       <DependentUpon>FormProductSeachList.cs</DependentUpon>

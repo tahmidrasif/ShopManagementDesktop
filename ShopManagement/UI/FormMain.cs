@@ -51,6 +51,12 @@ namespace ShopManagement.UI
             frmProdDetails.Focus();
         }
 
+        private void purchseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormProductPurchase frmProductPurchase = new FormProductPurchase();
+            frmProductPurchase.Show();
+        }
+
        
 
        

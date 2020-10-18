@@ -37,7 +37,7 @@
             this.masterEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.productsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.productToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.purchseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,7 +124,7 @@
             this.masterEntryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.categoryToolStripMenuItem,
             this.productsToolStripMenuItem1,
-            this.productToolStripMenuItem,
+            this.purchseToolStripMenuItem,
             this.customerToolStripMenuItem});
             this.masterEntryToolStripMenuItem.Name = "masterEntryToolStripMenuItem";
             this.masterEntryToolStripMenuItem.Size = new System.Drawing.Size(106, 21);
@@ -144,11 +144,12 @@
             this.productsToolStripMenuItem1.Text = "Product";
             this.productsToolStripMenuItem1.Click += new System.EventHandler(this.productsToolStripMenuItem1_Click);
             // 
-            // productToolStripMenuItem
+            // purchseToolStripMenuItem
             // 
-            this.productToolStripMenuItem.Name = "productToolStripMenuItem";
-            this.productToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.productToolStripMenuItem.Text = "Vendor";
+            this.purchseToolStripMenuItem.Name = "purchseToolStripMenuItem";
+            this.purchseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.purchseToolStripMenuItem.Text = "Purchase";
+            this.purchseToolStripMenuItem.Click += new System.EventHandler(this.purchseToolStripMenuItem_Click);
             // 
             // customerToolStripMenuItem
             // 
@@ -397,7 +398,7 @@
         public System.Windows.Forms.ToolStripMenuItem btnStock;
         public System.Windows.Forms.ToolStripMenuItem btnInvoice;
         private System.Windows.Forms.ToolStripMenuItem btnLogout;
-        private System.Windows.Forms.ToolStripMenuItem productToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem purchseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem purchaseToolStripMenuItem;
     }
