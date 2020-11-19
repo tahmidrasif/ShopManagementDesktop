@@ -178,6 +178,7 @@
     <Compile Include="DAL\Repository\StockRepository.cs" />
     <Compile Include="DAL\Repository\UnitOfWork.cs" />
     <Compile Include="DAL\Repository\UnitRepository.cs" />
+    <Compile Include="DAL\Repository\VendorRepository.cs" />
     <Compile Include="DAL\ViewModel\PaymentVM.cs" />
     <Compile Include="DAL\ViewModel\SalesProductViewModel.cs" />
     <Compile Include="Program.cs" />

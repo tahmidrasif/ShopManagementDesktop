@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtTotalUnit = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.cmbSearch = new System.Windows.Forms.ComboBox();
@@ -40,7 +42,7 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.txtTotalPurchasePrice = new System.Windows.Forms.TextBox();
+            this.txtSubTotalPurchasePrice = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtOtherCharge = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -90,8 +92,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
-            this.txtTotalUnit = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.txtTotalPrice = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -100,6 +102,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtTotalPrice);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtTotalUnit);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.txtQty);
@@ -113,7 +117,7 @@
             this.groupBox1.Controls.Add(this.btnRemove);
             this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnAdd);
-            this.groupBox1.Controls.Add(this.txtTotalPurchasePrice);
+            this.groupBox1.Controls.Add(this.txtSubTotalPurchasePrice);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.txtOtherCharge);
             this.groupBox1.Controls.Add(this.label9);
@@ -134,6 +138,25 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input";
+            // 
+            // txtTotalUnit
+            // 
+            this.txtTotalUnit.Location = new System.Drawing.Point(123, 138);
+            this.txtTotalUnit.Name = "txtTotalUnit";
+            this.txtTotalUnit.Size = new System.Drawing.Size(235, 22);
+            this.txtTotalUnit.TabIndex = 177;
+            this.txtTotalUnit.Text = "0";
+            this.txtTotalUnit.TextChanged += new System.EventHandler(this.txtTotalUnit_TextChanged);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(7, 138);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(75, 20);
+            this.label18.TabIndex = 176;
+            this.label18.Text = "Total Unit";
             // 
             // txtQty
             // 
@@ -191,12 +214,13 @@
             // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(281, 321);
+            this.btnCalculate.Location = new System.Drawing.Point(281, 346);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(75, 23);
             this.btnCalculate.TabIndex = 26;
             this.btnCalculate.Text = "Calclulate";
             this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // btnClear
             // 
@@ -233,28 +257,29 @@
             this.btnAdd.TabIndex = 20;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // txtTotalPurchasePrice
+            // txtSubTotalPurchasePrice
             // 
-            this.txtTotalPurchasePrice.Location = new System.Drawing.Point(124, 323);
-            this.txtTotalPurchasePrice.Name = "txtTotalPurchasePrice";
-            this.txtTotalPurchasePrice.ReadOnly = true;
-            this.txtTotalPurchasePrice.Size = new System.Drawing.Size(127, 22);
-            this.txtTotalPurchasePrice.TabIndex = 19;
+            this.txtSubTotalPurchasePrice.Location = new System.Drawing.Point(124, 348);
+            this.txtSubTotalPurchasePrice.Name = "txtSubTotalPurchasePrice";
+            this.txtSubTotalPurchasePrice.ReadOnly = true;
+            this.txtSubTotalPurchasePrice.Size = new System.Drawing.Size(127, 22);
+            this.txtSubTotalPurchasePrice.TabIndex = 19;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 323);
+            this.label10.Location = new System.Drawing.Point(8, 348);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(80, 20);
+            this.label10.Size = new System.Drawing.Size(110, 20);
             this.label10.TabIndex = 18;
-            this.label10.Text = "Total Price";
+            this.label10.Text = "Sub Total Price";
             // 
             // txtOtherCharge
             // 
-            this.txtOtherCharge.Location = new System.Drawing.Point(122, 251);
+            this.txtOtherCharge.Location = new System.Drawing.Point(122, 276);
             this.txtOtherCharge.Name = "txtOtherCharge";
             this.txtOtherCharge.Size = new System.Drawing.Size(235, 22);
             this.txtOtherCharge.TabIndex = 17;
@@ -264,7 +289,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 251);
+            this.label9.Location = new System.Drawing.Point(6, 276);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(101, 20);
             this.label9.TabIndex = 16;
@@ -290,7 +315,7 @@
             // 
             // txtDiscount
             // 
-            this.txtDiscount.Location = new System.Drawing.Point(123, 286);
+            this.txtDiscount.Location = new System.Drawing.Point(123, 311);
             this.txtDiscount.Name = "txtDiscount";
             this.txtDiscount.Size = new System.Drawing.Size(234, 22);
             this.txtDiscount.TabIndex = 12;
@@ -300,7 +325,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(9, 286);
+            this.label8.Location = new System.Drawing.Point(9, 311);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 20);
             this.label8.TabIndex = 11;
@@ -308,7 +333,7 @@
             // 
             // txtVat
             // 
-            this.txtVat.Location = new System.Drawing.Point(122, 213);
+            this.txtVat.Location = new System.Drawing.Point(122, 238);
             this.txtVat.Name = "txtVat";
             this.txtVat.Size = new System.Drawing.Size(235, 22);
             this.txtVat.TabIndex = 12;
@@ -318,7 +343,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(6, 213);
+            this.label7.Location = new System.Drawing.Point(6, 238);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(35, 20);
             this.label7.TabIndex = 11;
@@ -331,6 +356,7 @@
             this.txtUnitPurchasePrice.Size = new System.Drawing.Size(203, 22);
             this.txtUnitPurchasePrice.TabIndex = 12;
             this.txtUnitPurchasePrice.Text = "0";
+            this.txtUnitPurchasePrice.TextChanged += new System.EventHandler(this.txtUnitPurchasePrice_TextChanged);
             // 
             // label6
             // 
@@ -366,6 +392,7 @@
             this.dgvProduct.Name = "dgvProduct";
             this.dgvProduct.Size = new System.Drawing.Size(877, 488);
             this.dgvProduct.TabIndex = 14;
+            this.dgvProduct.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProduct_CellClick);
             // 
             // groupBox5
             // 
@@ -588,6 +615,7 @@
             this.btnPayment.TabIndex = 159;
             this.btnPayment.Text = "Payment";
             this.btnPayment.UseVisualStyleBackColor = false;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // txtPaymentRemarks
             // 
@@ -641,6 +669,7 @@
             // 
             this.txtPaymentGrandTotal.Location = new System.Drawing.Point(113, 184);
             this.txtPaymentGrandTotal.Name = "txtPaymentGrandTotal";
+            this.txtPaymentGrandTotal.ReadOnly = true;
             this.txtPaymentGrandTotal.Size = new System.Drawing.Size(89, 24);
             this.txtPaymentGrandTotal.TabIndex = 149;
             this.txtPaymentGrandTotal.Text = "0";
@@ -680,6 +709,7 @@
             // 
             this.txtPaymentOtherCharge.Location = new System.Drawing.Point(113, 142);
             this.txtPaymentOtherCharge.Name = "txtPaymentOtherCharge";
+            this.txtPaymentOtherCharge.ReadOnly = true;
             this.txtPaymentOtherCharge.Size = new System.Drawing.Size(89, 24);
             this.txtPaymentOtherCharge.TabIndex = 142;
             this.txtPaymentOtherCharge.Text = "0";
@@ -735,23 +765,23 @@
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // txtTotalUnit
+            // txtTotalPrice
             // 
-            this.txtTotalUnit.Location = new System.Drawing.Point(123, 138);
-            this.txtTotalUnit.Name = "txtTotalUnit";
-            this.txtTotalUnit.Size = new System.Drawing.Size(235, 22);
-            this.txtTotalUnit.TabIndex = 177;
-            this.txtTotalUnit.Text = "0";
+            this.txtTotalPrice.Location = new System.Drawing.Point(122, 204);
+            this.txtTotalPrice.Name = "txtTotalPrice";
+            this.txtTotalPrice.Size = new System.Drawing.Size(235, 22);
+            this.txtTotalPrice.TabIndex = 179;
+            this.txtTotalPrice.Text = "0";
             // 
-            // label18
+            // label4
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(7, 138);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(75, 20);
-            this.label18.TabIndex = 176;
-            this.label18.Text = "Total Unit";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 204);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 20);
+            this.label4.TabIndex = 178;
+            this.label4.Text = "Total";
             // 
             // FormProductPurchase
             // 
@@ -787,7 +817,7 @@
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.TextBox txtTotalPurchasePrice;
+        private System.Windows.Forms.TextBox txtSubTotalPurchasePrice;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtOtherCharge;
         private System.Windows.Forms.Label label9;
@@ -842,5 +872,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtTotalUnit;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox txtTotalPrice;
+        private System.Windows.Forms.Label label4;
     }
 }
