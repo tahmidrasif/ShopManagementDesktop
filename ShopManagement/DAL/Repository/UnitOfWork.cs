@@ -25,7 +25,7 @@ namespace ShopManagement.DAL.Repository
         private EnumarationRepository _repoEnum;
         private CategoryRepository _repoCategory;
         private BaseSPRepository _repoBaseSp;
-
+        private VendorRepository _repoVendor;
         public OrderRepository repoOrder
         {
             get
@@ -87,6 +87,14 @@ namespace ShopManagement.DAL.Repository
             get
             {
                 return _repoBaseSp == null ? new BaseSPRepository(context) : _repoBaseSp;
+            }
+        }
+
+        public VendorRepository repoVendor
+        {
+            get
+            {
+                return _repoVendor == null ? new VendorRepository(context) : _repoVendor;
             }
         }
 

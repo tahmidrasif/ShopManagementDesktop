@@ -156,7 +156,7 @@ namespace ShopManagement.UI
             txtOtherCharge.Text = "0";
             txtDiscount.Text = "0";
             txtSubTotalPurchasePrice.Text = String.Empty;
-
+            txtQty.Text = string.Empty;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

@@ -79,6 +79,7 @@
     <Compile Include="BLL\Request\PaymentRequest.cs" />
     <Compile Include="BLL\Request\SubCatEntryRequest.cs" />
     <Compile Include="BLL\Request\SubCatUpdateRequest.cs" />
+    <Compile Include="BLL\Request\VendorEntryRequest.cs" />
     <Compile Include="BLL\Response\CartResponse.cs" />
     <Compile Include="BLL\Response\CategorySearchResponse.cs" />
     <Compile Include="BLL\Response\CrudResponse.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="BLL\Response\SubCatSearchResponse.cs" />
     <Compile Include="BLL\SalesProductBLL.cs" />
     <Compile Include="BLL\UnitBLL.cs" />
+    <Compile Include="BLL\VendorBLL.cs" />
     <Compile Include="BLL\ViewModel\CartVM.cs" />
     <Compile Include="BLL\ViewModel\CategoryVM.cs" />
     <Compile Include="BLL\ViewModel\CheckOutVM.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="BLL\ViewModel\ProductViewModel.cs" />
     <Compile Include="BLL\ViewModel\SubCatVM.cs" />
     <Compile Include="BLL\ViewModel\UnitVM.cs" />
+    <Compile Include="BLL\ViewModel\VendorViewModel.cs" />
     <Compile Include="DAL\Model\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -259,6 +262,12 @@
     <Compile Include="UI\FormSalesProduct.Designer.cs">
       <DependentUpon>FormSalesProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormVendorList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormVendorList.Designer.cs">
+      <DependentUpon>FormVendorList.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -299,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormSalesProduct.resx">
       <DependentUpon>FormSalesProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormVendorList.resx">
+      <DependentUpon>FormVendorList.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="DAL\Model\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

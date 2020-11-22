@@ -15,5 +15,19 @@ namespace ShopManagement.DAL.Repository
         {
             db = context;
         }
+
+        public void Insert(Vendor vendor)
+        {
+            try
+            {
+                db.Vendor.Add(vendor);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 }

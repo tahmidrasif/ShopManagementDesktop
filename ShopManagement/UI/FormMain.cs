@@ -57,6 +57,12 @@ namespace ShopManagement.UI
             frmProductPurchase.Show();
         }
 
+        private void vendorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormVendorList frmvVendorList=new FormVendorList();
+            frmvVendorList.ShowDialog();
+        }
+
        
 
        
