@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace ShopManagement.DAL.Repository
 {
-    public class ProductRepository
+    public class ProductRepository:BaseRepository
     {
-        private ShopDBEntities db;
-        public ProductRepository(ShopDBEntities context)
+        public ProductRepository()
         {
-            db = context;
+
         }
+
         public List<Product> GetAllByProductCode(string productCode)
         {
             List<Product> lstProducts = new List<Product>();
 
             if (!string.IsNullOrEmpty(productCode))
-            { 
+            {
                 lstProducts = db.Product.Where(x => x.ProductCode == productCode).ToList();
-                return lstProducts;          
+                return lstProducts;
             }
 
             return lstProducts;
@@ -33,7 +33,7 @@ namespace ShopManagement.DAL.Repository
         {
             Product product = new Product();
 
-            if (productId>0)
+            if (productId > 0)
             {
                 product = db.Product.FirstOrDefault(x => x.ProductID == productId);
                 return product;
@@ -45,12 +45,12 @@ namespace ShopManagement.DAL.Repository
 
         public List<Product> GetAll()
         {
-            return db.Product.Where(x => x.IsActive==true).ToList();
+            return db.Product.Where(x => x.IsActive == true).ToList();
         }
 
         public ProductPrice GetSingleProductPrice(long productId)
         {
-            return db.ProductPrice.FirstOrDefault(x => x.IsActive == true && x.ProductID==productId);
+            return db.ProductPrice.FirstOrDefault(x => x.IsActive == true && x.ProductID == productId);
         }
 
         public Product GetSingleByProductName(string productName)
@@ -60,7 +60,7 @@ namespace ShopManagement.DAL.Repository
 
         public Product GetSingleByProductCode(string productCode)
         {
-            return db.Product.FirstOrDefault(x => x.IsActive == true && x.ProductCode==productCode);
+            return db.Product.FirstOrDefault(x => x.IsActive == true && x.ProductCode == productCode);
         }
 
         public void Insert(Product objProduct)
@@ -71,10 +71,10 @@ namespace ShopManagement.DAL.Repository
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
-           
+
         }
 
         public void InsertProductPrice(ProductPrice objProductPrice)

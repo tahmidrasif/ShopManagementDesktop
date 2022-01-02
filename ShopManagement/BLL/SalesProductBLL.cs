@@ -116,11 +116,11 @@ namespace ShopManagement.BLL
         {
             try
             {
-                return (decimal)oUnitOfWork.repoStock.GetByProductId((long)id).Quantity;
+                return  (decimal)oUnitOfWork.repoStock.GetByProductId(id)?.Quantity;
             }
             catch (Exception ex)
             {
-                throw ex;
+                return 0;
             }
 
         }

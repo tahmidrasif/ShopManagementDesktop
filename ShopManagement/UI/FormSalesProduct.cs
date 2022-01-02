@@ -23,6 +23,7 @@ namespace ShopManagement.UI
         public FormSalesProduct()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             serviceSalesProduct = new SalesProductBLL();
             enumarationBLL = new EnumarationBLL();
             LoadComboBox();
@@ -314,14 +315,43 @@ namespace ShopManagement.UI
                     return;
                 }
             }
-
-            if (serviceSalesProduct.IsProductInCart(productID))
+            else
             {
-                MessageBox.Show("Product is already added in Cart!!!");
+                MessageBox.Show("The product is out of stock!!!");
                 return;
-
             }
 
+            //if (serviceSalesProduct.IsProductInCart(productID))
+            //{
+            //    MessageBox.Show("Product is already added in Cart!!!");
+            //    return;
+
+            //}
+
+            decimal productQantity = Convert.ToDecimal(txtQty.Text);
+
+            foreach (DataGridViewRow row in dgvCart.Rows)
+            {
+                long cartProdId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                decimal cartProdQty = Convert.ToInt64(row.Cells["Quantity"].Value);
+                string productCode = row.Cells["ProductCode"].Value.ToString();
+                if (productID == cartProdId)
+                {
+                    DataGridViewRow currentRow = dgvCart.SelectedRows[0];
+                    string productId = this.dgvCart.SelectedRows[0].Cells["ProductCode"].Value.ToString();
+
+                    int rowIndex = dgvCart.CurrentCell.RowIndex;
+                    dgvCart.Rows.RemoveAt(row.Index);
+
+                    serviceSalesProduct.RemoveCart(productCode);
+
+                    productQantity += cartProdQty;
+                    txtQty.Text = productQantity.ToString();
+                    break;
+                }
+                
+
+            }
 
             DataRow drCart = dtCart.NewRow();
 
@@ -331,7 +361,7 @@ namespace ShopManagement.UI
             drCart["Unit"] = comboUnit.Text.ToString();
             drCart["UnitSalesPrice"] = Convert.ToDecimal(txtUnitPrice.Text);
             drCart["SPVat"] = Convert.ToDecimal(txtVatAmt.Text);
-            drCart["Quantity"] = Convert.ToDecimal(txtQty.Text);
+            drCart["Quantity"] = productQantity;
             drCart["SPOtherCharge"] = Convert.ToDecimal(txtOtherCharge.Text);
             drCart["DiscountAmt"] = Convert.ToDecimal(txtDisountPercet.Text);
             drCart["SubTotal"] = Convert.ToDecimal(txtSubTotal.Text);
@@ -348,7 +378,7 @@ namespace ShopManagement.UI
                 ProductID = productID,
                 ProductCode = txtProductCode.Text,
                 ProductName = txtProdName.Text,
-                Quantity = Convert.ToDecimal(txtQty.Text),
+                Quantity = productQantity,
 
                 UnitID = Convert.ToInt64(comboUnit.SelectedValue),
                 Unit = comboUnit.SelectedText,

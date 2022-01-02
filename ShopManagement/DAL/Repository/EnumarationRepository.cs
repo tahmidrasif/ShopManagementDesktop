@@ -9,15 +9,14 @@ namespace ShopManagement.DAL.Repository
 {
     public class EnumarationRepository : BaseRepository
     {
-        private ShopDBEntities db;
+  
         // public EnumarationRepository(ShopDBEntities context)
         //{
         //    db = context;
         //}
-         public EnumarationRepository(ShopDBEntities context)
-            : base(context)
+         public EnumarationRepository()
         {
-            db = context;
+
         }
         public List<Enumaration> GetAll(string type)
         {

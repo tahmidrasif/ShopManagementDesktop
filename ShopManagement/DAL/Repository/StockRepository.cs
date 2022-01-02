@@ -10,15 +10,14 @@ namespace ShopManagement.DAL.Repository
 {
     public class StockRepository : BaseRepository
     {
-         private ShopDBEntities db;
+         //private ShopDBEntities db=new ShopDBEntities();
         // public StockRepository(ShopDBEntities context)
         //{
         //    db = context;
         //}
-         public StockRepository(ShopDBEntities context)
-            : base(context)
+         public StockRepository()
         {
-            db = context;
+            //db = context;
         }
         public Stock GetByProductId(long productId) 
         {

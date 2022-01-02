@@ -9,15 +9,14 @@ namespace ShopManagement.DAL.Repository
 {
     public class OrderRepository:BaseRepository
     {
-         private ShopDBEntities db;
+
         // public OrderRepository(ShopDBEntities context)
         //{
         //    db = context;
         //}
-         public OrderRepository(ShopDBEntities context)
-            : base(context)
+         public OrderRepository()
         {
-            db = context;
+
         }
         public void Add(Order oOrder)
         {

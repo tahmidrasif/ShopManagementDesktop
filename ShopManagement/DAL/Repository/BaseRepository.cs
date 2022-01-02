@@ -9,10 +9,10 @@ namespace ShopManagement.DAL.Repository
 {
     public class BaseRepository
     {
-        public ShopDBEntities db; 
-        public BaseRepository(ShopDBEntities db)
+        public ShopDBEntities db=new ShopDBEntities(); 
+        public BaseRepository()
         {
-             db = new ShopDBEntities();
+             //db = new ShopDBEntities();
         }
     }
 }

@@ -17,20 +17,20 @@ namespace ShopManagement.DAL.Repository
         private TransactionScope Transaction;
 
 
-        private OrderRepository _repoOrder;
-        private ProductRepository _repoProduct;
-        private StockRepository _repoStock;
-        private UnitRepository _repoUnit;
-        private PaymentRepository _repoPayment;
-        private EnumarationRepository _repoEnum;
-        private CategoryRepository _repoCategory;
-        private BaseSPRepository _repoBaseSp;
-        private VendorRepository _repoVendor;
+        //private OrderRepository _repoOrder;
+        //private ProductRepository _repoProduct;
+        //private StockRepository _repoStock;
+        //private UnitRepository _repoUnit;
+        //private PaymentRepository _repoPayment;
+        //private EnumarationRepository _repoEnum;
+        //private CategoryRepository _repoCategory;
+        //private BaseSPRepository _repoBaseSp;
+        //private VendorRepository _repoVendor;
         public OrderRepository repoOrder
         {
             get
             {
-                return _repoOrder == null ? new OrderRepository(context) : _repoOrder;
+                return new OrderRepository();
             }
         }
 
@@ -38,7 +38,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoProduct == null ? new ProductRepository(context) : _repoProduct;
+                return new ProductRepository() ;
             }
         }
 
@@ -46,7 +46,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoStock == null ? new StockRepository(context) : _repoStock;
+                return  new StockRepository();
             }
         }
 
@@ -54,7 +54,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoUnit == null ? new UnitRepository(context) : _repoUnit;
+                return new UnitRepository();
             }
         }
 
@@ -62,7 +62,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoPayment == null ? new PaymentRepository(context) : _repoPayment;
+                return  new PaymentRepository();
             }
         }
 
@@ -70,7 +70,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoEnum == null ? new EnumarationRepository(context) : _repoEnum;
+                return new EnumarationRepository();
             }
         }
 
@@ -78,7 +78,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoCategory == null ? new CategoryRepository(context) : _repoCategory;
+                return new CategoryRepository() ;
             }
         }
 
@@ -86,7 +86,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoBaseSp == null ? new BaseSPRepository(context) : _repoBaseSp;
+                return new BaseSPRepository();
             }
         }
 
@@ -94,7 +94,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return _repoVendor == null ? new VendorRepository(context) : _repoVendor;
+                return  new VendorRepository();
             }
         }
 

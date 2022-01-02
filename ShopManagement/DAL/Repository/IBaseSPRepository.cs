@@ -33,9 +33,9 @@ namespace ShopManagement.DAL.Repository
         public DbSet dbSet;
         private bool _disposed = false;
 
-        public BaseSPRepository(ShopDBEntities context)
+        public BaseSPRepository()
         {
-            this.db = context;
+
             //dbSet = db.Set();
         }
 

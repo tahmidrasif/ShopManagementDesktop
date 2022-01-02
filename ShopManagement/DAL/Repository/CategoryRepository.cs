@@ -12,15 +12,13 @@ namespace ShopManagement.DAL.Repository
 {
     public class CategoryRepository : BaseRepository
     {
-        private ShopDBEntities db;
         //public CategoryRepository(ShopDBEntities context)
         //{
         //    db = context;
         //}
-        public CategoryRepository(ShopDBEntities context)
-            : base(context)
+        public CategoryRepository()
         {
-            db = context;
+           
         }
 
         public List<Category> GetAllCategories()

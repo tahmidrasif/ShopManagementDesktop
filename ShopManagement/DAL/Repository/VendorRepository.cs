@@ -9,11 +9,10 @@ namespace ShopManagement.DAL.Repository
 {
     public class VendorRepository : BaseRepository
     {
-        private ShopDBEntities db;
-        public VendorRepository(ShopDBEntities context)
-            : base(context)
+
+        public VendorRepository()
         {
-            db = context;
+
         }
 
         public void Insert(Vendor vendor)
