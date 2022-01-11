@@ -627,7 +627,7 @@ namespace ShopManagement.UI
 
         private void ShowReceiptForm(string orderNo)
         {
-            FormReport oFrmRpt = new FormReport();
+            FormBusinessLogic oFrmRpt = new FormBusinessLogic();
             oFrmRpt.ShowDialog();
         }
 

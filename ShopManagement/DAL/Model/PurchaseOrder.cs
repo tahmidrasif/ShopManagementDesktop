@@ -12,23 +12,21 @@ namespace ShopManagement.DAL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class PurchaseOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
+        public PurchaseOrder()
         {
-            this.OrderDetails = new HashSet<OrderDetails>();
-            this.Payment = new HashSet<Payment>();
+            this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetails>();
         }
     
-        public long OrderID { get; set; }
-        public string OrderCode { get; set; }
+        public long POrderID { get; set; }
+        public string POrderCode { get; set; }
         public string OrderType { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
-        public string DeliveryDate { get; set; }
-        public Nullable<int> DeliverDue { get; set; }
+        public Nullable<System.DateTime> DeliveryDate { get; set; }
         public Nullable<long> VendorID { get; set; }
-        public Nullable<long> CustomerID { get; set; }
+        public Nullable<bool> IsMasterInventoryOrder { get; set; }
         public Nullable<long> BranchID { get; set; }
         public Nullable<long> Status { get; set; }
         public string CreatedBy { get; set; }
@@ -36,19 +34,20 @@ namespace ShopManagement.DAL.Model
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<decimal> SubTotal { get; set; }
         public Nullable<bool> IsVatIncluded { get; set; }
         public Nullable<decimal> VatPercent { get; set; }
         public Nullable<decimal> TotalVat { get; set; }
-        public Nullable<decimal> OtherCharge { get; set; }
-        public Nullable<decimal> DeliveryCharge { get; set; }
-        public Nullable<decimal> GrandTotal { get; set; }
+        public Nullable<decimal> TotalOtherCharge { get; set; }
+        public Nullable<decimal> TotalDeliveryCharge { get; set; }
         public Nullable<decimal> DiscountPercent { get; set; }
         public Nullable<decimal> TotalDiscount { get; set; }
-        public Nullable<decimal> SubTotal { get; set; }
+        public Nullable<decimal> TotalAdvance { get; set; }
+        public Nullable<decimal> TotalDue { get; set; }
+        public Nullable<decimal> GrandTotal { get; set; }
+        public Nullable<decimal> AdditionalDiscount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Payment> Payment { get; set; }
+        public virtual ICollection<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
     }
 }

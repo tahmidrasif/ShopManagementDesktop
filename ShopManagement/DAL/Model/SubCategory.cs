@@ -14,6 +14,12 @@ namespace ShopManagement.DAL.Model
     
     public partial class SubCategory
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SubCategory()
+        {
+            this.Product = new HashSet<Product>();
+        }
+    
         public long SubCategoryID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,5 +30,9 @@ namespace ShopManagement.DAL.Model
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public string SubCategoryCode { get; set; }
+    
+        public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

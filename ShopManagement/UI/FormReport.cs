@@ -11,9 +11,9 @@ using Microsoft.Reporting.WinForms;
 
 namespace ShopManagement.UI
 {
-    public partial class FormReport : Form
+    public partial class FormBusinessLogic : Form
     {
-        public FormReport()
+        public FormBusinessLogic()
         {
             InitializeComponent();
         }

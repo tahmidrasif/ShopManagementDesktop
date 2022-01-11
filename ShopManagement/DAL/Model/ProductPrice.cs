@@ -14,6 +14,12 @@ namespace ShopManagement.DAL.Model
     
     public partial class ProductPrice
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductPrice()
+        {
+            this.ProductPriceLog = new HashSet<ProductPriceLog>();
+        }
+    
         public long ProductPriceID { get; set; }
         public Nullable<long> ProductID { get; set; }
         public Nullable<decimal> UnitPurchasePrice { get; set; }
@@ -35,5 +41,9 @@ namespace ShopManagement.DAL.Model
         public Nullable<bool> IsActive { get; set; }
         public Nullable<decimal> PPDiscount { get; set; }
         public Nullable<decimal> SPDiscount { get; set; }
+    
+        public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductPriceLog> ProductPriceLog { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ShopManagement.UI
 {
-    partial class FormReport
+    partial class FormBusinessLogic
     {
         /// <summary>
         /// Required designer variable.

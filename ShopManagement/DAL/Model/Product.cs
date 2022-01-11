@@ -14,6 +14,15 @@ namespace ShopManagement.DAL.Model
     
     public partial class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            this.OrderDetails = new HashSet<OrderDetails>();
+            this.ProductPrice = new HashSet<ProductPrice>();
+            this.Stock = new HashSet<Stock>();
+            this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetails>();
+        }
+    
         public long ProductID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -27,5 +36,17 @@ namespace ShopManagement.DAL.Model
         public Nullable<bool> IsActive { get; set; }
         public string ProductCode { get; set; }
         public string UnitType { get; set; }
+    
+        public virtual Category Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
+        public virtual Unit Unit { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductPrice> ProductPrice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Stock> Stock { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
     }
 }

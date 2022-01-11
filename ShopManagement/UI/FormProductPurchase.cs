@@ -27,6 +27,7 @@ namespace ShopManagement.UI
         public FormProductPurchase()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             _serviceProduct = new ProductBLL();
             LoadSearchProductCombo();
             CreateCartDataTable();
@@ -41,8 +42,8 @@ namespace ShopManagement.UI
             try
             {
                 var dictionary = new Dictionary<string, string>();
-                dictionary.Add("Category Name", "Name");
-                dictionary.Add("Category Code", "Code");
+                dictionary.Add("Product Name", "Name");
+                dictionary.Add("Product Code", "Code");
 
                 cmbSearch.DataSource = new BindingSource(dictionary, null);
                 cmbSearch.DisplayMember = "Key";
@@ -68,11 +69,11 @@ namespace ShopManagement.UI
             }
             else
             {
-                var productList = _serviceProduct.GetAllProducts();
+                //var productList = _serviceProduct.GetAllProducts();
                 searchkey = searchkey.ToLower();
                 if (cmbSearch.SelectedValue == "Name")
                 {
-                    productList = productList.Where(x => x.ProductName.ToLower().Contains(searchkey)).ToList();
+                    var productList = _serviceProduct.GetAllProductsByProductName(searchkey);
                     if (productList.Count == 1)
                     {
                         foreach (var product in productList)
@@ -80,6 +81,10 @@ namespace ShopManagement.UI
                             txtProductCode.Text = product.ProductCode;
                             txtProductName.Text = product.ProductName;
                             txtQty.Text = product.AvaliableQty.ToString();
+                            txtUnitPurchasePrice.Text = product.UnitPurchasePrice.ToString();
+                            txtVat.Text = product.PPVat.ToString();
+                            //txtOtherCharge.Text = product.PPOtherCharge.ToString();
+
                             productID = product.ProductID;//Global
                         }
                         //
@@ -97,6 +102,10 @@ namespace ShopManagement.UI
                                 txtProductName.Text = prod.ProductName;
                                 txtProductCode.Text = prod.ProductCode;
                                 txtQty.Text = prod.AvaliableQty.ToString();
+                                txtUnitPurchasePrice.Text = prod.UnitPurchasePrice.ToString();
+                                txtVat.Text = prod.PPVat.ToString();
+                                //txtOtherCharge.Text = prod.PPOtherCharge.ToString();
+
                                 productID = prod.ProductID;//Global
                             }
                         }
@@ -109,7 +118,7 @@ namespace ShopManagement.UI
                 }
                 if (cmbSearch.SelectedValue == "Code")
                 {
-                    productList = productList.Where(x => x.ProductCode.Contains(searchkey)).ToList();
+                    var productList = _serviceProduct.GetAllProductsByProductCode(searchkey);
                     if (productList.Count == 1)
                     {
                         foreach (var product in productList)
@@ -117,6 +126,11 @@ namespace ShopManagement.UI
                             txtProductCode.Text = product.ProductCode;
                             txtProductName.Text = product.ProductName;
                             txtQty.Text = product.AvaliableQty.ToString();
+                            txtUnitPurchasePrice.Text = product.UnitPurchasePrice.ToString();
+                            txtVat.Text = product.PPVat.ToString();
+                            //txtOtherCharge.Text = product.PPOtherCharge.ToString();
+
+                            productID = product.ProductID;//Global
                         }
                         //
                     }
@@ -132,6 +146,11 @@ namespace ShopManagement.UI
                                 txtProductName.Text = prod.ProductName;
                                 txtProductCode.Text = prod.ProductCode;
                                 txtQty.Text = prod.AvaliableQty.ToString();
+                                txtUnitPurchasePrice.Text = prod.UnitPurchasePrice.ToString();
+                                txtVat.Text = prod.PPVat.ToString();
+                                //txtOtherCharge.Text = prod.PPOtherCharge.ToString();
+
+                                productID = prod.ProductID;//Global
                             }
                         }
                     }
@@ -153,7 +172,7 @@ namespace ShopManagement.UI
             txtTotalUnit.Text = "0";
             txtUnitPurchasePrice.Text = "0";
             txtVat.Text = "0";
-            txtOtherCharge.Text = "0";
+            //txtOtherCharge.Text = "0";
             txtDiscount.Text = "0";
             txtSubTotalPurchasePrice.Text = String.Empty;
             txtQty.Text = string.Empty;
@@ -179,7 +198,7 @@ namespace ShopManagement.UI
                 drCart["UnitPurchasePrice"] = Convert.ToDecimal(txtUnitPurchasePrice.Text);
                 drCart["PPVat"] = Convert.ToDecimal(txtVat.Text);
                 drCart["Quantity"] = Convert.ToDecimal(txtTotalUnit.Text);
-                drCart["PPOtherCharge"] = Convert.ToDecimal(txtOtherCharge.Text);
+                //drCart["PPOtherCharge"] = Convert.ToDecimal(txtOtherCharge.Text);
                 drCart["DiscountAmt"] = Convert.ToDecimal(txtDiscount.Text);
                 drCart["SubTotal"] = Convert.ToDecimal(txtSubTotalPurchasePrice.Text);
 
@@ -188,31 +207,25 @@ namespace ShopManagement.UI
 
                 dgvProduct.DataSource = dtCart;
 
-                CartVM cartRequest = new CartVM();
 
-                cartRequest.ProductID = productID;
-                cartRequest.ProductName = txtProductName.Text;
-                cartRequest.ProductCode = txtProductCode.Text;
-                cartRequest.UnitSalesPrice = Convert.ToDecimal(txtTotalPrice.Text);
-                cartRequest.SPVat = Convert.ToDecimal(txtVat.Text);
-                cartRequest.Quantity = Convert.ToDecimal(txtTotalUnit.Text);
-                cartRequest.SPOtherCharge = Convert.ToDecimal(txtOtherCharge.Text);
-                cartRequest.DiscountAmt = Convert.ToDecimal(txtDiscount.Text);
-                cartRequest.SubTotal = Convert.ToDecimal(txtSubTotalPurchasePrice.Text);
 
-                cartVMList.Add(cartRequest);
+                //CartVM cartRequest = new CartVM();
 
-                decimal totalPrice = cartVMList.Sum(x => x.UnitSalesPrice);
-                decimal totalvat = cartVMList.Sum(x => x.SPVat);
-                decimal othercharge = cartVMList.Sum(x => x.SPOtherCharge);
-                decimal discount = cartVMList.Sum(x => x.DiscountAmt);
+                //cartRequest.ProductID = productID;
+                //cartRequest.ProductName = txtProductName.Text;
+                //cartRequest.ProductCode = txtProductCode.Text;
+                //cartRequest.UnitSalesPrice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
+                //cartRequest.SPVat = Convert.ToDecimal(txtVat.Text);
+                //cartRequest.Quantity = Convert.ToDecimal(txtTotalUnit.Text);
+                //cartRequest.SPOtherCharge = Convert.ToDecimal(txtOtherCharge.Text);
+                //cartRequest.DiscountAmt = Convert.ToDecimal(txtDiscount.Text);
+                //cartRequest.SubTotal = Convert.ToDecimal(txtSubTotalPurchasePrice.Text);
 
-                txtPaymentTotal.Text = totalPrice.ToString();
-                txtPaymentTotalVat.Text = totalvat.ToString();
-                txtPaymentOtherCharge.Text = othercharge.ToString();
-                txtPaymentDiscount.Text = discount.ToString();
+                //cartVMList.Add(cartRequest);
 
-                txtPaymentGrandTotal.Text = (totalPrice + totalvat + othercharge - discount).ToString();
+                CalculateFinal();
+
+                
 
                 ClearControl();
             }
@@ -222,6 +235,46 @@ namespace ShopManagement.UI
                 //throw;
             }
 
+        }
+
+        private void CalculateFinal()
+        {
+            try
+            {
+
+            decimal totalPrice = 0;
+            decimal totalvat = 0;
+            decimal totaldiscount = 0;
+
+            foreach (DataGridViewRow row in dgvProduct.Rows)
+            {
+                long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
+                decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
+                decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
+
+                decimal totalUnitPrice = qauntity * unitprice;
+                totalPrice += totalUnitPrice;
+                totalvat += vat;
+                totaldiscount += discount;
+
+            }
+
+
+
+            txtPaymentTotal.Text = totalPrice.ToString();
+            txtPaymentTotalVat.Text = totalvat.ToString();
+
+            txtPaymentDiscount.Text = totaldiscount.ToString();
+
+            txtGrandTotal.Text = (totalPrice + totalvat + -totaldiscount).ToString();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void CreateCartDataTable()
@@ -235,7 +288,7 @@ namespace ShopManagement.UI
             dtCart.Columns.Add("PPVat".ToString());
             dtCart.Columns.Add("UnitPurchasePrice".ToString());
             dtCart.Columns.Add("Quantity".ToString());
-            dtCart.Columns.Add("PPOtherCharge".ToString());
+            //dtCart.Columns.Add("PPOtherCharge".ToString());
             dtCart.Columns.Add("DiscountAmt".ToString());
             dtCart.Columns.Add("SubTotal".ToString());
 
@@ -245,7 +298,7 @@ namespace ShopManagement.UI
             dgvProduct.AutoGenerateColumns = false;
 
             //Set Columns Count
-            dgvProduct.ColumnCount = 10;
+            dgvProduct.ColumnCount = 9;
 
             //Add Columns
             dgvProduct.Columns[0].HeaderText = "ProductID";
@@ -279,18 +332,18 @@ namespace ShopManagement.UI
             dgvProduct.Columns[6].Name = "PPVat";
             dgvProduct.Columns[6].DataPropertyName = "PPVat";
 
-            dgvProduct.Columns[7].HeaderText = "Other Charge";
-            dgvProduct.Columns[7].Name = "PPOtherCharge";
-            dgvProduct.Columns[7].DataPropertyName = "PPOtherCharge";
+            //dgvProduct.Columns[7].HeaderText = "Other Charge";
+            //dgvProduct.Columns[7].Name = "PPOtherCharge";
+            //dgvProduct.Columns[7].DataPropertyName = "PPOtherCharge";
 
 
-            dgvProduct.Columns[8].HeaderText = "Discount";
-            dgvProduct.Columns[8].Name = "DiscountAmt";
-            dgvProduct.Columns[8].DataPropertyName = "DiscountAmt";
+            dgvProduct.Columns[7].HeaderText = "Discount";
+            dgvProduct.Columns[7].Name = "DiscountAmt";
+            dgvProduct.Columns[7].DataPropertyName = "DiscountAmt";
 
-            dgvProduct.Columns[9].HeaderText = "Total";
-            dgvProduct.Columns[9].Name = "SubTotal";
-            dgvProduct.Columns[9].DataPropertyName = "SubTotal";
+            dgvProduct.Columns[8].HeaderText = "Total";
+            dgvProduct.Columns[8].Name = "SubTotal";
+            dgvProduct.Columns[8].DataPropertyName = "SubTotal";
 
 
 
@@ -298,6 +351,32 @@ namespace ShopManagement.UI
         }
 
         private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    if (string.IsNullOrEmpty(txtUnitPurchasePrice.Text))
+            //    {
+            //        MessageBox.Show("Please Key In Unit Purchase Price");
+            //        return;
+            //    }
+
+            //    decimal unitparchaseprice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
+            //    decimal totalUnit = Convert.ToDecimal(txtTotalUnit.Text);
+            //    decimal vat = Convert.ToDecimal(txtVat.Text);
+            //    //decimal otherCharge = Convert.ToDecimal(txtOtherCharge.Text);
+            //    decimal discount = Convert.ToDecimal(txtDiscount.Text);
+            //    decimal totalPrice = (unitparchaseprice * totalUnit) + vat  - discount;
+
+            //    txtSubTotalPurchasePrice.Text = totalPrice.ToString();
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.ToString());
+            //}
+
+        }
+
+        private void Calculate()
         {
             try
             {
@@ -310,54 +389,30 @@ namespace ShopManagement.UI
                 decimal unitparchaseprice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
                 decimal totalUnit = Convert.ToDecimal(txtTotalUnit.Text);
                 decimal vat = Convert.ToDecimal(txtVat.Text);
-                decimal otherCharge = Convert.ToDecimal(txtOtherCharge.Text);
+                //decimal otherCharge = Convert.ToDecimal(txtOtherCharge.Text);
                 decimal discount = Convert.ToDecimal(txtDiscount.Text);
-                decimal totalPrice = (unitparchaseprice * totalUnit) + vat + otherCharge - discount;
+                decimal totalPrice = (unitparchaseprice * totalUnit) + vat - discount;
 
                 txtSubTotalPurchasePrice.Text = totalPrice.ToString();
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
-
         }
 
         private void txtTotalUnit_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                var totalunit = Convert.ToDecimal(txtTotalUnit.Text);
-                var unitPrice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
 
-                var totalPrice = totalunit * unitPrice;
-
-                txtTotalPrice.Text = totalPrice.ToString();
-            }
-            catch (Exception Ex)
-            {
-
-                //throw;
-            }
+            Calculate();
 
         }
 
         private void txtUnitPurchasePrice_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                var totalunit = Convert.ToDecimal(txtTotalUnit.Text);
-                var unitPrice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
 
-                var totalPrice = totalunit * unitPrice;
+            Calculate();
 
-                txtTotalPrice.Text = totalPrice.ToString();
-            }
-            catch (Exception Ex)
-            {
-
-                //throw;
-            }
         }
 
         private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -367,7 +422,7 @@ namespace ShopManagement.UI
             //    if (e.RowIndex != -1)
             //    //if(dgvCategory.Rows.Count>0)
             //    {
-                    
+
             //        btnAdd.Enabled = false;
             //        btnUpdate.Enabled = true;
             //        btnRemove.Enabled = true;
@@ -392,9 +447,25 @@ namespace ShopManagement.UI
             //}
         }
 
-        private void btnPayment_Click(object sender, EventArgs e)
-        {
 
+        private void txtVat_TextChanged(object sender, EventArgs e)
+        {
+            Calculate();
+        }
+
+        private void txtDiscount_TextChanged(object sender, EventArgs e)
+        {
+            Calculate();
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            ValidatePurchaseOrder();
+        }
+
+        private void ValidatePurchaseOrder()
+        {
+            //if()
         }
     }
 }

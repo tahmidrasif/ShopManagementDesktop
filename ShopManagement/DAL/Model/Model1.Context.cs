@@ -25,23 +25,29 @@ namespace ShopManagement.DAL.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<A_Account> A_Account { get; set; }
+        public virtual DbSet<A_LedgerEntry> A_LedgerEntry { get; set; }
+        public virtual DbSet<A_Transaction> A_Transaction { get; set; }
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Enumaration> Enumaration { get; set; }
+        public virtual DbSet<GroupProduct> GroupProduct { get; set; }
         public virtual DbSet<MasterInventory> MasterInventory { get; set; }
         public virtual DbSet<MasterInventoryLog> MasterInventoryLog { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderLog> OrderLog { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
-        public virtual DbSet<Stock> Stock { get; set; }
-        public virtual DbSet<StockLog> StockLog { get; set; }
-        public virtual DbSet<Vendor> Vendor { get; set; }
-        public virtual DbSet<Unit> Unit { get; set; }
-        public virtual DbSet<Enumaration> Enumaration { get; set; }
-        public virtual DbSet<GroupProduct> GroupProduct { get; set; }
-        public virtual DbSet<OrderDetails> OrderDetails { get; set; }
-        public virtual DbSet<SpecialOffer> SpecialOffer { get; set; }
-        public virtual DbSet<SubCategory> SubCategory { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductPrice> ProductPrice { get; set; }
         public virtual DbSet<ProductPriceLog> ProductPriceLog { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<SpecialOffer> SpecialOffer { get; set; }
+        public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<StockLog> StockLog { get; set; }
+        public virtual DbSet<SubCategory> SubCategory { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Unit> Unit { get; set; }
+        public virtual DbSet<Vendor> Vendor { get; set; }
+        public virtual DbSet<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
     }
 }

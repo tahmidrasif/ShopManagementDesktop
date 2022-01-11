@@ -58,6 +58,11 @@ namespace ShopManagement.DAL.Repository
             return db.Product.FirstOrDefault(x => x.IsActive == true && x.Name == productName);
         }
 
+        public List<Product> GetListByProductName(string productName)
+        {
+            return db.Product.Where(x => x.IsActive == true && x.Name.Contains(productName)).ToList() ;
+        }
+
         public Product GetSingleByProductCode(string productCode)
         {
             return db.Product.FirstOrDefault(x => x.IsActive == true && x.ProductCode == productCode);

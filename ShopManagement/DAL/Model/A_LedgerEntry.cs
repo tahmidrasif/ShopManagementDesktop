@@ -12,19 +12,18 @@ namespace ShopManagement.DAL.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Stock
+    public partial class A_LedgerEntry
     {
-        public long StockID { get; set; }
-        public Nullable<long> ProductID { get; set; }
-        public Nullable<long> BranchID { get; set; }
-        public Nullable<long> UnitID { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
+        public long LedgerEntryId { get; set; }
+        public long MTranId { get; set; }
+        public long AccountId { get; set; }
+        public decimal Debit { get; set; }
+        public decimal Credit { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public long Status { get; set; }
         public Nullable<bool> IsActive { get; set; }
-    
-        public virtual Product Product { get; set; }
     }
 }

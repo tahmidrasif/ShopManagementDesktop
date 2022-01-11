@@ -19,8 +19,8 @@ namespace ShopManagement.UI
 
         private void btnProduct_Click(object sender, EventArgs e)
         {
-            FormProductList frmProductList=new FormProductList();
-            frmProductList.Show();
+            //FormProductList frmProductList=new FormProductList();
+            //frmProductList.Show();
         }
 
         private void btnInvoice_Click(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace ShopManagement.UI
 
         private void productsToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            FormReport report=new FormReport();
+            FormBusinessLogic report=new FormBusinessLogic();
             report.Show();
         }
 

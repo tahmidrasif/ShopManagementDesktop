@@ -122,7 +122,7 @@ namespace ShopManagement.UI
             dgvProduct.AutoGenerateColumns = false;
 
             ////Set Columns Count
-            dgvProduct.ColumnCount = 10;
+            dgvProduct.ColumnCount = 14;
 
             ////Add Columns
             dgvProduct.Columns[0].HeaderText = "ProductID";
@@ -146,7 +146,7 @@ namespace ShopManagement.UI
             dgvProduct.Columns[4].Name = "SubCategoryName";
             dgvProduct.Columns[4].DataPropertyName = "SubCategoryName";
 
-            dgvProduct.Columns[5].HeaderText = "Unit Price";
+            dgvProduct.Columns[5].HeaderText = "Unit Sale Price";
             dgvProduct.Columns[5].Name = "UnitSalesPrice";
             dgvProduct.Columns[5].DataPropertyName = "UnitSalesPrice";
 
@@ -162,9 +162,25 @@ namespace ShopManagement.UI
             dgvProduct.Columns[8].Name = "TotalSalesPrice";
             dgvProduct.Columns[8].DataPropertyName = "TotalSalesPrice";
 
-            dgvProduct.Columns[9].HeaderText = "Available Qty";
-            dgvProduct.Columns[9].Name = "AvaliableQty";
-            dgvProduct.Columns[9].DataPropertyName = "AvaliableQty";
+            dgvProduct.Columns[9].HeaderText = "Unit Sale Price";
+            dgvProduct.Columns[9].Name = "UnitSalesPrice";
+            dgvProduct.Columns[9].DataPropertyName = "UnitSalesPrice";
+
+            dgvProduct.Columns[10].HeaderText = "Vat";
+            dgvProduct.Columns[10].Name = "SPVat";
+            dgvProduct.Columns[10].DataPropertyName = "SPVat";
+
+            dgvProduct.Columns[11].HeaderText = "Other Charge";
+            dgvProduct.Columns[11].Name = "SPOtherCharge";
+            dgvProduct.Columns[11].DataPropertyName = "SPOtherCharge";
+
+            dgvProduct.Columns[12].HeaderText = "Total Sales Price";
+            dgvProduct.Columns[12].Name = "TotalSalesPrice";
+            dgvProduct.Columns[12].DataPropertyName = "TotalSalesPrice";
+
+            dgvProduct.Columns[13].HeaderText = "Available Qty";
+            dgvProduct.Columns[13].Name = "AvaliableQty";
+            dgvProduct.Columns[13].DataPropertyName = "AvaliableQty";
 
             LoadGridView();
         }

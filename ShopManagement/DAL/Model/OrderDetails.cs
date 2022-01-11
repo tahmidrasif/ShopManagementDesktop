@@ -35,5 +35,9 @@ namespace ShopManagement.DAL.Model
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+    
+        public virtual Order Order { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Unit Unit { get; set; }
     }
 }

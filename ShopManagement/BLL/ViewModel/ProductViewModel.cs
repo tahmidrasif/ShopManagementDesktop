@@ -23,5 +23,9 @@ namespace ShopManagement.BLL.ViewModel
         public decimal TotalSalesPrice { get; set; }
         public decimal AvaliableQty { get; set; }
         public decimal Discount { get; set; }
+        public decimal UnitPurchasePrice { get; set; }
+        public decimal PPVat { get; set; }
+        public decimal PPOtherCharge { get; set; }
+        public decimal TotalPurchasePrice { get; set; }
     }
 }

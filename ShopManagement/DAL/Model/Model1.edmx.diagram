@@ -4,25 +4,44 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="59a800141f6849bfa88f7b840f41816b" Name="Diagram1">
-        <EntityTypeShape EntityType="ShopDBModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.MasterInventory" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.MasterInventoryLog" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.Order" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.OrderLog" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.Payment" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.Stock" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.StockLog" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.Vendor" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBModel.Unit" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="ShopDBModel.Enumaration" Width="1.5" PointX="3.375" PointY="11.75" />
-        <EntityTypeShape EntityType="ShopDBModel.GroupProduct" Width="1.5" PointX="11.375" PointY="4.75" />
-        <EntityTypeShape EntityType="ShopDBModel.OrderDetails" Width="1.5" PointX="2.75" PointY="5.75" />
-        <EntityTypeShape EntityType="ShopDBModel.SpecialOffer" Width="1.5" PointX="13.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ShopDBModel.SubCategory" Width="1.5" PointX="9.375" PointY="9.75" />
-        <EntityTypeShape EntityType="ShopDBModel.ProductPrice" Width="1.5" PointX="11.375" PointY="8.75" />
-        <EntityTypeShape EntityType="ShopDBModel.ProductPriceLog" Width="1.5" PointX="5.375" PointY="13.75" />
-        <EntityTypeShape EntityType="ShopDBModel.Product" Width="1.5" PointX="13.375" PointY="6.75" />
+      <Diagram DiagramId="58ca555b24c84d94b01fb7a35717cc66" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopDBEntities.A_Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.A_LedgerEntry" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.A_Transaction" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Category" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Enumaration" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.GroupProduct" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.MasterInventory" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.MasterInventoryLog" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Order" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.OrderDetails" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.OrderLog" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Payment" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Product" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.ProductPrice" Width="1.5" PointX="7.5" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.ProductPriceLog" Width="1.5" PointX="9.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.SpecialOffer" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Stock" Width="1.5" PointX="7.5" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.StockLog" Width="1.5" PointX="11.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.SubCategory" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.sysdiagrams" Width="1.5" PointX="11.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Unit" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDBEntities.Vendor" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ShopDBEntities.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_SubCategory_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_Payment_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_Product_SubCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_Product_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_ProductPrice_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_Stock_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopDBEntities.FK_ProductPriceLog_ProductPrice" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopDBEntities.PurchaseOrderDetails" Width="1.5" PointX="12.5" PointY="15.25" />
+        <AssociationConnector Association="ShopDBEntities.FK_PurchaseOrderDetails_Product" />
+        <EntityTypeShape EntityType="ShopDBEntities.PurchaseOrder" Width="1.5" PointX="14.375" PointY="5.125" />
+        <AssociationConnector Association="ShopDBEntities.FK_PurchaseOrderDetails_PurchaseOrder" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

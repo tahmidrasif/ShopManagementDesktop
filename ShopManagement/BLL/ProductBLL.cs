@@ -14,7 +14,7 @@ namespace ShopManagement.BLL
         private UnitOfWork _unitOfWork;
         public ProductBLL()
         {
-            _unitOfWork=new UnitOfWork();
+            _unitOfWork = new UnitOfWork();
         }
         public List<CategoryVM> GetAllCategory()
         {
@@ -31,26 +31,33 @@ namespace ShopManagement.BLL
                         CategoryName = category.CategoryName,
                         CreatedBy = category.CreatedBy,
                         Description = category.Description,
-                        CategoryFullName = category.CategoryName+"--"+category.CategoryCode
+                        CategoryFullName = category.CategoryName + "--" + category.CategoryCode
                         //CreatedOn = (DateTime) category.CreatedOn
                     };
 
                     categoryVmList.Add(categoryVm);
                 }
-               
+
             }
 
-            return categoryVmList; 
+            return categoryVmList;
         }
 
         public List<ProductViewModel> GetAllProducts()
         {
-            List<ProductViewModel> productvmList=new List<ProductViewModel>();
-            var productList=_unitOfWork.repoProduct.GetAll();
+            List<ProductViewModel> productvmList = new List<ProductViewModel>();
+            var productList = _unitOfWork.repoProduct.GetAll();
+            if (productList.Count > 0)
+                productvmList = MapProductsToViewModel(productList);
+            return productvmList;
+        }
 
-            foreach (var product in productList)
+        private List<ProductViewModel> MapProductsToViewModel(List<Product> products)
+        {
+            List<ProductViewModel> productvmList = new List<ProductViewModel>();
+            foreach (var product in products)
             {
-                ProductViewModel obj=new ProductViewModel();
+                ProductViewModel obj = new ProductViewModel();
                 obj.ProductCode = product.ProductCode;
                 obj.ProductID = product.ProductID;
                 obj.ProductName = product.Name;
@@ -60,14 +67,14 @@ namespace ShopManagement.BLL
                     obj.CategoryName = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == obj.CategoryID).CategoryName;
                     //var category = _unitOfWork.repoCategory.GetSingle(x => x.CategoryID == obj.CategoryID);
                 }
-                if(product.SubCategoryID!=null)
+                if (product.SubCategoryID != null)
                 {
                     obj.SubCategoryID = (long)product.SubCategoryID;
                     obj.SubCategoryName = _unitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == obj.SubCategoryID).Name;
                 }
                 if (product.UnitID != null)
                 {
-                    obj.UnitID = (long) product.UnitID;
+                    obj.UnitID = (long)product.UnitID;
                     obj.UnitName = _unitOfWork.repoUnit.GetSingleById((long)product.UnitID).UnitName;
                 }
                 var productPrice = _unitOfWork.repoProduct.GetSingleProductPrice(product.ProductID);
@@ -75,10 +82,13 @@ namespace ShopManagement.BLL
                 obj.SPVat = (decimal)productPrice.SPVat;
                 obj.SPOtherCharge = (decimal)productPrice.SPOtherCharge;
                 obj.TotalSalesPrice = (decimal)productPrice.TotalSalesPrice;
+                obj.UnitPurchasePrice = (decimal)productPrice.UnitPurchasePrice;
+                obj.PPVat = (decimal)productPrice.PPVat;
+                obj.PPOtherCharge = (decimal)productPrice.PPOtherCharge;
+                obj.TotalPurchasePrice = (decimal)productPrice.TotalPurchasePrice;
                 obj.AvaliableQty = (decimal)_unitOfWork.repoStock.GetByProductId(product.ProductID).Quantity;
                 productvmList.Add(obj);
             }
-
             return productvmList;
         }
 
@@ -88,11 +98,11 @@ namespace ShopManagement.BLL
             {
                 Product objProduct = new Product();
                 ProductPrice objProductPrice = new ProductPrice();
-                Stock objStock=new Stock();
+                Stock objStock = new Stock();
 
                 if (productVM != null)
                 {
-                    if (IsProductAlreadyAvailable(productVM.ProductName,productVM.ProductCode))
+                    if (IsProductAlreadyAvailable(productVM.ProductName, productVM.ProductCode))
                     {
                         return "Product is already available";
                     }
@@ -142,8 +152,10 @@ namespace ShopManagement.BLL
                 _unitOfWork.RollbackTransaction();
                 return exception.Message;
             }
-            
+
         }
+
+       
 
         private bool IsProductAlreadyAvailable(string productName, string productCode)
         {
@@ -164,7 +176,7 @@ namespace ShopManagement.BLL
         {
             try
             {
-                var product=_unitOfWork.repoProduct.GetProduct(porductID);
+                var product = _unitOfWork.repoProduct.GetProduct(porductID);
                 ProductViewModel obj = new ProductViewModel();
                 obj.ProductCode = product.ProductCode;
                 obj.ProductID = product.ProductID;
@@ -195,7 +207,7 @@ namespace ShopManagement.BLL
             }
             catch (Exception ex)
             {
-                
+
                 throw ex;
             }
         }
@@ -210,7 +222,7 @@ namespace ShopManagement.BLL
 
                 if (productVM != null)
                 {
-                    if (productVM.ProductID==0)
+                    if (productVM.ProductID == 0)
                     {
                         return "Error in updating product";
                     }
@@ -292,6 +304,33 @@ namespace ShopManagement.BLL
                 _unitOfWork.RollbackTransaction();
                 throw ex;
             }
+        }
+
+        public List<ProductViewModel> GetAllProductsByProductName(string productName)
+        {
+            List<ProductViewModel> ovm = new List<ProductViewModel>();
+            if (!string.IsNullOrEmpty(productName))
+            {
+                var products = _unitOfWork.repoProduct.GetListByProductName(productName);
+                if (products.Count > 0)
+                {
+                    ovm = MapProductsToViewModel(products);
+                }
+            }
+            return ovm;
+        }
+        internal List<ProductViewModel> GetAllProductsByProductCode(string productCode)
+        {
+            List<ProductViewModel> ovm = new List<ProductViewModel>();
+            if (!string.IsNullOrEmpty(productCode))
+            {
+                var products = _unitOfWork.repoProduct.GetAllByProductCode(productCode);
+                if (products.Count > 0)
+                {
+                    ovm = MapProductsToViewModel(products);
+                }
+            }
+            return ovm;
         }
     }
 }
