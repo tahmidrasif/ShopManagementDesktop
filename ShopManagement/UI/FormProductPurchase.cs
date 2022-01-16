@@ -19,6 +19,7 @@ namespace ShopManagement.UI
         private ProductBLL _serviceProduct = null;
         private CategoryEntryBLL _serviceCategory = null;
         private UnitBLL _serviceUnit = null;
+        private VendorBLL _serviceVendor = null;
         List<CartVM> cartVMList = new List<CartVM>();
         DataTable dtCart;
         DataGridViewRow dgvRow;
@@ -29,12 +30,26 @@ namespace ShopManagement.UI
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
             _serviceProduct = new ProductBLL();
+            _serviceVendor = new VendorBLL();
             LoadSearchProductCombo();
+            LoadPaymentTypeCombo();
+            LoadVendorCombo();
             CreateCartDataTable();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
             btnRemove.Enabled = false;
 
+        }
+
+        private void LoadVendorCombo()
+        {
+            IList<VendorViewModel> vendors = _serviceVendor.GetAllVendors();
+            if(vendors.Count>0)
+            {
+                cmbVendor.DataSource = vendors;
+                cmbVendor.DisplayMember = "VendorName";
+                cmbVendor.ValueMember = "VendorId";
+            }            
         }
 
         private void LoadSearchProductCombo()
@@ -48,6 +63,27 @@ namespace ShopManagement.UI
                 cmbSearch.DataSource = new BindingSource(dictionary, null);
                 cmbSearch.DisplayMember = "Key";
                 cmbSearch.ValueMember = "Value";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        private void LoadPaymentTypeCombo()
+        {
+            try
+            {
+                var dictionary = new Dictionary<string, string>();
+                dictionary.Add("No Payment", "N/A");
+                dictionary.Add("Cash", "Cash");
+                dictionary.Add("Cheque", "Cheque");
+
+                cmbPaymentType.DataSource = new BindingSource(dictionary, null);
+                cmbPaymentType.DisplayMember = "Key";
+                cmbPaymentType.ValueMember = "Value";
             }
             catch (Exception ex)
             {
@@ -385,6 +421,11 @@ namespace ShopManagement.UI
                     MessageBox.Show("Please Key In Unit Purchase Price");
                     return;
                 }
+                if (string.IsNullOrEmpty(txtTotalUnit.Text))
+                {
+                    MessageBox.Show("Please Key In Unit");
+                    return;
+                }
 
                 decimal unitparchaseprice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
                 decimal totalUnit = Convert.ToDecimal(txtTotalUnit.Text);
@@ -466,6 +507,31 @@ namespace ShopManagement.UI
         private void ValidatePurchaseOrder()
         {
             //if()
+        }
+
+        private void btnRemoveCart_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Do you Want to remove this item?", "Alert", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    {
+                        if (dgvProduct.SelectedRows.Count == 1)
+                        {
+                            DataGridViewRow currentRow = dgvProduct.SelectedRows[0];
+                            string productId = this.dgvProduct.SelectedRows[0].Cells["ProductCode"].Value.ToString();
+
+                            int rowIndex = dgvProduct.CurrentCell.RowIndex;
+                            dgvProduct.Rows.RemoveAt(rowIndex);
+
+                            CalculateFinal();
+                            MessageBox.Show("Item Removed Successfully");
+                        }
+                    }
+                    break;
+                case DialogResult.No:
+                    break;
+            }
         }
     }
 }

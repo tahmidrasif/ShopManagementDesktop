@@ -37,7 +37,6 @@
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.btnCalculate = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -62,11 +61,15 @@
             this.label32 = new System.Windows.Forms.Label();
             this.lstFree = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtAdditionalDiscount = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkPaymentDue = new System.Windows.Forms.CheckBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.txtPaymentChange = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtPaymentDue = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbPaymentType = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbVendor = new System.Windows.Forms.ComboBox();
             this.txtGrandTotal = new System.Windows.Forms.TextBox();
@@ -85,10 +88,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
-            this.checkPaymentDue = new System.Windows.Forms.CheckBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtAdditionalDiscount = new System.Windows.Forms.TextBox();
+            this.btnRemoveCart = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -97,6 +97,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnRemoveCart);
             this.groupBox1.Controls.Add(this.txtTotalUnit);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.txtQty);
@@ -105,7 +106,6 @@
             this.groupBox1.Controls.Add(this.txtProductName);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnSearch);
-            this.groupBox1.Controls.Add(this.btnCalculate);
             this.groupBox1.Controls.Add(this.btnClear);
             this.groupBox1.Controls.Add(this.btnRemove);
             this.groupBox1.Controls.Add(this.btnUpdate);
@@ -212,17 +212,6 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // btnCalculate
-            // 
-            this.btnCalculate.Location = new System.Drawing.Point(375, 348);
-            this.btnCalculate.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(100, 28);
-            this.btnCalculate.TabIndex = 26;
-            this.btnCalculate.Text = "Calclulate";
-            this.btnCalculate.UseVisualStyleBackColor = true;
-            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // btnClear
             // 
@@ -393,6 +382,7 @@
             this.dgvProduct.Location = new System.Drawing.Point(672, 15);
             this.dgvProduct.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProduct.Name = "dgvProduct";
+            this.dgvProduct.ReadOnly = true;
             this.dgvProduct.Size = new System.Drawing.Size(1169, 601);
             this.dgvProduct.TabIndex = 14;
             this.dgvProduct.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProduct_CellClick);
@@ -478,7 +468,7 @@
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.txtPaymentDue);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.comboBox1);
+            this.groupBox4.Controls.Add(this.cmbPaymentType);
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.cmbVendor);
             this.groupBox4.Controls.Add(this.txtGrandTotal);
@@ -506,6 +496,48 @@
             this.groupBox4.TabIndex = 114;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Payment";
+            // 
+            // txtAdditionalDiscount
+            // 
+            this.txtAdditionalDiscount.Location = new System.Drawing.Point(175, 219);
+            this.txtAdditionalDiscount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAdditionalDiscount.Name = "txtAdditionalDiscount";
+            this.txtAdditionalDiscount.Size = new System.Drawing.Size(93, 28);
+            this.txtAdditionalDiscount.TabIndex = 178;
+            this.txtAdditionalDiscount.Text = "0";
+            this.txtAdditionalDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(13, 226);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(154, 21);
+            this.label9.TabIndex = 177;
+            this.label9.Text = "Additional Discount";
+            // 
+            // checkPaymentDue
+            // 
+            this.checkPaymentDue.AutoSize = true;
+            this.checkPaymentDue.Location = new System.Drawing.Point(882, 34);
+            this.checkPaymentDue.Margin = new System.Windows.Forms.Padding(4);
+            this.checkPaymentDue.Name = "checkPaymentDue";
+            this.checkPaymentDue.Size = new System.Drawing.Size(18, 17);
+            this.checkPaymentDue.TabIndex = 174;
+            this.checkPaymentDue.UseVisualStyleBackColor = true;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(722, 31);
+            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(39, 21);
+            this.label27.TabIndex = 173;
+            this.label27.Text = "Due";
             // 
             // txtPaymentChange
             // 
@@ -549,14 +581,14 @@
             this.label15.TabIndex = 169;
             this.label15.Text = "Pay Amount";
             // 
-            // comboBox1
+            // cmbPaymentType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(477, 83);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(195, 29);
-            this.comboBox1.TabIndex = 168;
+            this.cmbPaymentType.FormattingEnabled = true;
+            this.cmbPaymentType.Location = new System.Drawing.Point(477, 83);
+            this.cmbPaymentType.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbPaymentType.Name = "cmbPaymentType";
+            this.cmbPaymentType.Size = new System.Drawing.Size(195, 29);
+            this.cmbPaymentType.TabIndex = 168;
             // 
             // label14
             // 
@@ -750,47 +782,18 @@
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // checkPaymentDue
+            // btnRemoveCart
             // 
-            this.checkPaymentDue.AutoSize = true;
-            this.checkPaymentDue.Location = new System.Drawing.Point(882, 34);
-            this.checkPaymentDue.Margin = new System.Windows.Forms.Padding(4);
-            this.checkPaymentDue.Name = "checkPaymentDue";
-            this.checkPaymentDue.Size = new System.Drawing.Size(18, 17);
-            this.checkPaymentDue.TabIndex = 174;
-            this.checkPaymentDue.UseVisualStyleBackColor = true;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(722, 31);
-            this.label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(39, 21);
-            this.label27.TabIndex = 173;
-            this.label27.Text = "Due";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 226);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(154, 21);
-            this.label9.TabIndex = 177;
-            this.label9.Text = "Additional Discount";
-            // 
-            // txtAdditionalDiscount
-            // 
-            this.txtAdditionalDiscount.Location = new System.Drawing.Point(175, 219);
-            this.txtAdditionalDiscount.Margin = new System.Windows.Forms.Padding(4);
-            this.txtAdditionalDiscount.Name = "txtAdditionalDiscount";
-            this.txtAdditionalDiscount.Size = new System.Drawing.Size(93, 28);
-            this.txtAdditionalDiscount.TabIndex = 178;
-            this.txtAdditionalDiscount.Text = "0";
-            this.txtAdditionalDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.btnRemoveCart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnRemoveCart.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveCart.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRemoveCart.Location = new System.Drawing.Point(404, 350);
+            this.btnRemoveCart.Name = "btnRemoveCart";
+            this.btnRemoveCart.Size = new System.Drawing.Size(200, 59);
+            this.btnRemoveCart.TabIndex = 178;
+            this.btnRemoveCart.Text = "Remove From Cart";
+            this.btnRemoveCart.UseVisualStyleBackColor = false;
+            this.btnRemoveCart.Click += new System.EventHandler(this.btnRemoveCart_Click);
             // 
             // FormProductPurchase
             // 
@@ -822,7 +825,6 @@
         private System.Windows.Forms.TextBox txtProductName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button btnCalculate;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnUpdate;
@@ -867,7 +869,7 @@
         internal System.Windows.Forms.Label label17;
         internal System.Windows.Forms.TextBox txtPaymentDue;
         internal System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbPaymentType;
         internal System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cmbVendor;
         private System.Windows.Forms.ComboBox cmbSearch;
@@ -879,5 +881,6 @@
         internal System.Windows.Forms.Label label27;
         internal System.Windows.Forms.TextBox txtAdditionalDiscount;
         internal System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnRemoveCart;
     }
 }

@@ -28,5 +28,17 @@ namespace ShopManagement.DAL.Repository
             }
 
         }
+        public List<Vendor> GetAllVendors()
+        {
+            try
+            {
+                return db.Vendor.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

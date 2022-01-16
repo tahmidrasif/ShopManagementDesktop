@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -74,6 +77,8 @@
   <ItemGroup>
     <Compile Include="BLL\CategoryEntryBLL.cs" />
     <Compile Include="BLL\EnumarationBLL.cs" />
+    <Compile Include="BLL\Mapping\MappingConfig.cs" />
+    <Compile Include="BLL\Mapping\VendorMapper.cs" />
     <Compile Include="BLL\ProductBLL.cs" />
     <Compile Include="BLL\ProductPurchaseBLL.cs" />
     <Compile Include="BLL\Request\BaseEntryRequest.cs" />

@@ -8,6 +8,7 @@ namespace ShopManagement.BLL.ViewModel
 {
     public class VendorViewModel
     {
+        public long VendorId { get; set; }
         public string VendorName { get; set; }
         public string Address { get; set; }
         public string PhoneNo { get; set; }
