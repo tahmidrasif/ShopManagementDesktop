@@ -11,8 +11,9 @@ namespace ShopManagement.BLL.Mapping
 {
     public static class MappingConfig
     {
-        public static IMapper Mapper;
-        public static void InitializeAutoMapper()
+        public static readonly IMapper Mapper;
+
+        static MappingConfig()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -22,6 +23,16 @@ namespace ShopManagement.BLL.Mapping
 
             Mapper = config.CreateMapper();
         }
+        //public static void InitializeAutoMapper()
+        //{
+        //    var config = new MapperConfiguration(cfg =>
+        //    {
+        //        VendorMapper.Configure(cfg);
+
+        //    });
+
+        //    //Mapper = config.CreateMapper();
+        //}
 
         
     }

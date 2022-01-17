@@ -16,7 +16,7 @@ namespace ShopManagement
         [STAThread]
         static void Main()
         {
-            MappingConfig.InitializeAutoMapper();
+            //MappingConfig.InitializeAutoMapper();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());

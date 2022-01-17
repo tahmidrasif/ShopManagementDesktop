@@ -39,7 +39,6 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnRemove = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.txtSubTotalPurchasePrice = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -88,7 +87,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
-            this.btnRemoveCart = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -97,7 +95,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnRemoveCart);
             this.groupBox1.Controls.Add(this.txtTotalUnit);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.txtQty);
@@ -108,7 +105,6 @@
             this.groupBox1.Controls.Add(this.btnSearch);
             this.groupBox1.Controls.Add(this.btnClear);
             this.groupBox1.Controls.Add(this.btnRemove);
-            this.groupBox1.Controls.Add(this.btnUpdate);
             this.groupBox1.Controls.Add(this.btnAdd);
             this.groupBox1.Controls.Add(this.txtSubTotalPurchasePrice);
             this.groupBox1.Controls.Add(this.label10);
@@ -215,40 +211,32 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(404, 507);
+            this.btnClear.Location = new System.Drawing.Point(353, 507);
             this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(100, 28);
+            this.btnClear.Size = new System.Drawing.Size(135, 28);
             this.btnClear.TabIndex = 23;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(275, 507);
+            this.btnRemove.Location = new System.Drawing.Point(183, 507);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(100, 28);
+            this.btnRemove.Size = new System.Drawing.Size(135, 28);
             this.btnRemove.TabIndex = 22;
             this.btnRemove.Text = "Remove";
             this.btnRemove.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(140, 507);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(100, 28);
-            this.btnUpdate.TabIndex = 21;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(13, 507);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(100, 28);
+            this.btnAdd.Size = new System.Drawing.Size(135, 28);
             this.btnAdd.TabIndex = 20;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -383,9 +371,9 @@
             this.dgvProduct.Margin = new System.Windows.Forms.Padding(4);
             this.dgvProduct.Name = "dgvProduct";
             this.dgvProduct.ReadOnly = true;
+            this.dgvProduct.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProduct.Size = new System.Drawing.Size(1169, 601);
             this.dgvProduct.TabIndex = 14;
-            this.dgvProduct.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProduct_CellClick);
             // 
             // groupBox5
             // 
@@ -506,6 +494,7 @@
             this.txtAdditionalDiscount.TabIndex = 178;
             this.txtAdditionalDiscount.Text = "0";
             this.txtAdditionalDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAdditionalDiscount.TextChanged += new System.EventHandler(this.txtAdditionalDiscount_TextChanged);
             // 
             // label9
             // 
@@ -615,6 +604,7 @@
             this.txtGrandTotal.Location = new System.Drawing.Point(477, 34);
             this.txtGrandTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtGrandTotal.Name = "txtGrandTotal";
+            this.txtGrandTotal.ReadOnly = true;
             this.txtGrandTotal.Size = new System.Drawing.Size(195, 28);
             this.txtGrandTotal.TabIndex = 165;
             this.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -726,6 +716,7 @@
             this.txtPaymentOtherCharge.TabIndex = 142;
             this.txtPaymentOtherCharge.Text = "0";
             this.txtPaymentOtherCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPaymentOtherCharge.TextChanged += new System.EventHandler(this.txtPaymentOtherCharge_TextChanged);
             // 
             // txtPaymentDiscount
             // 
@@ -782,19 +773,6 @@
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // btnRemoveCart
-            // 
-            this.btnRemoveCart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnRemoveCart.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveCart.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRemoveCart.Location = new System.Drawing.Point(404, 350);
-            this.btnRemoveCart.Name = "btnRemoveCart";
-            this.btnRemoveCart.Size = new System.Drawing.Size(200, 59);
-            this.btnRemoveCart.TabIndex = 178;
-            this.btnRemoveCart.Text = "Remove From Cart";
-            this.btnRemoveCart.UseVisualStyleBackColor = false;
-            this.btnRemoveCart.Click += new System.EventHandler(this.btnRemoveCart_Click);
-            // 
             // FormProductPurchase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -827,7 +805,6 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtSubTotalPurchasePrice;
         private System.Windows.Forms.Label label10;
@@ -881,6 +858,5 @@
         internal System.Windows.Forms.Label label27;
         internal System.Windows.Forms.TextBox txtAdditionalDiscount;
         internal System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnRemoveCart;
     }
 }

@@ -36,20 +36,19 @@ namespace ShopManagement.UI
             LoadVendorCombo();
             CreateCartDataTable();
             btnAdd.Enabled = true;
-            btnUpdate.Enabled = false;
-            btnRemove.Enabled = false;
+            btnRemove.Enabled = true;
 
         }
 
         private void LoadVendorCombo()
         {
             IList<VendorViewModel> vendors = _serviceVendor.GetAllVendors();
-            if(vendors.Count>0)
+            if (vendors.Count > 0)
             {
                 cmbVendor.DataSource = vendors;
                 cmbVendor.DisplayMember = "VendorName";
                 cmbVendor.ValueMember = "VendorId";
-            }            
+            }
         }
 
         private void LoadSearchProductCombo()
@@ -212,17 +211,52 @@ namespace ShopManagement.UI
             txtDiscount.Text = "0";
             txtSubTotalPurchasePrice.Text = String.Empty;
             txtQty.Text = string.Empty;
+            productID = 0;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             try
             {
+                if (productID == 0)
+                {
+                    return;
+                }
 
+                if (Convert.ToDecimal(txtTotalUnit.Text) <= 0)
+                {
+                    MessageBox.Show("Please Key in Total Unit");
+                    return;
+                }
                 if (string.IsNullOrEmpty(txtSubTotalPurchasePrice.Text))
                 {
                     MessageBox.Show("Please Calculate Total Price");
                     return;
+                }
+
+                foreach (DataGridViewRow row in dgvProduct.Rows)
+                {
+                    long gvProdId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                    if (gvProdId == productID)
+                    {
+                        DialogResult dr = MessageBox.Show("This product is already added in the cart. Do you want to add more?", "Alert", MessageBoxButtons.YesNo);
+                        switch (dr)
+                        {
+                            case DialogResult.Yes:
+                                {
+                                    decimal existingqauntity = Convert.ToDecimal(row.Cells["Quantity"].Value);
+                                    decimal newQantity = Convert.ToDecimal(txtTotalUnit.Text);
+                                    txtTotalUnit.Text = (existingqauntity + newQantity).ToString();
+                                    int rowIndex = row.Index;
+                                    dgvProduct.Rows.RemoveAt(rowIndex);
+                                }
+                                break;
+                            case DialogResult.No:
+                                ClearControl();
+                                break;
+                        }
+                    }
+
                 }
 
                 DataRow drCart = dtCart.NewRow();
@@ -243,26 +277,7 @@ namespace ShopManagement.UI
 
                 dgvProduct.DataSource = dtCart;
 
-
-
-                //CartVM cartRequest = new CartVM();
-
-                //cartRequest.ProductID = productID;
-                //cartRequest.ProductName = txtProductName.Text;
-                //cartRequest.ProductCode = txtProductCode.Text;
-                //cartRequest.UnitSalesPrice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
-                //cartRequest.SPVat = Convert.ToDecimal(txtVat.Text);
-                //cartRequest.Quantity = Convert.ToDecimal(txtTotalUnit.Text);
-                //cartRequest.SPOtherCharge = Convert.ToDecimal(txtOtherCharge.Text);
-                //cartRequest.DiscountAmt = Convert.ToDecimal(txtDiscount.Text);
-                //cartRequest.SubTotal = Convert.ToDecimal(txtSubTotalPurchasePrice.Text);
-
-                //cartVMList.Add(cartRequest);
-
                 CalculateFinal();
-
-                
-
                 ClearControl();
             }
             catch (Exception ex)
@@ -278,33 +293,34 @@ namespace ShopManagement.UI
             try
             {
 
-            decimal totalPrice = 0;
-            decimal totalvat = 0;
-            decimal totaldiscount = 0;
+                decimal totalPrice = 0;
+                decimal totalvat = 0;
+                decimal totaldiscount = 0;
 
-            foreach (DataGridViewRow row in dgvProduct.Rows)
-            {
-                long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
-                int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
-                decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
-                decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
+                foreach (DataGridViewRow row in dgvProduct.Rows)
+                {
+                    long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                    int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                    decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
+                    decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
+                    decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
 
-                decimal totalUnitPrice = qauntity * unitprice;
-                totalPrice += totalUnitPrice;
-                totalvat += vat;
-                totaldiscount += discount;
+                    decimal totalUnitPrice = qauntity * unitprice;
+                    totalPrice += totalUnitPrice;
+                    totalvat += vat;
+                    totaldiscount += discount;
 
-            }
+                }
 
 
 
-            txtPaymentTotal.Text = totalPrice.ToString();
-            txtPaymentTotalVat.Text = totalvat.ToString();
+                txtPaymentTotal.Text = totalPrice.ToString();
+                txtPaymentTotalVat.Text = totalvat.ToString();
 
-            txtPaymentDiscount.Text = totaldiscount.ToString();
-
-            txtGrandTotal.Text = (totalPrice + totalvat + -totaldiscount).ToString();
+                txtPaymentDiscount.Text = totaldiscount.ToString();
+                decimal totalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
+                decimal additionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
+                txtGrandTotal.Text = (totalPrice + totalvat + -totaldiscount + totalOtherCharge - additionalDiscount).ToString();
 
             }
             catch (Exception ex)
@@ -386,31 +402,7 @@ namespace ShopManagement.UI
             //and on my constructor I set gridview.DataSource=Datatable;
         }
 
-        private void btnCalculate_Click(object sender, EventArgs e)
-        {
-            //try
-            //{
-            //    if (string.IsNullOrEmpty(txtUnitPurchasePrice.Text))
-            //    {
-            //        MessageBox.Show("Please Key In Unit Purchase Price");
-            //        return;
-            //    }
 
-            //    decimal unitparchaseprice = Convert.ToDecimal(txtUnitPurchasePrice.Text);
-            //    decimal totalUnit = Convert.ToDecimal(txtTotalUnit.Text);
-            //    decimal vat = Convert.ToDecimal(txtVat.Text);
-            //    //decimal otherCharge = Convert.ToDecimal(txtOtherCharge.Text);
-            //    decimal discount = Convert.ToDecimal(txtDiscount.Text);
-            //    decimal totalPrice = (unitparchaseprice * totalUnit) + vat  - discount;
-
-            //    txtSubTotalPurchasePrice.Text = totalPrice.ToString();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString());
-            //}
-
-        }
 
         private void Calculate()
         {
@@ -444,49 +436,24 @@ namespace ShopManagement.UI
 
         private void txtTotalUnit_TextChanged(object sender, EventArgs e)
         {
-
-            Calculate();
-
+            if (!string.IsNullOrEmpty(txtTotalUnit.Text))
+            {
+                if (System.Text.RegularExpressions.Regex.IsMatch(txtTotalUnit.Text, "[^0-9]"))
+                {
+                    MessageBox.Show("Please enter only numbers.");
+                    txtTotalUnit.Text = txtTotalUnit.Text.Remove(txtTotalUnit.Text.Length - 1);
+                    return;
+                }
+                Calculate();
+            }
         }
 
         private void txtUnitPurchasePrice_TextChanged(object sender, EventArgs e)
         {
-
             Calculate();
-
         }
 
-        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //try
-            //{
-            //    if (e.RowIndex != -1)
-            //    //if(dgvCategory.Rows.Count>0)
-            //    {
 
-            //        btnAdd.Enabled = false;
-            //        btnUpdate.Enabled = true;
-            //        btnRemove.Enabled = true;
-
-
-            //        dgvRow = dgvProduct.Rows[e.RowIndex];
-            //        dgvProduct.CurrentRow.Selected = true;
-
-
-            //        productID = Convert.ToInt64(dgvProduct.Rows[e.RowIndex].Cells[0].Value);
-            //        txtProductName.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryName"].FormattedValue.ToString();
-            //        txtCategoryCode.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryCode"].FormattedValue.ToString();
-            //        txtCategoryDesc.Text = dgvCategory.Rows[e.RowIndex].Cells["Description"].FormattedValue.ToString();
-
-
-            //    }
-            //}
-            //catch (Exception)
-            //{
-
-
-            //}
-        }
 
 
         private void txtVat_TextChanged(object sender, EventArgs e)
@@ -509,7 +476,19 @@ namespace ShopManagement.UI
             //if()
         }
 
-        private void btnRemoveCart_Click(object sender, EventArgs e)
+
+
+        private void txtPaymentOtherCharge_TextChanged(object sender, EventArgs e)
+        {
+            CalculateFinal();
+        }
+
+        private void txtAdditionalDiscount_TextChanged(object sender, EventArgs e)
+        {
+            CalculateFinal();
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Do you Want to remove this item?", "Alert", MessageBoxButtons.YesNo);
             switch (dr)
@@ -519,8 +498,12 @@ namespace ShopManagement.UI
                         if (dgvProduct.SelectedRows.Count == 1)
                         {
                             DataGridViewRow currentRow = dgvProduct.SelectedRows[0];
-                            string productId = this.dgvProduct.SelectedRows[0].Cells["ProductCode"].Value.ToString();
-
+                            string productId = this.dgvProduct.SelectedRows[0].Cells["ProductCode"].Value?.ToString();
+                            if (string.IsNullOrEmpty(productId))
+                            {
+                                MessageBox.Show("Please select correct Item");
+                                return;
+                            }
                             int rowIndex = dgvProduct.CurrentCell.RowIndex;
                             dgvProduct.Rows.RemoveAt(rowIndex);
 
@@ -532,6 +515,11 @@ namespace ShopManagement.UI
                 case DialogResult.No:
                     break;
             }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearControl();
         }
     }
 }

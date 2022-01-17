@@ -73,9 +73,7 @@ namespace ShopManagement.BLL
         {
             try
             {
-                //return new List<VendorViewModel>();
                 var vendors = _unitOfWork.repoVendor.GetAllVendors();
-                //return Mapper.Map<List<VendorViewModel>>(vendors);
                 var map= MappingConfig.Mapper.Map<List<Vendor>,List<VendorViewModel>>(vendors);
                 return map;
             }
