@@ -24,5 +24,11 @@ namespace ShopManagement.DAL.Repository
 
             return enumaration;
         }
+        public List<Enumaration> GetAllByTypeDescription(string type)
+        {
+            var enumaration = db.Enumaration.Where(x => x.TypeDecscription == type && x.IsActive == true).ToList();
+
+            return enumaration;
+        }
     }
 }

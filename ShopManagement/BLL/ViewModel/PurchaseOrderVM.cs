@@ -11,9 +11,12 @@ namespace ShopManagement.BLL.ViewModel
     {
         public long POrderID { get; set; }
         public string POrderCode { get; set; }
+        public string OrderType { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public Nullable<long> VendorID { get; set; }
+        public Nullable<bool> IsMasterInventoryOrder { get; set; }
+        public Nullable<long> BranchID { get; set; }
         public Nullable<long> Status { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
@@ -32,6 +35,6 @@ namespace ShopManagement.BLL.ViewModel
         public Nullable<decimal> TotalDue { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> AdditionalDiscount { get; set; }
-        List<PurchaseOrderDetails> OrderList { get; set; }
+        public List<PurchaseOrderDetailsVM> OrderList { get; set; }
     }
 }

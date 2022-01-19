@@ -204,7 +204,7 @@ namespace ShopManagement.UI
 
         private void LoadComboBox()
         {
-            var discountList = enumarationBLL.GetAllByQuery("001");
+            var discountList = enumarationBLL.GetAllByType("001");
 
             comboDiscountType.DataSource = discountList;
             comboDiscountType.ValueMember = "EnumID";

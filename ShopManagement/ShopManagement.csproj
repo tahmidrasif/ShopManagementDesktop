@@ -107,6 +107,7 @@
     <Compile Include="BLL\ViewModel\ProductListVM.cs" />
     <Compile Include="BLL\ViewModel\ProductSearchResultVM.cs" />
     <Compile Include="BLL\ViewModel\ProductViewModel.cs" />
+    <Compile Include="BLL\ViewModel\PurchaseOrderDetailsVM.cs" />
     <Compile Include="BLL\ViewModel\PurchaseOrderVM.cs" />
     <Compile Include="BLL\ViewModel\SubCatVM.cs" />
     <Compile Include="BLL\ViewModel\UnitVM.cs" />

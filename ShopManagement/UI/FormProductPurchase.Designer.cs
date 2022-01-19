@@ -64,7 +64,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.checkPaymentDue = new System.Windows.Forms.CheckBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.txtPaymentChange = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtPaymentDue = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -76,8 +75,7 @@
             this.btnOrder = new System.Windows.Forms.Button();
             this.txtPaymentRemarks = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtPaymentCashReceive = new System.Windows.Forms.TextBox();
+            this.txtAdvancedAmount = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -452,7 +450,6 @@
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.checkPaymentDue);
             this.groupBox4.Controls.Add(this.label27);
-            this.groupBox4.Controls.Add(this.txtPaymentChange);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.txtPaymentDue);
             this.groupBox4.Controls.Add(this.label15);
@@ -464,8 +461,7 @@
             this.groupBox4.Controls.Add(this.btnOrder);
             this.groupBox4.Controls.Add(this.txtPaymentRemarks);
             this.groupBox4.Controls.Add(this.label30);
-            this.groupBox4.Controls.Add(this.label28);
-            this.groupBox4.Controls.Add(this.txtPaymentCashReceive);
+            this.groupBox4.Controls.Add(this.txtAdvancedAmount);
             this.groupBox4.Controls.Add(this.label29);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.label13);
@@ -510,7 +506,7 @@
             // checkPaymentDue
             // 
             this.checkPaymentDue.AutoSize = true;
-            this.checkPaymentDue.Location = new System.Drawing.Point(882, 34);
+            this.checkPaymentDue.Location = new System.Drawing.Point(811, 35);
             this.checkPaymentDue.Margin = new System.Windows.Forms.Padding(4);
             this.checkPaymentDue.Name = "checkPaymentDue";
             this.checkPaymentDue.Size = new System.Drawing.Size(18, 17);
@@ -528,16 +524,6 @@
             this.label27.TabIndex = 173;
             this.label27.Text = "Due";
             // 
-            // txtPaymentChange
-            // 
-            this.txtPaymentChange.Location = new System.Drawing.Point(812, 122);
-            this.txtPaymentChange.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPaymentChange.Name = "txtPaymentChange";
-            this.txtPaymentChange.Size = new System.Drawing.Size(195, 28);
-            this.txtPaymentChange.TabIndex = 172;
-            this.txtPaymentChange.Text = "0";
-            this.txtPaymentChange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -554,6 +540,7 @@
             this.txtPaymentDue.Location = new System.Drawing.Point(811, 72);
             this.txtPaymentDue.Margin = new System.Windows.Forms.Padding(4);
             this.txtPaymentDue.Name = "txtPaymentDue";
+            this.txtPaymentDue.ReadOnly = true;
             this.txtPaymentDue.Size = new System.Drawing.Size(195, 28);
             this.txtPaymentDue.TabIndex = 170;
             this.txtPaymentDue.Text = "0";
@@ -566,9 +553,9 @@
             this.label15.Location = new System.Drawing.Point(317, 132);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(97, 21);
+            this.label15.Size = new System.Drawing.Size(133, 21);
             this.label15.TabIndex = 169;
-            this.label15.Text = "Pay Amount";
+            this.label15.Text = "Advance Amount";
             // 
             // cmbPaymentType
             // 
@@ -607,6 +594,7 @@
             this.txtGrandTotal.ReadOnly = true;
             this.txtGrandTotal.Size = new System.Drawing.Size(195, 28);
             this.txtGrandTotal.TabIndex = 165;
+            this.txtGrandTotal.Text = "0";
             this.txtGrandTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label35
@@ -653,26 +641,16 @@
             this.label30.TabIndex = 157;
             this.label30.Text = "Remarks";
             // 
-            // label28
+            // txtAdvancedAmount
             // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(721, 126);
-            this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(64, 21);
-            this.label28.TabIndex = 154;
-            this.label28.Text = "Change";
-            // 
-            // txtPaymentCashReceive
-            // 
-            this.txtPaymentCashReceive.Location = new System.Drawing.Point(477, 129);
-            this.txtPaymentCashReceive.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPaymentCashReceive.Name = "txtPaymentCashReceive";
-            this.txtPaymentCashReceive.Size = new System.Drawing.Size(195, 28);
-            this.txtPaymentCashReceive.TabIndex = 151;
-            this.txtPaymentCashReceive.Text = "0";
-            this.txtPaymentCashReceive.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAdvancedAmount.Location = new System.Drawing.Point(477, 129);
+            this.txtAdvancedAmount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAdvancedAmount.Name = "txtAdvancedAmount";
+            this.txtAdvancedAmount.Size = new System.Drawing.Size(195, 28);
+            this.txtAdvancedAmount.TabIndex = 151;
+            this.txtAdvancedAmount.Text = "0";
+            this.txtAdvancedAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtAdvancedAmount.TextChanged += new System.EventHandler(this.txtAdvancedAmount_TextChanged);
             // 
             // label29
             // 
@@ -831,8 +809,7 @@
         private System.Windows.Forms.Button btnOrder;
         internal System.Windows.Forms.TextBox txtPaymentRemarks;
         internal System.Windows.Forms.Label label30;
-        internal System.Windows.Forms.Label label28;
-        internal System.Windows.Forms.TextBox txtPaymentCashReceive;
+        internal System.Windows.Forms.TextBox txtAdvancedAmount;
         internal System.Windows.Forms.Label label29;
         internal System.Windows.Forms.Label label11;
         internal System.Windows.Forms.Label label13;
@@ -842,7 +819,6 @@
         internal System.Windows.Forms.Label label16;
         internal System.Windows.Forms.Label label26;
         internal System.Windows.Forms.TextBox txtPaymentTotal;
-        internal System.Windows.Forms.TextBox txtPaymentChange;
         internal System.Windows.Forms.Label label17;
         internal System.Windows.Forms.TextBox txtPaymentDue;
         internal System.Windows.Forms.Label label15;
