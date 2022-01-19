@@ -1,4 +1,6 @@
-﻿using ShopManagement.BLL.ViewModel;
+﻿using ShopManagement.BLL.Mapping;
+using ShopManagement.BLL.ViewModel;
+using ShopManagement.DAL.Model;
 using ShopManagement.DAL.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,11 +19,13 @@ namespace ShopManagement.BLL
             _unitOfWork = new UnitOfWork();
         }
 
-        public string PlaceOrder(PurchaseOrderVM purchaseOrder)
+        public string PlaceOrder(PurchaseOrderVM purchaseOrderVm)
         {
-            if (purchaseOrder != null)
+            if (purchaseOrderVm != null)
             {
-
+                PurchaseOrder oPo = new PurchaseOrder();
+                oPo.PurchaseOrderDetails = new List<PurchaseOrderDetails>();
+                var map = MappingConfig.Mapper.Map(purchaseOrderVm,oPo);
             }
             return "Success";
         }

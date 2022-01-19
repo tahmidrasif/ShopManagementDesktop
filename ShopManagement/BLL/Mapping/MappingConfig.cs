@@ -17,7 +17,11 @@ namespace ShopManagement.BLL.Mapping
         {
             var config = new MapperConfiguration(cfg =>
             {
+                cfg.AllowNullCollections = true;
                 VendorMapper.Configure(cfg);
+                
+                PurchaseOrderMapper.Configure(cfg);
+                PurchaseOrderDetailsMapper.Configure(cfg);
 
             });
 

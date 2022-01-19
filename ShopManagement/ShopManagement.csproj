@@ -78,6 +78,8 @@
     <Compile Include="BLL\CategoryEntryBLL.cs" />
     <Compile Include="BLL\EnumarationBLL.cs" />
     <Compile Include="BLL\Mapping\MappingConfig.cs" />
+    <Compile Include="BLL\Mapping\PurchaseOrderDetailsMapper.cs" />
+    <Compile Include="BLL\Mapping\PurchaseOrderMapper.cs" />
     <Compile Include="BLL\Mapping\VendorMapper.cs" />
     <Compile Include="BLL\ProductBLL.cs" />
     <Compile Include="BLL\ProductPurchaseBLL.cs" />

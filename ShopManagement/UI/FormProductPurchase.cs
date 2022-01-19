@@ -34,6 +34,7 @@ namespace ShopManagement.UI
             _serviceProduct = new ProductBLL();
             _serviceVendor = new VendorBLL();
             _serviceEnum = new EnumarationBLL();
+            _serviceProdPurchase = new ProductPurchaseBLL();
             LoadSearchProductCombo();
             LoadPaymentTypeCombo();
             LoadVendorCombo();
@@ -476,13 +477,14 @@ namespace ShopManagement.UI
 
                     foreach (DataGridViewRow row in dgvProduct.Rows)
                     {
+
                         PurchaseOrderDetailsVM oDetail = new PurchaseOrderDetailsVM();
                         oDetail.ProductID = Convert.ToInt64(row.Cells["ProductID"].Value);
                         oDetail.Quantity = Convert.ToInt64(row.Cells["Quantity"].Value);
                         oDetail.UnitPrice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
                         oDetail.TotalDiscount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
                         oDetail.TotalVat = Convert.ToDecimal(row.Cells["PPVat"].Value);
-                        oDetail.OtherCharge = Convert.ToDecimal(row.Cells["PPOtherCharge"].Value);
+                        //oDetail.OtherCharge = Convert.ToDecimal(row.Cells["PPOtherCharge"].Value);
                         oDetail.SubTotal = Convert.ToDecimal(row.Cells["SubTotal"].Value);
                         oDetail.CreatedBy = "Tahmid";
                         oDetail.CreatedOn = DateTime.Now;
