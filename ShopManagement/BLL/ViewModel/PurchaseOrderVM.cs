@@ -35,6 +35,6 @@ namespace ShopManagement.BLL.ViewModel
         public Nullable<decimal> TotalDue { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> AdditionalDiscount { get; set; }
-        public List<PurchaseOrderDetailsVM> OrderList { get; set; }
+        public List<PurchaseOrderDetailsVM> PurchaseOrderDetails { get; set; }
     }
 }

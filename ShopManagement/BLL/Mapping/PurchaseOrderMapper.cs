@@ -14,7 +14,7 @@ namespace ShopManagement.BLL.Mapping
         public static void Configure(IMapperConfigurationExpression cfg)
         {
             cfg.CreateMap<PurchaseOrder, PurchaseOrderVM>().
-                ForMember(dest => dest.OrderList, source => source.MapFrom(x => x.PurchaseOrderDetails))
+                ForMember(dest => dest.PurchaseOrderDetails, source => source.MapFrom(x => x.PurchaseOrderDetails))
                 .ReverseMap();
 
 

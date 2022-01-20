@@ -21,13 +21,33 @@ namespace ShopManagement.BLL
 
         public string PlaceOrder(PurchaseOrderVM purchaseOrderVm)
         {
-            if (purchaseOrderVm != null)
+            try
             {
-                PurchaseOrder oPo = new PurchaseOrder();
-                oPo.PurchaseOrderDetails = new List<PurchaseOrderDetails>();
-                var map = MappingConfig.Mapper.Map(purchaseOrderVm,oPo);
+
+
+                if (purchaseOrderVm != null)
+                {
+                    //PurchaseOrder oPo = null;
+                    //oPo.PurchaseOrderDetails = new List<PurchaseOrderDetails>();
+                    //var map=MappingConfig.Mapper.Map(purchaseOrderVm, oPo);
+                    PurchaseOrder oPo = MappingConfig.Mapper.Map<PurchaseOrderVM, PurchaseOrder>(purchaseOrderVm);
+                    if (oPo == null)
+                    {
+                        return "Failed To Map";
+                    }
+                    _unitOfWork.BeginTrnsaction();
+                    _unitOfWork.repoPurchaseOrder.Add(oPo);
+                    _unitOfWork.Save();
+                    _unitOfWork.CommitTransaction();
+    
             }
-            return "Success";
+                return "Success";
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollbackTransaction();
+                return ex.Message;
+            }
         }
     }
 }

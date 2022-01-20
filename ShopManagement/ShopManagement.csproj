@@ -208,6 +208,7 @@
     <Compile Include="DAL\Repository\OrderRepository.cs" />
     <Compile Include="DAL\Repository\PaymentRepository.cs" />
     <Compile Include="DAL\Repository\ProductRepository.cs" />
+    <Compile Include="DAL\Repository\PurchaseOrderRepository.cs" />
     <Compile Include="DAL\Repository\SalesProductRepository.cs" />
     <Compile Include="DAL\Repository\StockRepository.cs" />
     <Compile Include="DAL\Repository\UnitOfWork.cs" />

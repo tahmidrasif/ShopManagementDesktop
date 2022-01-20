@@ -25,7 +25,7 @@ namespace ShopManagement.DAL.Repository
 
             if (productId>0)
             {
-                objStock = db.Stock.SingleOrDefault(x => x.ProductID == productId);
+                objStock = db.Stock.FirstOrDefault(x => x.ProductID == productId);
                 return objStock;
             }
 

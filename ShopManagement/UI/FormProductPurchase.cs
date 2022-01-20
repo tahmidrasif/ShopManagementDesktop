@@ -473,7 +473,7 @@ namespace ShopManagement.UI
                     opvm.TotalAdvance = Convert.ToDecimal(txtAdvancedAmount.Text);
                     opvm.TotalDue = Convert.ToDecimal(txtPaymentDue.Text);
 
-                    opvm.OrderList = new List<PurchaseOrderDetailsVM>();
+                    opvm.PurchaseOrderDetails = new List<PurchaseOrderDetailsVM>();
 
                     foreach (DataGridViewRow row in dgvProduct.Rows)
                     {
@@ -490,7 +490,7 @@ namespace ShopManagement.UI
                         oDetail.CreatedOn = DateTime.Now;
                         oDetail.IsActive = true;
 
-                        opvm.OrderList.Add(oDetail);
+                        opvm.PurchaseOrderDetails.Add(oDetail);
                     }
 
                     string msg = _serviceProdPurchase.PlaceOrder(opvm);

@@ -98,6 +98,14 @@ namespace ShopManagement.DAL.Repository
             }
         }
 
+        public PurchaseOrderRepository repoPurchaseOrder
+        {
+            get
+            {
+                return new PurchaseOrderRepository();
+            }
+        }
+
         public UnitOfWork()
         {
             context = new ShopDBEntities();
