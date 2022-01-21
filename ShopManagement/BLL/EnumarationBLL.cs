@@ -10,16 +10,17 @@ namespace ShopManagement.BLL
 {
     public class EnumarationBLL
     {
-        UnitOfWork oUnitOfWork;
+        private UnitOfWork _unitOfWork ;
         public EnumarationBLL()
         {
-            oUnitOfWork = new UnitOfWork();
+            //oUnitOfWork = new UnitOfWork();
         }
 
 
         public List<EnumarationResponse> GetAllByType(string type)
         {
-            var objEnumList = oUnitOfWork.repoEnum.GetAll(type);
+            _unitOfWork = new UnitOfWork();
+            var objEnumList = _unitOfWork.repoEnum.GetAll(type);
             List<EnumarationResponse> objRespList = new List<EnumarationResponse>();
             if (objEnumList.Count>0)
             {
@@ -44,7 +45,8 @@ namespace ShopManagement.BLL
 
         public List<EnumarationResponse> GetAllByTypeDescription(string typeDescription)
         {
-            var objEnumList = oUnitOfWork.repoEnum.GetAllByTypeDescription(typeDescription);
+            _unitOfWork = new UnitOfWork();
+            var objEnumList = _unitOfWork.repoEnum.GetAllByTypeDescription(typeDescription);
             List<EnumarationResponse> objRespList = new List<EnumarationResponse>();
             if (objEnumList.Count > 0)
             {

@@ -10,11 +10,12 @@ namespace ShopManagement.DAL.Repository
 {
     public class UnitRepository:BaseRepository
     {
-        // public UnitRepository(ShopDBEntities context)
-        //{
-        //    db = context;
-        //}
-         public UnitRepository()
+        private ShopDBEntities db;
+        public UnitRepository(ShopDBEntities context)
+        {
+            db = context;
+        }
+        public UnitRepository()
         {
 
         }

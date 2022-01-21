@@ -9,10 +9,11 @@ namespace ShopManagement.DAL.Repository
 {
     public class PaymentRepository:BaseRepository
     {
-        //public PaymentRepository(ShopDBEntities context)
-        //{
-        //    db = context;
-        //}
+        private ShopDBEntities db;
+        public PaymentRepository(ShopDBEntities context)
+        {
+            db = context;
+        }
         public PaymentRepository()
         {
 

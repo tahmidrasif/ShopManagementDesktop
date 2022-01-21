@@ -16,7 +16,7 @@ namespace ShopManagement.BLL
 {
     public class SalesProductBLL
     {
-        UnitOfWork oUnitOfWork;
+        private UnitOfWork _unitOfWork;
         private long errorProductId = 0;
         private string errorProductName = "";
         private int SalesStepCount = 0;
@@ -36,7 +36,7 @@ namespace ShopManagement.BLL
             //repoPayment = new PaymentRepository();
             //repoOrder = new OrderRepository();
             cartVMList = new List<CartVM>();
-            oUnitOfWork = new UnitOfWork();
+            //_unitOfWork = new UnitOfWork();
         }
 
 
@@ -44,10 +44,11 @@ namespace ShopManagement.BLL
         {
             try
             {
+                _unitOfWork = new UnitOfWork();
                 SalesProductSearchResponse objSalesProdSearch = new SalesProductSearchResponse();
                 if (true)
                 {
-                    var results = oUnitOfWork.repoProduct.GetAllByProductCode(productcode);
+                    var results = _unitOfWork.repoProduct.GetAllByProductCode(productcode);
 
                     if (results.Count == 0)
                     {
@@ -63,7 +64,7 @@ namespace ShopManagement.BLL
                         foreach (var result in results)
                         {
                             var stock = GetStockByProductId(result.ProductID);
-                            var productPrice = oUnitOfWork.repoProduct.GetSingleProductPrice(result.ProductID);
+                            var productPrice = _unitOfWork.repoProduct.GetSingleProductPrice(result.ProductID);
 
                             ProductSearchResultVM prodSearchResultVm = new ProductSearchResultVM();
                             prodSearchResultVm.ProductID = result.ProductID;
@@ -103,7 +104,8 @@ namespace ShopManagement.BLL
         {
             try
             {
-                return oUnitOfWork.repoStock.GetByProductId((long)id);
+                _unitOfWork = new UnitOfWork();
+                return _unitOfWork.repoStock.GetByProductId((long)id);
             }
             catch (Exception ex)
             {
@@ -116,7 +118,8 @@ namespace ShopManagement.BLL
         {
             try
             {
-                return  (decimal)oUnitOfWork.repoStock.GetByProductId(id)?.Quantity;
+                _unitOfWork = new UnitOfWork();
+                return  (decimal)_unitOfWork.repoStock.GetByProductId(id)?.Quantity;
             }
             catch (Exception ex)
             {
@@ -129,7 +132,8 @@ namespace ShopManagement.BLL
         {
             try
             {
-                return oUnitOfWork.repoUnit.GetSingleById((long)id);
+                _unitOfWork = new UnitOfWork();
+                return _unitOfWork.repoUnit.GetSingleById((long)id);
             }
             catch (Exception ex)
             {
@@ -142,7 +146,8 @@ namespace ShopManagement.BLL
         {
             try
             {
-                return oUnitOfWork.repoUnit.GetByUnitType(type);
+                _unitOfWork = new UnitOfWork();
+                return _unitOfWork.repoUnit.GetByUnitType(type);
             }
             catch (Exception ex)
             {
@@ -241,6 +246,7 @@ namespace ShopManagement.BLL
 
         public PaymentResponse SellProduct(PaymentRequest pr)
         {
+            _unitOfWork = new UnitOfWork();
             Order oOrder = new Order();
             List<OrderDetails> oDetailsList = new List<OrderDetails>();
             Payment oPayment = new Payment();
@@ -285,16 +291,16 @@ namespace ShopManagement.BLL
                 oPayment.IsActive = true;
                 //Payment Ends
 
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoOrder.Add(oOrder);
-                oUnitOfWork.Save();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoOrder.Add(oOrder);
+                _unitOfWork.Save();
                 SalesStepCount++;
                 //Order Details
                 foreach (var item in pr.ODetails)
                 {
                     long cartProdId = Convert.ToInt64(item.DProductID);
                     errorProductId = cartProdId;
-                    var product = oUnitOfWork.repoProduct.GetProduct(cartProdId);
+                    var product = _unitOfWork.repoProduct.GetProduct(cartProdId);
                     errorProductName = product.Name;
                     decimal cartProdQty = item.DQuantity;
                     decimal productStockQty = (decimal)GetStockCountByProductId(cartProdId);
@@ -319,25 +325,25 @@ namespace ShopManagement.BLL
                         oDetailsList.Add(oDetails);
 
 
-                        var stock = oUnitOfWork.repoStock.GetByProductId(item.DProductID);
+                        var stock = _unitOfWork.repoStock.GetByProductId(item.DProductID);
                         stock.Quantity -= item.DQuantity;
                         //stock.UpdatedBy = createdBy;
                         //stock.UpdatedOn = createdOn;
-                        //oUnitOfWork.repoStock.Update(stock);
-                        //oUnitOfWork.Save();
+                        //_unitOfWork.repoStock.Update(stock);
+                        //_unitOfWork.Save();
 
                         SqlParameter[] parameters = new SqlParameter[]
                         {
                             new SqlParameter("@ProductId", item.DProductID),
                             new SqlParameter("@Qty", item.DQuantity)
                         };
-                        int count = oUnitOfWork.repoBaseSp.ExecuteNonQuery("SP_UpdateStock", CommandType.StoredProcedure,
+                        int count = _unitOfWork.repoBaseSp.ExecuteNonQuery("SP_UpdateStock", CommandType.StoredProcedure,
                             parameters);
                     }
 
                     else
                     {
-                        oUnitOfWork.RollbackTransaction();
+                        _unitOfWork.RollbackTransaction();
                         oresp = new PaymentResponse()
                         {
                             ResponseCode = "999",
@@ -350,16 +356,16 @@ namespace ShopManagement.BLL
                 SalesStepCount++;
                 //Order Details End
 
-                oUnitOfWork.repoOrder.AddOrderDetails(oDetailsList);
-                oUnitOfWork.Save();
+                _unitOfWork.repoOrder.AddOrderDetails(oDetailsList);
+                _unitOfWork.Save();
 
                 oPayment.OrderId = oOrder.OrderID;
-                oUnitOfWork.repoPayment.Add(oPayment);
-                oUnitOfWork.Save();
+                _unitOfWork.repoPayment.Add(oPayment);
+                _unitOfWork.Save();
 
                 SalesStepCount++;
 
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.CommitTransaction();
 
                 oresp = new PaymentResponse()
                 {
@@ -372,7 +378,7 @@ namespace ShopManagement.BLL
             }
             //catch (SqlException ex)
             //{
-            //    oUnitOfWork.RollbackTransaction();
+            //    _unitOfWork.RollbackTransaction();
             //    oresp = new PaymentResponse()
             //    {
             //        ResponseCode = "999",
@@ -382,7 +388,8 @@ namespace ShopManagement.BLL
             //}
             catch (Exception ex)
             {
-                oUnitOfWork.RollbackTransaction();
+
+                _unitOfWork.RollbackTransaction();
                 if (SalesStepCount == 1)
                 {
                     oresp = new PaymentResponse()

@@ -12,19 +12,18 @@ namespace ShopManagement.BLL
 {
     public class ProductPurchaseBLL
     {
-        private readonly UnitOfWork _unitOfWork;
+        private  UnitOfWork _unitOfWork;
 
         public ProductPurchaseBLL()
         {
-            _unitOfWork = new UnitOfWork();
+            //_unitOfWork = new UnitOfWork();
         }
 
         public string PlaceOrder(PurchaseOrderVM purchaseOrderVm)
         {
             try
             {
-
-
+                _unitOfWork = new UnitOfWork();
                 if (purchaseOrderVm != null)
                 {
                     //PurchaseOrder oPo = null;

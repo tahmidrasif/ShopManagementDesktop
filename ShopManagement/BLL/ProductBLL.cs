@@ -14,10 +14,11 @@ namespace ShopManagement.BLL
         private UnitOfWork _unitOfWork;
         public ProductBLL()
         {
-            _unitOfWork = new UnitOfWork();
+            //_unitOfWork = new UnitOfWork();
         }
         public List<CategoryVM> GetAllCategory()
         {
+            _unitOfWork = new UnitOfWork();
             List<CategoryVM> categoryVmList = new List<CategoryVM>();
             var categoryList = _unitOfWork.repoCategory.GetAllCategories();
             if (categoryList != null && categoryList.Count > 0)
@@ -45,6 +46,7 @@ namespace ShopManagement.BLL
 
         public List<ProductViewModel> GetAllProducts()
         {
+            _unitOfWork = new UnitOfWork();
             List<ProductViewModel> productvmList = new List<ProductViewModel>();
             var productList = _unitOfWork.repoProduct.GetAll();
             if (productList.Count > 0)
@@ -54,6 +56,7 @@ namespace ShopManagement.BLL
 
         private List<ProductViewModel> MapProductsToViewModel(List<Product> products)
         {
+            _unitOfWork = new UnitOfWork();
             List<ProductViewModel> productvmList = new List<ProductViewModel>();
             foreach (var product in products)
             {
@@ -96,6 +99,7 @@ namespace ShopManagement.BLL
         {
             try
             {
+                _unitOfWork = new UnitOfWork();
                 Product objProduct = new Product();
                 ProductPrice objProductPrice = new ProductPrice();
                 Stock objStock = new Stock();
@@ -159,6 +163,7 @@ namespace ShopManagement.BLL
 
         private bool IsProductAlreadyAvailable(string productName, string productCode)
         {
+            _unitOfWork = new UnitOfWork();
             var productByName = _unitOfWork.repoProduct.GetSingleByProductName(productName);
             if (productByName != null)
             {
@@ -176,6 +181,7 @@ namespace ShopManagement.BLL
         {
             try
             {
+                _unitOfWork = new UnitOfWork();
                 var product = _unitOfWork.repoProduct.GetProduct(porductID);
                 ProductViewModel obj = new ProductViewModel();
                 obj.ProductCode = product.ProductCode;
@@ -216,6 +222,7 @@ namespace ShopManagement.BLL
         {
             try
             {
+                _unitOfWork = new UnitOfWork();
                 Product objProduct = null;
                 ProductPrice objProductPrice = null;
                 Stock objStock = new Stock();
@@ -280,6 +287,7 @@ namespace ShopManagement.BLL
         {
             try
             {
+                _unitOfWork = new UnitOfWork();
                 Product objProduct = null;
                 ProductPrice objProductPrice = null;
                 objProduct = _unitOfWork.repoProduct.GetProduct(porductID);
@@ -311,6 +319,7 @@ namespace ShopManagement.BLL
             List<ProductViewModel> ovm = new List<ProductViewModel>();
             if (!string.IsNullOrEmpty(productName))
             {
+                _unitOfWork = new UnitOfWork();
                 var products = _unitOfWork.repoProduct.GetListByProductName(productName);
                 if (products.Count > 0)
                 {
@@ -324,6 +333,7 @@ namespace ShopManagement.BLL
             List<ProductViewModel> ovm = new List<ProductViewModel>();
             if (!string.IsNullOrEmpty(productCode))
             {
+                _unitOfWork = new UnitOfWork();
                 var products = _unitOfWork.repoProduct.GetAllByProductCode(productCode);
                 if (products.Count > 0)
                 {

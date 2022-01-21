@@ -12,18 +12,19 @@ namespace ShopManagement.BLL
 {
     public class UnitBLL
     {
-        UnitOfWork oUnitOfWork;
+        private UnitOfWork _unitOfWork;
 
         public UnitBLL()
         {
-            oUnitOfWork=new UnitOfWork();
+            //oUnitOfWork=new UnitOfWork();
         }
         public List<UnitVM> GetAllUnit()
         {
             List<UnitVM> lstunitvm=new List<UnitVM>();
             try
             {
-                var unitList= oUnitOfWork.repoUnit.GetAll();
+                _unitOfWork = new UnitOfWork();
+                var unitList= _unitOfWork.repoUnit.GetAll();
                 foreach (var unit in unitList)
                 {
                     UnitVM oUnitVm = new UnitVM()

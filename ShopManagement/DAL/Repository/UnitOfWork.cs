@@ -30,7 +30,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new OrderRepository();
+                return new OrderRepository(context);
             }
         }
 
@@ -38,7 +38,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new ProductRepository() ;
+                return new ProductRepository(context) ;
             }
         }
 
@@ -46,7 +46,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return  new StockRepository();
+                return  new StockRepository(context);
             }
         }
 
@@ -54,7 +54,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new UnitRepository();
+                return new UnitRepository(context);
             }
         }
 
@@ -62,7 +62,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return  new PaymentRepository();
+                return  new PaymentRepository(context);
             }
         }
 
@@ -70,7 +70,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new EnumarationRepository();
+                return new EnumarationRepository(context);
             }
         }
 
@@ -78,7 +78,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new CategoryRepository() ;
+                return new CategoryRepository(context) ;
             }
         }
 
@@ -86,7 +86,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new BaseSPRepository();
+                return new BaseSPRepository(context);
             }
         }
 
@@ -94,7 +94,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return  new VendorRepository();
+                return  new VendorRepository(context);
             }
         }
 
@@ -102,7 +102,7 @@ namespace ShopManagement.DAL.Repository
         {
             get
             {
-                return new PurchaseOrderRepository();
+                return new PurchaseOrderRepository(context);
             }
         }
 

@@ -33,10 +33,10 @@ namespace ShopManagement.DAL.Repository
         public DbSet dbSet;
         private bool _disposed = false;
 
-        public BaseSPRepository()
+        public BaseSPRepository(ShopDBEntities context)
         {
 
-            //dbSet = db.Set();
+            db = context;
         }
 
         //public ICollection ExcuteSqlQuery(string sqlQuery, CommandType commandType, SqlParameter[] parameters = null)

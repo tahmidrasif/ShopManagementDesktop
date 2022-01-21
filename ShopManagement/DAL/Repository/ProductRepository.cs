@@ -10,9 +10,14 @@ namespace ShopManagement.DAL.Repository
 {
     public class ProductRepository:BaseRepository
     {
+        private ShopDBEntities db;
         public ProductRepository()
         {
 
+        }
+        public ProductRepository(ShopDBEntities context)
+        {
+            db = context;
         }
 
         public List<Product> GetAllByProductCode(string productCode)

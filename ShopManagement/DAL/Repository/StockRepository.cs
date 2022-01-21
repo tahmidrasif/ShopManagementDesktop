@@ -10,12 +10,13 @@ namespace ShopManagement.DAL.Repository
 {
     public class StockRepository : BaseRepository
     {
-         //private ShopDBEntities db=new ShopDBEntities();
-        // public StockRepository(ShopDBEntities context)
-        //{
-        //    db = context;
-        //}
-         public StockRepository()
+        //private ShopDBEntities db=new ShopDBEntities();
+        private ShopDBEntities db;
+        public StockRepository(ShopDBEntities context)
+        {
+            db = context;
+        }
+        public StockRepository()
         {
             //db = context;
         }

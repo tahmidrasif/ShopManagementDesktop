@@ -9,10 +9,14 @@ namespace ShopManagement.DAL.Repository
 {
     public class SalesProductRepository : BaseRepository
     {
-
+        private ShopDBEntities db;
         public SalesProductRepository(ShopDBEntities context)
         {
-       
+            db = context;
+        }
+        public SalesProductRepository()
+        {
+            
         }
         public List<SalesProductViewModel> SearchSalesProduct(string productCode)
         {

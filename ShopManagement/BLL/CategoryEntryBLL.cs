@@ -13,20 +13,21 @@ namespace ShopManagement.BLL.Request
 {
     public class CategoryEntryBLL
     {
-        UnitOfWork oUnitOfWork;
+        private UnitOfWork _unitOfWork;
         private CategorySearchResponse response;
         private SubCatSearchResponse subcatresponse;
         private CrudResponse crudResponse;
         public CategoryEntryBLL()
         {
-            oUnitOfWork = new UnitOfWork();
+            
             response = new CategorySearchResponse();
         }
 
         public CategorySearchResponse GetAllCategory()
         {
+            _unitOfWork = new UnitOfWork();
             List<CategoryVM> cvmList = new List<CategoryVM>();
-            var categories = oUnitOfWork.repoCategory.GetAllCategories();
+            var categories = _unitOfWork.repoCategory.GetAllCategories();
             if (categories != null)
             {
                 foreach (var item in categories)
@@ -57,23 +58,24 @@ namespace ShopManagement.BLL.Request
 
         public CategorySearchResponse GetCategoryByProductNameOrCode(string txtSearch, string type)
         {
+            _unitOfWork = new UnitOfWork();
             List<Category> categories = new List<Category>();
             if (!string.IsNullOrEmpty(txtSearch))
             {
                 if (type == "Name")
                 {
                     categories =
-                        oUnitOfWork.repoCategory.GetCategoryByNameOrCode(x => x.CategoryName.Contains(txtSearch));
+                        _unitOfWork.repoCategory.GetCategoryByNameOrCode(x => x.CategoryName.Contains(txtSearch));
                 }
                 if (type == "Code")
                 {
                     categories =
-                        oUnitOfWork.repoCategory.GetCategoryByNameOrCode(x => x.CategoryCode == txtSearch);
+                        _unitOfWork.repoCategory.GetCategoryByNameOrCode(x => x.CategoryCode == txtSearch);
                 }
             }
             //else
             //{
-            //    categories = oUnitOfWork.repoCategory.GetCategoryByNameOrCode(null);
+            //    categories = _unitOfWork.repoCategory.GetCategoryByNameOrCode(null);
             //}
             if (categories.Count > 0)
             {
@@ -107,7 +109,8 @@ namespace ShopManagement.BLL.Request
 
         public bool IsCatCodeExist(string categoryCode)
         {
-            Category cat = oUnitOfWork.repoCategory.GetCategory(x => x.CategoryCode == categoryCode);
+            _unitOfWork = new UnitOfWork();
+            Category cat = _unitOfWork.repoCategory.GetCategory(x => x.CategoryCode == categoryCode);
             if (cat == null)
                 return false;
             return true;
@@ -115,7 +118,8 @@ namespace ShopManagement.BLL.Request
 
         public bool IsCatNameExist(string categoryCode)
         {
-            Category cat = oUnitOfWork.repoCategory.GetCategory(x => x.CategoryName == categoryCode);
+            _unitOfWork = new UnitOfWork();
+            Category cat = _unitOfWork.repoCategory.GetCategory(x => x.CategoryName == categoryCode);
             if (cat == null)
                 return false;
             return true;
@@ -123,6 +127,7 @@ namespace ShopManagement.BLL.Request
 
         public void InsertCategory(CategoryEntryRequest oCategoryEntryRequest)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
                 Category oCategory = new Category()
@@ -134,14 +139,14 @@ namespace ShopManagement.BLL.Request
                     CreatedOn = DateTime.Now,
                     IsActive = true
                 };
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.Add(oCategory);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.Add(oCategory);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
             }
             catch (Exception ex)
             {
-                oUnitOfWork.RollbackTransaction();
+                _unitOfWork.RollbackTransaction();
                 throw ex;
             }
 
@@ -149,10 +154,11 @@ namespace ShopManagement.BLL.Request
 
         public CategoryVM GetCategoryByID(long CategoryId)
         {
+            _unitOfWork = new UnitOfWork();
 
             try
             {
-                var cat = oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
+                var cat = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
                 CategoryVM oVm = new CategoryVM()
                 {
                     CategoryID = cat.CategoryID,
@@ -171,9 +177,10 @@ namespace ShopManagement.BLL.Request
 
         public CrudResponse UpdateCategory(long CategoryId, CategoryUpdateRequest oCatUpd)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
-                Category objCat = oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
+                Category objCat = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
                 if (objCat == null)
                 {
                     crudResponse = new CrudResponse()
@@ -188,10 +195,10 @@ namespace ShopManagement.BLL.Request
                 objCat.UpdatedBy = oCatUpd.UserName;
                 objCat.UpdatedOn = DateTime.Now;
 
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.Update(objCat);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.Update(objCat);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
 
                 crudResponse = new CrudResponse()
                 {
@@ -209,9 +216,10 @@ namespace ShopManagement.BLL.Request
 
         public CrudResponse DeleteCategory(long CategoryId)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
-                Category objCat = oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
+                Category objCat = _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == CategoryId);
                 if (objCat == null)
                 {
                     crudResponse = new CrudResponse()
@@ -221,10 +229,10 @@ namespace ShopManagement.BLL.Request
                     };
                     return crudResponse;
                 }
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.Delete(CategoryId, objCat);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.Delete(CategoryId, objCat);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
 
                 crudResponse = new CrudResponse()
                 {
@@ -235,13 +243,14 @@ namespace ShopManagement.BLL.Request
             }
             catch (Exception ex)
             {
-                oUnitOfWork.RollbackTransaction();
+                _unitOfWork.RollbackTransaction();
                 throw ex;
             }
         }
 
         public SubCatSearchResponse GetSubCategory(string txtSearch, string type)
         {
+            _unitOfWork = new UnitOfWork();
             List<SubCategory> subCategories = new List<SubCategory>();
             subcatresponse = new SubCatSearchResponse();
             if (!string.IsNullOrEmpty(txtSearch))
@@ -249,12 +258,12 @@ namespace ShopManagement.BLL.Request
                 if (type == "Name")
                 {
                     subCategories =
-                        oUnitOfWork.repoCategory.GetSubCategory(x => x.Name.Contains(txtSearch));
+                        _unitOfWork.repoCategory.GetSubCategory(x => x.Name.Contains(txtSearch));
                 }
                 if (type == "Code")
                 {
                     subCategories =
-                        oUnitOfWork.repoCategory.GetSubCategory(x => x.SubCategoryCode == txtSearch);
+                        _unitOfWork.repoCategory.GetSubCategory(x => x.SubCategoryCode == txtSearch);
                 }
             }
           
@@ -271,7 +280,7 @@ namespace ShopManagement.BLL.Request
                     cvm.Description = item.Description;
                     cvm.CategoryID = (long)item.CategoryID;
                     cvm.CategoryName =
-                        oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
+                        _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
                     cvmList.Add(cvm);
                 }
 
@@ -290,12 +299,13 @@ namespace ShopManagement.BLL.Request
 
         public SubCatSearchResponse GetAllSubCategory()
         {
+            _unitOfWork = new UnitOfWork();
             List<SubCategory> subCategories = new List<SubCategory>();
             subcatresponse = new SubCatSearchResponse();
 
 
 
-            subCategories = oUnitOfWork.repoCategory.GetSubCategory(null);
+            subCategories = _unitOfWork.repoCategory.GetSubCategory(null);
 
             if (subCategories.Count > 0)
             {
@@ -310,7 +320,7 @@ namespace ShopManagement.BLL.Request
                     cvm.Description = item.Description;
                     cvm.CategoryID = (long)item.CategoryID;
                     cvm.CategoryName =
-                        oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
+                        _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
                     cvmList.Add(cvm);
                 }
 
@@ -330,12 +340,13 @@ namespace ShopManagement.BLL.Request
 
         public SubCatSearchResponse GetAllSubCategoryByCategoryId(long categoryId)
         {
+            _unitOfWork = new UnitOfWork();
             List<SubCategory> subCategories = new List<SubCategory>();
             subcatresponse = new SubCatSearchResponse();
 
 
 
-            subCategories = oUnitOfWork.repoCategory.GetSubCategory(x => x.CategoryID == categoryId);
+            subCategories = _unitOfWork.repoCategory.GetSubCategory(x => x.CategoryID == categoryId);
 
             if (subCategories.Count > 0)
             {
@@ -350,7 +361,7 @@ namespace ShopManagement.BLL.Request
                     cvm.Description = item.Description;
                     cvm.CategoryID = (long)item.CategoryID;
                     cvm.CategoryName =
-                        oUnitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
+                        _unitOfWork.repoCategory.GetCategory(x => x.CategoryID == item.CategoryID).CategoryName;
                     cvmList.Add(cvm);
                 }
 
@@ -369,6 +380,7 @@ namespace ShopManagement.BLL.Request
 
         public CrudResponse InsertSubCategory(SubCatEntryRequest osubcatentryReq)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
                 SubCategory oCategory = new SubCategory()
@@ -381,10 +393,10 @@ namespace ShopManagement.BLL.Request
                     CreatedOn = DateTime.Now,
                     IsActive = true
                 };
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.AddSubCategory(oCategory);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.AddSubCategory(oCategory);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
 
                 crudResponse = new CrudResponse()
                 {
@@ -395,16 +407,17 @@ namespace ShopManagement.BLL.Request
             }
             catch (Exception ex)
             {
-                oUnitOfWork.RollbackTransaction();
+                _unitOfWork.RollbackTransaction();
                 throw ex;
             }
         }
 
         public CrudResponse UpdateSubCategory(long SubCategoryId, SubCatUpdateRequest oSubCatUpdateRequest)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
-                SubCategory objSubCat = oUnitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == SubCategoryId);
+                SubCategory objSubCat = _unitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == SubCategoryId);
                 if (objSubCat == null)
                 {
                     crudResponse = new CrudResponse()
@@ -420,10 +433,10 @@ namespace ShopManagement.BLL.Request
                 objSubCat.UpdatedBy = oSubCatUpdateRequest.UserName;
                 objSubCat.UpdatedOn = DateTime.Now;
 
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.UpdateSubCategory(objSubCat);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.UpdateSubCategory(objSubCat);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
 
                 crudResponse = new CrudResponse()
                 {
@@ -440,9 +453,10 @@ namespace ShopManagement.BLL.Request
 
         public CrudResponse DeleteSubCategory(long SubCategoryId)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
-                SubCategory objCat = oUnitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == SubCategoryId);
+                SubCategory objCat = _unitOfWork.repoCategory.GetSubCategorySingle(x => x.SubCategoryID == SubCategoryId);
                 if (objCat == null)
                 {
                     crudResponse = new CrudResponse()
@@ -452,10 +466,10 @@ namespace ShopManagement.BLL.Request
                     };
                     return crudResponse;
                 }
-                oUnitOfWork.BeginTrnsaction();
-                oUnitOfWork.repoCategory.DeleteSubCategory(SubCategoryId, objCat);
-                oUnitOfWork.Save();
-                oUnitOfWork.CommitTransaction();
+                _unitOfWork.BeginTrnsaction();
+                _unitOfWork.repoCategory.DeleteSubCategory(SubCategoryId, objCat);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
 
                 crudResponse = new CrudResponse()
                 {
@@ -466,7 +480,7 @@ namespace ShopManagement.BLL.Request
             }
             catch (Exception ex)
             {
-                oUnitOfWork.RollbackTransaction();
+                _unitOfWork.RollbackTransaction();
                 throw ex;
             }
         }

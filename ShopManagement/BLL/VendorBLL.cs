@@ -17,7 +17,7 @@ namespace ShopManagement.BLL
         //IMapper mapper = null;
         public VendorBLL()
         {
-            _unitOfWork=new UnitOfWork();
+            
             //Initialize the mapper
             //var config = new MapperConfiguration(cfg =>
             //{
@@ -34,6 +34,7 @@ namespace ShopManagement.BLL
 
         public string InsertVendor(VendorViewModel vendorVM)
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
                 Vendor oVendor = new Vendor();
@@ -63,7 +64,7 @@ namespace ShopManagement.BLL
             }
             catch (Exception exception)
             {
-                _unitOfWork.RollbackTransaction();
+                //_unitOfWork.RollbackTransaction();
                 return exception.Message;
             }
 
@@ -71,6 +72,7 @@ namespace ShopManagement.BLL
 
         public List<VendorViewModel> GetAllVendors()
         {
+            _unitOfWork = new UnitOfWork();
             try
             {
                 var vendors = _unitOfWork.repoVendor.GetAllVendors();

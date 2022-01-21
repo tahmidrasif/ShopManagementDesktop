@@ -9,11 +9,15 @@ namespace ShopManagement.DAL.Repository
 {
     public class PurchaseOrderRepository : BaseRepository
     {
+        private ShopDBEntities db;
         public PurchaseOrderRepository()
         {
            
         }
-
+        public PurchaseOrderRepository(ShopDBEntities context)
+        {
+            db = context;
+        }
         public void Add(PurchaseOrder po)
         {
             try
