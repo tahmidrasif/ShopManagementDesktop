@@ -15,9 +15,11 @@ namespace ShopManagement.BLL.ViewModel
         public Nullable<System.DateTime> OrderDate { get; set; }
         public Nullable<System.DateTime> DeliveryDate { get; set; }
         public Nullable<long> VendorID { get; set; }
+        public string VendorName { get; set; }
         public Nullable<bool> IsMasterInventoryOrder { get; set; }
         public Nullable<long> BranchID { get; set; }
         public Nullable<long> Status { get; set; }
+        public string StatusName { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public string UpdatedBy { get; set; }

@@ -43,5 +43,17 @@ namespace ShopManagement.DAL.Repository
                 throw ex;
             }
         }
+
+        public Vendor GetById(long? vendorID)
+        {
+            try
+            {
+                return db.Vendor.FirstOrDefault(x=>x.VendorId==vendorID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

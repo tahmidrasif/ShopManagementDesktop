@@ -48,5 +48,17 @@ namespace ShopManagement.BLL
                 return ex.Message;
             }
         }
+
+        public List<PurchaseOrderVM> GetOrders(long orderStatus, DateTime fromDate, DateTime toDate, string orderCode, long venodrId)
+        {
+            _unitOfWork = new UnitOfWork();
+            List<PurchaseOrderVM> oPo = new List<PurchaseOrderVM>();
+            var poList=_unitOfWork.repoPurchaseOrder.GetBySearch(orderStatus, fromDate,toDate, orderCode, venodrId);
+            if (poList.Count > 0)
+            {
+                 oPo = MappingConfig.Mapper.Map<List<PurchaseOrder>, List<PurchaseOrderVM>>(poList);
+            }
+            return oPo;
+        }
     }
 }

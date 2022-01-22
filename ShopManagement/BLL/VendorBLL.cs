@@ -90,6 +90,14 @@ namespace ShopManagement.BLL
         {
             throw new NotImplementedException();
         }
+
+        public VendorViewModel GetById(long? vendorID)
+        {
+            _unitOfWork = new UnitOfWork();
+            var vendor=_unitOfWork.repoVendor.GetById(vendorID);
+            var map = MappingConfig.Mapper.Map<Vendor, VendorViewModel>(vendor);
+            return map;
+        }
     }
 
     //var config = new MapperConfiguration(cfg => { cfg.CreateMap<AuthorModel, AuthorDTO>(); }); IMapper iMapper = config.CreateMapper(); var source = new AuthorModel(); source.Id = 1;source.FirstName = "Joydip";source.LastName = "Kanjilal";source.Address = "India";var destination = iMapper.Map<AuthorModel, AuthorDTO>(source); Console.WriteLine("Author Name: "+ destination.FirstName + " " + destination.LastName);

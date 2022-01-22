@@ -53,8 +53,8 @@ namespace ShopManagement.UI
 
         private void purchseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProductPurchase frmProductPurchase = new FormProductPurchase();
-            frmProductPurchase.Show();
+            FormPurchaseOrderList frmPurchaseOrderList = new FormPurchaseOrderList();
+            frmPurchaseOrderList.Show();
         }
 
         private void vendorToolStripMenuItem_Click(object sender, EventArgs e)

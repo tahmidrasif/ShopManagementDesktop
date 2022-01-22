@@ -47,7 +47,7 @@ namespace ShopManagement.UI
         private void LoadVendorCombo()
         {
             IList<VendorViewModel> vendors = _serviceVendor.GetAllVendors();
-            if (vendors.Count > 0)
+            if (vendors!=null && vendors.Count > 0)
             {
                 cmbVendor.DataSource = vendors;
                 cmbVendor.DisplayMember = "VendorName";

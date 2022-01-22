@@ -30,5 +30,12 @@ namespace ShopManagement.DAL.Repository
 
             return enumaration;
         }
+
+        public Enumaration GetById(long? status)
+        {
+            var enumaration = db.Enumaration.FirstOrDefault(x => x.EnumID == status && x.IsActive == true);
+
+            return enumaration;
+        }
     }
 }
