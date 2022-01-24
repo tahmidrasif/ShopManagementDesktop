@@ -166,12 +166,14 @@
             // 
             // dgvPO
             // 
+            this.dgvPO.AllowUserToAddRows = false;
             this.dgvPO.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPO.Location = new System.Drawing.Point(13, 156);
             this.dgvPO.Name = "dgvPO";
             this.dgvPO.RowTemplate.Height = 24;
             this.dgvPO.Size = new System.Drawing.Size(1899, 456);
             this.dgvPO.TabIndex = 14;
+            this.dgvPO.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPO_CellClick);
             // 
             // btnAddNewPO
             // 

@@ -4,6 +4,8 @@ using ShopManagement.DAL.Model;
 using ShopManagement.DAL.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +49,17 @@ namespace ShopManagement.BLL
                 _unitOfWork.RollbackTransaction();
                 return ex.Message;
             }
+        }
+
+        public DataTable GetPODetailsByPOID(long poId)
+        {
+            _unitOfWork = new UnitOfWork();
+            SqlParameter[] parameters = new SqlParameter[]
+                       {
+                            new SqlParameter("@POId", poId)
+                       };
+            return _unitOfWork.repoBaseSp.ExecuteReader("SP_PurchaseOrderDetails", CommandType.StoredProcedure, parameters);
+            
         }
 
         public List<PurchaseOrderVM> GetOrders(long orderStatus, DateTime fromDate, DateTime toDate, string orderCode, long venodrId)

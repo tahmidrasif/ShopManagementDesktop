@@ -1,6 +1,7 @@
 ﻿using ShopManagement.BLL;
 using ShopManagement.BLL.Response;
 using ShopManagement.BLL.ViewModel;
+using ShopManagement.UI.Dialogue;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,14 +70,16 @@ namespace ShopManagement.UI
             dtPurchaseOrder.Columns.Add("TotalAdvance".ToString());
             dtPurchaseOrder.Columns.Add("TotalDue".ToString());
             dtPurchaseOrder.Columns.Add("GrandTotal".ToString());
-            dtPurchaseOrder.Columns.Add("Status".ToString());
+            dtPurchaseOrder.Columns.Add("StatusName".ToString());
+            //dtPurchaseOrder.Columns.Add("Print".ToString());
+            //dtPurchaseOrder.Columns.Add("ViewAll".ToString());
 
             dgvPO.DataSource = null;
             //Set AutoGenerateColumns False
             dgvPO.AutoGenerateColumns = false;
 
             //Set Columns Count
-            dgvPO.ColumnCount = 15;
+            dgvPO.ColumnCount = 14;
 
             //Add Columns
             dgvPO.Columns[0].HeaderText = "POrderID";
@@ -138,10 +141,27 @@ namespace ShopManagement.UI
             dgvPO.Columns[13].Name = "StatusName";
             dgvPO.Columns[13].DataPropertyName = "StatusName";
 
-            dgvPO.Columns[14].HeaderText = "Print";
-            dgvPO.Columns[14].Name = "Print";
-            dgvPO.Columns[14].DataPropertyName = "Print";
+            //dgvPO.Columns[14].HeaderText = "Print";
+            //dgvPO.Columns[14].Name = "Print";
+            //dgvPO.Columns[14].DataPropertyName = "Print";
             //dgvPO.Columns[14].DataPropertyName = "StatusName";
+
+            DataGridViewButtonColumn PrintButton = new DataGridViewButtonColumn();
+            PrintButton.Name = "Print";
+            PrintButton.Text = "Print";
+            PrintButton.UseColumnTextForButtonValue = true;
+            if (dgvPO.Columns["Print"] == null)
+            {
+                dgvPO.Columns.Insert(14, PrintButton);
+            }
+            DataGridViewButtonColumn ViewAllButton = new DataGridViewButtonColumn();
+            ViewAllButton.Name = "ViewAll";
+            ViewAllButton.Text = "View All";
+            ViewAllButton.UseColumnTextForButtonValue = true;
+            if (dgvPO.Columns["ViewAll"] == null)
+            {
+                dgvPO.Columns.Insert(15, ViewAllButton);
+            }
 
 
             //and on my constructor I set gridview.DataSource=Datatable;
@@ -159,6 +179,7 @@ namespace ShopManagement.UI
             DateTime toDate = DateTime.Now;
             string orderCode = "";
             long venodrId = 0;
+            dgvPO.DataSource = null;
             if (cmbSrcOrderStatus.SelectedValue != "0")
             {
                 orderStatus = Convert.ToInt64(cmbSrcOrderStatus.SelectedValue);
@@ -201,6 +222,20 @@ namespace ShopManagement.UI
             else
             {
                 MessageBox.Show("No Records Found");
+            }
+        }
+
+        private void dgvPO_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgvPO.Columns["ViewAll"].Index && e.RowIndex >= 0)
+            {
+                long orderId = (long)dgvPO.Rows[e.RowIndex].Cells["POrderID"].Value ;
+
+                if (orderId > 0)
+                {
+                    DialoguePOProductList dgPo = new DialoguePOProductList(orderId);
+                    dgPo.ShowDialog();
+                }
             }
         }
     }

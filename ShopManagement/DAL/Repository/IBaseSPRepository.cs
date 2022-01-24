@@ -13,7 +13,7 @@ using ShopManagement.DAL.Model;
 
 namespace ShopManagement.DAL.Repository
 {
-    interface IBaseSPRepository:IDisposable 
+    interface IBaseSPRepository : IDisposable
     {
 
         // 1. SqlCommand approach
@@ -27,7 +27,7 @@ namespace ShopManagement.DAL.Repository
     }
 
 
-    public class BaseSPRepository : IBaseSPRepository 
+    public class BaseSPRepository : IBaseSPRepository
     {
         public ShopDBEntities db;
         public DbSet dbSet;
@@ -72,13 +72,14 @@ namespace ShopManagement.DAL.Repository
                 }
             }
 
-            int count=command.ExecuteNonQuery();
-            return  count;
+            int count = command.ExecuteNonQuery();
+            return count;
         }
 
 
         public DataTable ExecuteReader(string commandText, CommandType commandType, SqlParameter[] parameters = null)
         {
+
             if (db.Database.Connection.State == ConnectionState.Closed)
             {
                 db.Database.Connection.Open();
@@ -99,8 +100,15 @@ namespace ShopManagement.DAL.Repository
             {
                 DataTable dt = new DataTable();
                 dt.Load(reader);
+                if (db.Database.Connection.State == ConnectionState.Open)
+                {
+                    db.Database.Connection.Close();
+                }
                 return dt;
             }
+
+            
+
         }
 
         //private ICollection SqlQuery(string sqlQuery, SqlParameter[] parameters = null)
@@ -165,7 +173,7 @@ namespace ShopManagement.DAL.Repository
         }
 
 
-        
+
 
     }
 }
