@@ -67,9 +67,10 @@ namespace ShopManagement.UI
             dtPurchaseOrder.Columns.Add("TotalOtherCharge".ToString());
             dtPurchaseOrder.Columns.Add("TotalDeliveryCharge".ToString());
             dtPurchaseOrder.Columns.Add("TotalDiscount".ToString());
-            dtPurchaseOrder.Columns.Add("TotalAdvance".ToString());
+            dtPurchaseOrder.Columns.Add("AdditionalDiscount".ToString());
+            dtPurchaseOrder.Columns.Add("GrandTotal".ToString()); 
+            dtPurchaseOrder.Columns.Add("TotalAdvance".ToString()); 
             dtPurchaseOrder.Columns.Add("TotalDue".ToString());
-            dtPurchaseOrder.Columns.Add("GrandTotal".ToString());
             dtPurchaseOrder.Columns.Add("StatusName".ToString());
             //dtPurchaseOrder.Columns.Add("Print".ToString());
             //dtPurchaseOrder.Columns.Add("ViewAll".ToString());
@@ -79,7 +80,7 @@ namespace ShopManagement.UI
             dgvPO.AutoGenerateColumns = false;
 
             //Set Columns Count
-            dgvPO.ColumnCount = 14;
+            dgvPO.ColumnCount = 15;
 
             //Add Columns
             dgvPO.Columns[0].HeaderText = "POrderID";
@@ -94,11 +95,12 @@ namespace ShopManagement.UI
             dgvPO.Columns[2].HeaderText = "Order Date";
             dgvPO.Columns[2].Name = "OrderDate";
             dgvPO.Columns[2].DataPropertyName = "OrderDate";
+            dgvPO.Columns[2].DefaultCellStyle.Format = "dd/MM/yyyy";
 
             dgvPO.Columns[3].HeaderText = "Delivery Date";
             dgvPO.Columns[3].Name = "DeliveryDate";
             dgvPO.Columns[3].DataPropertyName = "DeliveryDate";
-            //dgvCart.Columns[3].Visible = false;
+            dgvPO.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
 
 
             dgvPO.Columns[4].HeaderText = "Vendor Name";
@@ -125,21 +127,25 @@ namespace ShopManagement.UI
             dgvPO.Columns[9].Name = "TotalDiscount";
             dgvPO.Columns[9].DataPropertyName = "TotalDiscount";
 
-            dgvPO.Columns[10].HeaderText = "Total Advance  ";
-            dgvPO.Columns[10].Name = "TotalAdvance";
-            dgvPO.Columns[10].DataPropertyName = "TotalAdvance";
+            dgvPO.Columns[10].HeaderText = "Additional Discount";
+            dgvPO.Columns[10].Name = "AdditionalDiscount";
+            dgvPO.Columns[10].DataPropertyName = "AdditionalDiscount";
 
-            dgvPO.Columns[11].HeaderText = "Total Due ";
-            dgvPO.Columns[11].Name = "TotalDue";
-            dgvPO.Columns[11].DataPropertyName = "TotalDue";
+            dgvPO.Columns[11].HeaderText = "Grand Total ";
+            dgvPO.Columns[11].Name = "GrandTotal";
+            dgvPO.Columns[11].DataPropertyName = "GrandTotal";
 
-            dgvPO.Columns[12].HeaderText = "Grand Total ";
-            dgvPO.Columns[12].Name = "GrandTotal";
-            dgvPO.Columns[12].DataPropertyName = "GrandTotal";
+            dgvPO.Columns[12].HeaderText = "Total Advance ";
+            dgvPO.Columns[12].Name = "TotalAdvance";
+            dgvPO.Columns[12].DataPropertyName = "TotalAdvance";
 
-            dgvPO.Columns[13].HeaderText = "Status";
-            dgvPO.Columns[13].Name = "StatusName";
-            dgvPO.Columns[13].DataPropertyName = "StatusName";
+            dgvPO.Columns[13].HeaderText = "Total Due ";
+            dgvPO.Columns[13].Name = "TotalDue";
+            dgvPO.Columns[13].DataPropertyName = "TotalDue";
+
+            dgvPO.Columns[14].HeaderText = "Status";
+            dgvPO.Columns[14].Name = "StatusName";
+            dgvPO.Columns[14].DataPropertyName = "StatusName";
 
             //dgvPO.Columns[14].HeaderText = "Print";
             //dgvPO.Columns[14].Name = "Print";
@@ -168,7 +174,7 @@ namespace ShopManagement.UI
         }
         private void btnAddNewPO_Click(object sender, EventArgs e)
         {
-            FormProductPurchase fPo = new FormProductPurchase();
+            FormProductPurchase fPo = new FormProductPurchase(null);
             fPo.Show();
         }
 
@@ -233,8 +239,10 @@ namespace ShopManagement.UI
 
                 if (orderId > 0)
                 {
-                    DialoguePOProductList dgPo = new DialoguePOProductList(orderId);
-                    dgPo.ShowDialog();
+                    //DialoguePOProductList dgPo = new DialoguePOProductList(orderId);
+                    //dgPo.ShowDialog();
+                    FormProductPurchase fPO = new FormProductPurchase(orderId);
+                    fPO.Show();
                 }
             }
         }

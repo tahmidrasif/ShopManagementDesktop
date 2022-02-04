@@ -26,8 +26,9 @@ namespace ShopManagement.UI
         DataTable dtCart;
         DataGridViewRow dgvRow;
         private long productID = 0;
+        private long existingOrderId = 0;
 
-        public FormProductPurchase()
+        public FormProductPurchase(long? orderId)
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
@@ -42,12 +43,50 @@ namespace ShopManagement.UI
             btnAdd.Enabled = true;
             btnRemove.Enabled = true;
 
+            if (orderId != null && orderId > 0)
+            {
+                existingOrderId = orderId.Value;
+                LoadExistingOrder(orderId);
+            }
+        }
+
+        private void LoadExistingOrder(long? orderId)
+        {
+            if (orderId != null && orderId > 0)
+            {
+                PurchaseOrderVM poVM = _serviceProdPurchase.GetPurchaseOrderById(orderId);
+                if (poVM == null)
+                {
+                    MessageBox.Show("No Order is found");
+                    this.Close();
+                    return;
+                }
+                DataTable poDetails = _serviceProdPurchase.GetPODetailsByPOID(orderId.Value);
+                if (poDetails.Rows.Count > 0)
+                {
+                    dgvProduct.DataSource = poDetails;
+                    dtCart = poDetails;
+                    //CalculateFinal();
+                    txtPaymentTotal.Text = poVM.SubTotal.ToString();
+                    txtPaymentTotalVat.Text = poVM.TotalVat.ToString();
+
+                    txtPaymentDiscount.Text = poVM.TotalDiscount.ToString();
+                    txtPaymentOtherCharge.Text = poVM.TotalOtherCharge.ToString();
+                    txtAdditionalDiscount.Text = poVM.AdditionalDiscount.ToString();
+                    txtAdvancedAmount.Text = poVM.TotalAdvance.ToString();
+
+                    txtGrandTotal.Text = poVM.GrandTotal.ToString();
+
+                    txtPaymentDue.Text = poVM.TotalDue.ToString();
+                    cmbVendor.SelectedValue = poVM.VendorID;
+                }
+            }
         }
 
         private void LoadVendorCombo()
         {
             IList<VendorViewModel> vendors = _serviceVendor.GetAllVendors();
-            if (vendors!=null && vendors.Count > 0)
+            if (vendors != null && vendors.Count > 0)
             {
                 cmbVendor.DataSource = vendors;
                 cmbVendor.DisplayMember = "VendorName";
@@ -220,6 +259,7 @@ namespace ShopManagement.UI
 
         private void ClearPaymentControl()
         {
+            dgvProduct.DataSource = null;
             txtPaymentTotal.Text = "0";
             txtPaymentTotalVat.Text = "0";
             txtPaymentDiscount.Text = "0";
@@ -230,6 +270,10 @@ namespace ShopManagement.UI
             txtPaymentRemarks.Text = "0";
             cmbPaymentType.SelectedIndex = 0;
             cmbVendor.SelectedIndex = 0;
+            txtGrandTotal.Text = "0";
+            dtCart = null;
+            existingOrderId = 0;
+
 
         }
 
@@ -453,16 +497,31 @@ namespace ShopManagement.UI
 
                 if (IsValidPurchase())
                 {
-                    PurchaseOrderVM opvm = new PurchaseOrderVM();
-                    opvm.POrderCode = "PO-" + DateTime.Now.ToString("yyMMddhhmmss");
-                    opvm.OrderType = "In-House";
-                    opvm.OrderDate = DateTime.Now;
+                    PurchaseOrderVM opvm;
+                    if (existingOrderId == 0)
+                    {
+                        opvm = new PurchaseOrderVM();
+                        opvm.POrderCode = "PO-" + DateTime.Now.ToString("yyMMddhhmmss");
+                        opvm.OrderType = "In-House";
+                        opvm.OrderDate = DateTime.Now;
+                        opvm.CreatedBy = "tahmid";
+                        opvm.CreatedOn = DateTime.Now;
+                        opvm.IsActive = true;
+                    }
+                    else
+                    {
+                        opvm = _serviceProdPurchase.GetPurchaseOrderById(existingOrderId);
+                        opvm.UpdatedBy = "tahmid";
+                        opvm.UpdatedOn = DateTime.Now;
+                    }
+
+
+                    
                     opvm.VendorID = Convert.ToInt64(cmbVendor.SelectedValue);
                     var status = _serviceEnum.GetAllByTypeDescription("PO Status")?.FirstOrDefault(x => x.Name == "Pendig")?.EnumID;
                     opvm.Status = status == null ? 0 : status;
-                    opvm.CreatedBy = "tahmid";
-                    opvm.CreatedOn = DateTime.Now;
-                    opvm.IsActive = true;
+                   
+                    
                     opvm.SubTotal = Convert.ToDecimal(txtPaymentTotal.Text);
                     opvm.IsVatIncluded = false;
                     opvm.TotalVat = Convert.ToDecimal(txtPaymentTotalVat.Text);
@@ -500,6 +559,10 @@ namespace ShopManagement.UI
                         ClearPaymentControl();
                         CreateCartDataTable();
                     }
+                    else
+                    {
+                        MessageBox.Show(msg);
+                    }
                 }
 
             }
@@ -513,43 +576,40 @@ namespace ShopManagement.UI
         {
             try
             {
+              
+                    decimal totalPrice = 0;
+                    decimal totalvat = 0;
+                    decimal totaldiscount = 0;
 
-                decimal totalPrice = 0;
-                decimal totalvat = 0;
-                decimal totaldiscount = 0;
+                    foreach (DataGridViewRow row in dgvProduct.Rows)
+                    {
+                        long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                        int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                        decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
+                        decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
+                        decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
 
-                foreach (DataGridViewRow row in dgvProduct.Rows)
-                {
-                    long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
-                    int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                    decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
-                    decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
-                    decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
+                        decimal totalUnitPrice = qauntity * unitprice;
+                        totalPrice += totalUnitPrice;
+                        totalvat += vat;
+                        totaldiscount += discount;
 
-                    decimal totalUnitPrice = qauntity * unitprice;
-                    totalPrice += totalUnitPrice;
-                    totalvat += vat;
-                    totaldiscount += discount;
-
-                }
-
-
-
-                txtPaymentTotal.Text = totalPrice.ToString();
-                txtPaymentTotalVat.Text = totalvat.ToString();
-
-                txtPaymentDiscount.Text = totaldiscount.ToString();
-                decimal totalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
-                decimal additionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
-                decimal totalPay = Convert.ToDecimal(txtAdvancedAmount.Text);
-                decimal grandTotal = (totalPrice + totalvat + -totaldiscount + totalOtherCharge - additionalDiscount);
-                txtGrandTotal.Text = grandTotal.ToString();
-                decimal totalDue = grandTotal - totalPay;
-                txtPaymentDue.Text = totalDue.ToString();
+                    }
 
 
 
+                    txtPaymentTotal.Text = totalPrice.ToString();
+                    txtPaymentTotalVat.Text = totalvat.ToString();
 
+                    txtPaymentDiscount.Text = totaldiscount.ToString();
+                    decimal totalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
+                    decimal additionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
+                    decimal totalPay = Convert.ToDecimal(txtAdvancedAmount.Text);
+                    decimal grandTotal = (totalPrice + totalvat + -totaldiscount + totalOtherCharge - additionalDiscount);
+                    txtGrandTotal.Text = grandTotal.ToString();
+                    decimal totalDue = grandTotal - totalPay;
+                    txtPaymentDue.Text = totalDue.ToString();
+                
             }
             catch (Exception ex)
             {
@@ -567,6 +627,11 @@ namespace ShopManagement.UI
                 if (grandtotal <= 0)
                 {
                     MessageBox.Show("Grand Total must be greater than zero");
+                    return false;
+                }
+                if (due < 0)
+                {
+                    MessageBox.Show("Due Can Not Be Negetive");
                     return false;
                 }
                 if (dgvProduct.Rows.Count <= 0)

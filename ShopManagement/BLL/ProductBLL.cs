@@ -85,10 +85,10 @@ namespace ShopManagement.BLL
                 obj.SPVat = (decimal)productPrice.SPVat;
                 obj.SPOtherCharge = (decimal)productPrice.SPOtherCharge;
                 obj.TotalSalesPrice = (decimal)productPrice.TotalSalesPrice;
-                //obj.UnitPurchasePrice = (decimal)productPrice.UnitPurchasePrice;
-                //obj.PPVat = (decimal)productPrice.PPVat;
-                //obj.PPOtherCharge = (decimal)productPrice.PPOtherCharge;
-                //obj.TotalPurchasePrice = (decimal)productPrice.TotalPurchasePrice;
+                obj.UnitPurchasePrice = (decimal)productPrice.UnitPurchasePrice;
+                obj.PPVat = (decimal)productPrice.PPVat;
+                obj.PPOtherCharge = (decimal)productPrice.PPOtherCharge;
+                obj.TotalPurchasePrice = (decimal)productPrice.TotalPurchasePrice;
                 obj.AvaliableQty = (decimal)_unitOfWork.repoStock.GetByProductId(product.ProductID).Quantity;
                 productvmList.Add(obj);
             }
@@ -130,6 +130,11 @@ namespace ShopManagement.BLL
                     objProductPrice.SPOtherCharge = productVM.SPOtherCharge;
                     objProductPrice.SPDiscount = productVM.Discount;
                     objProductPrice.TotalSalesPrice = productVM.TotalSalesPrice;
+                    objProductPrice.UnitPurchasePrice = 0;
+                    objProductPrice.PPVat = 0;
+                    objProductPrice.PPOtherCharge = 0;
+                    objProductPrice.TotalPurchasePrice = 0;
+
                     objProductPrice.IsActive = true;
                     objProductPrice.CreatedBy = "Tahmid";
                     objProductPrice.CreatedOn = DateTime.Now;

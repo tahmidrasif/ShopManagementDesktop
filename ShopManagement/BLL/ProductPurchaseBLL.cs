@@ -14,7 +14,7 @@ namespace ShopManagement.BLL
 {
     public class ProductPurchaseBLL
     {
-        private  UnitOfWork _unitOfWork;
+        private UnitOfWork _unitOfWork;
 
         public ProductPurchaseBLL()
         {
@@ -40,8 +40,8 @@ namespace ShopManagement.BLL
                     _unitOfWork.repoPurchaseOrder.Add(oPo);
                     _unitOfWork.Save();
                     _unitOfWork.CommitTransaction();
-    
-            }
+
+                }
                 return "Success";
             }
             catch (Exception ex)
@@ -59,17 +59,30 @@ namespace ShopManagement.BLL
                             new SqlParameter("@POId", poId)
                        };
             return _unitOfWork.repoBaseSp.ExecuteReader("SP_PurchaseOrderDetails", CommandType.StoredProcedure, parameters);
-            
+
+        }
+
+        public PurchaseOrderVM GetPurchaseOrderById(long? orderId)
+        {
+            _unitOfWork = new UnitOfWork();
+            PurchaseOrderVM oPo = new PurchaseOrderVM();
+            var pOrder = _unitOfWork.repoPurchaseOrder.GetById(orderId);
+            if (pOrder != null)
+            {
+                oPo = MappingConfig.Mapper.Map<PurchaseOrder, PurchaseOrderVM>(pOrder);
+            }
+            return oPo;
+
         }
 
         public List<PurchaseOrderVM> GetOrders(long orderStatus, DateTime fromDate, DateTime toDate, string orderCode, long venodrId)
         {
             _unitOfWork = new UnitOfWork();
             List<PurchaseOrderVM> oPo = new List<PurchaseOrderVM>();
-            var poList=_unitOfWork.repoPurchaseOrder.GetBySearch(orderStatus, fromDate,toDate, orderCode, venodrId);
+            var poList = _unitOfWork.repoPurchaseOrder.GetBySearch(orderStatus, fromDate, toDate, orderCode, venodrId);
             if (poList.Count > 0)
             {
-                 oPo = MappingConfig.Mapper.Map<List<PurchaseOrder>, List<PurchaseOrderVM>>(poList);
+                oPo = MappingConfig.Mapper.Map<List<PurchaseOrder>, List<PurchaseOrderVM>>(poList);
             }
             return oPo;
         }
