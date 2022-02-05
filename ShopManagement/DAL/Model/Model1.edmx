@@ -321,6 +321,7 @@
           <Property Name="TotalDue" Type="decimal" Precision="18" Scale="2" />
           <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AdditionalDiscount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Remarks" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -1390,6 +1391,7 @@
           <Property Name="GrandTotal" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AdditionalDiscount" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="PurchaseOrderDetails" Relationship="ShopDBEntities.FK_PurchaseOrderDetails_PurchaseOrder" FromRole="PurchaseOrder" ToRole="PurchaseOrderDetails" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PurchaseOrderDetails_PurchaseOrder">
           <End Type="ShopDBEntities.PurchaseOrder" Role="PurchaseOrder" Multiplicity="0..1" />
@@ -1854,6 +1856,7 @@
           <EntitySetMapping Name="PurchaseOrder">
             <EntityTypeMapping TypeName="ShopDBEntities.PurchaseOrder">
               <MappingFragment StoreEntitySet="PurchaseOrder">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="AdditionalDiscount" ColumnName="AdditionalDiscount" />
                 <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
                 <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />

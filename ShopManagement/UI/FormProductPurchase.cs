@@ -76,9 +76,10 @@ namespace ShopManagement.UI
                     txtAdvancedAmount.Text = poVM.TotalAdvance.ToString();
 
                     txtGrandTotal.Text = poVM.GrandTotal.ToString();
-
+                    txtPaymentDeliveryCharge.Text = poVM.TotalDeliveryCharge.ToString();
                     txtPaymentDue.Text = poVM.TotalDue.ToString();
                     cmbVendor.SelectedValue = poVM.VendorID;
+                    txtPaymentRemarks.Text = poVM.Remarks;
                 }
             }
         }
@@ -267,7 +268,7 @@ namespace ShopManagement.UI
             txtAdditionalDiscount.Text = "0";
             txtAdvancedAmount.Text = "0";
             txtPaymentDue.Text = "0";
-            txtPaymentRemarks.Text = "0";
+            txtPaymentRemarks.Text = "";
             cmbPaymentType.SelectedIndex = 0;
             cmbVendor.SelectedIndex = 0;
             txtGrandTotal.Text = "0";
@@ -516,21 +517,23 @@ namespace ShopManagement.UI
                     }
 
 
-                    
+
                     opvm.VendorID = Convert.ToInt64(cmbVendor.SelectedValue);
                     var status = _serviceEnum.GetAllByTypeDescription("PO Status")?.FirstOrDefault(x => x.Name == "Pendig")?.EnumID;
                     opvm.Status = status == null ? 0 : status;
-                   
-                    
+
+
                     opvm.SubTotal = Convert.ToDecimal(txtPaymentTotal.Text);
                     opvm.IsVatIncluded = false;
                     opvm.TotalVat = Convert.ToDecimal(txtPaymentTotalVat.Text);
                     opvm.TotalDiscount = Convert.ToDecimal(txtPaymentDiscount.Text);
                     opvm.AdditionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
                     opvm.TotalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
+                    opvm.TotalDeliveryCharge = Convert.ToDecimal(txtPaymentDeliveryCharge.Text);
                     opvm.GrandTotal = Convert.ToDecimal(txtGrandTotal.Text);
                     opvm.TotalAdvance = Convert.ToDecimal(txtAdvancedAmount.Text);
                     opvm.TotalDue = Convert.ToDecimal(txtPaymentDue.Text);
+                    opvm.Remarks = txtPaymentRemarks.Text;
 
                     opvm.PurchaseOrderDetails = new List<PurchaseOrderDetailsVM>();
 
@@ -548,6 +551,7 @@ namespace ShopManagement.UI
                         oDetail.CreatedBy = "Tahmid";
                         oDetail.CreatedOn = DateTime.Now;
                         oDetail.IsActive = true;
+
 
                         opvm.PurchaseOrderDetails.Add(oDetail);
                     }
@@ -576,40 +580,41 @@ namespace ShopManagement.UI
         {
             try
             {
-              
-                    decimal totalPrice = 0;
-                    decimal totalvat = 0;
-                    decimal totaldiscount = 0;
 
-                    foreach (DataGridViewRow row in dgvProduct.Rows)
-                    {
-                        long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
-                        int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                        decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
-                        decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
-                        decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
+                decimal totalPrice = 0;
+                decimal totalvat = 0;
+                decimal totaldiscount = 0;
 
-                        decimal totalUnitPrice = qauntity * unitprice;
-                        totalPrice += totalUnitPrice;
-                        totalvat += vat;
-                        totaldiscount += discount;
+                foreach (DataGridViewRow row in dgvProduct.Rows)
+                {
+                    long productId = Convert.ToInt64(row.Cells["ProductID"].Value);
+                    int qauntity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                    decimal unitprice = Convert.ToDecimal(row.Cells["UnitPurchasePrice"].Value);
+                    decimal vat = Convert.ToDecimal(row.Cells["PPVat"].Value);
+                    decimal discount = Convert.ToDecimal(row.Cells["DiscountAmt"].Value);
 
-                    }
+                    decimal totalUnitPrice = qauntity * unitprice;
+                    totalPrice += totalUnitPrice;
+                    totalvat += vat;
+                    totaldiscount += discount;
+
+                }
 
 
 
-                    txtPaymentTotal.Text = totalPrice.ToString();
-                    txtPaymentTotalVat.Text = totalvat.ToString();
+                txtPaymentTotal.Text = totalPrice.ToString();
+                txtPaymentTotalVat.Text = totalvat.ToString();
 
-                    txtPaymentDiscount.Text = totaldiscount.ToString();
-                    decimal totalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
-                    decimal additionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
-                    decimal totalPay = Convert.ToDecimal(txtAdvancedAmount.Text);
-                    decimal grandTotal = (totalPrice + totalvat + -totaldiscount + totalOtherCharge - additionalDiscount);
-                    txtGrandTotal.Text = grandTotal.ToString();
-                    decimal totalDue = grandTotal - totalPay;
-                    txtPaymentDue.Text = totalDue.ToString();
-                
+                txtPaymentDiscount.Text = totaldiscount.ToString();
+                decimal totalOtherCharge = Convert.ToDecimal(txtPaymentOtherCharge.Text);
+                decimal additionalDiscount = Convert.ToDecimal(txtAdditionalDiscount.Text);
+                decimal totalPay = Convert.ToDecimal(txtAdvancedAmount.Text);
+                decimal deliverCharge = Convert.ToDecimal(txtPaymentDeliveryCharge.Text);
+                decimal grandTotal = (totalPrice + totalvat + -totaldiscount + totalOtherCharge + deliverCharge - additionalDiscount);
+                txtGrandTotal.Text = grandTotal.ToString();
+                decimal totalDue = grandTotal - totalPay;
+                txtPaymentDue.Text = totalDue.ToString();
+
             }
             catch (Exception ex)
             {
@@ -698,6 +703,11 @@ namespace ShopManagement.UI
         }
 
         private void txtAdvancedAmount_TextChanged(object sender, EventArgs e)
+        {
+            CalculateFinal();
+        }
+
+        private void txtPaymentDeliveryCharge_TextChanged(object sender, EventArgs e)
         {
             CalculateFinal();
         }

@@ -85,6 +85,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
+            this.txtPaymentDeliveryCharge = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -453,6 +455,7 @@
             this.groupBox4.Controls.Add(this.label27);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.txtPaymentDue);
+            this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label15);
             this.groupBox4.Controls.Add(this.cmbPaymentType);
             this.groupBox4.Controls.Add(this.label14);
@@ -462,6 +465,7 @@
             this.groupBox4.Controls.Add(this.btnOrder);
             this.groupBox4.Controls.Add(this.txtPaymentRemarks);
             this.groupBox4.Controls.Add(this.label30);
+            this.groupBox4.Controls.Add(this.txtPaymentDeliveryCharge);
             this.groupBox4.Controls.Add(this.txtAdvancedAmount);
             this.groupBox4.Controls.Add(this.label29);
             this.groupBox4.Controls.Add(this.label11);
@@ -551,7 +555,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(317, 132);
+            this.label15.Location = new System.Drawing.Point(317, 179);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(133, 21);
@@ -581,7 +585,7 @@
             // cmbVendor
             // 
             this.cmbVendor.FormattingEnabled = true;
-            this.cmbVendor.Location = new System.Drawing.Point(477, 177);
+            this.cmbVendor.Location = new System.Drawing.Point(477, 218);
             this.cmbVendor.Margin = new System.Windows.Forms.Padding(4);
             this.cmbVendor.Name = "cmbVendor";
             this.cmbVendor.Size = new System.Drawing.Size(195, 29);
@@ -589,7 +593,7 @@
             // 
             // txtGrandTotal
             // 
-            this.txtGrandTotal.Location = new System.Drawing.Point(477, 34);
+            this.txtGrandTotal.Location = new System.Drawing.Point(477, 127);
             this.txtGrandTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtGrandTotal.Name = "txtGrandTotal";
             this.txtGrandTotal.ReadOnly = true;
@@ -602,7 +606,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(317, 183);
+            this.label35.Location = new System.Drawing.Point(317, 224);
             this.label35.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(107, 21);
@@ -644,7 +648,7 @@
             // 
             // txtAdvancedAmount
             // 
-            this.txtAdvancedAmount.Location = new System.Drawing.Point(477, 129);
+            this.txtAdvancedAmount.Location = new System.Drawing.Point(477, 176);
             this.txtAdvancedAmount.Margin = new System.Windows.Forms.Padding(4);
             this.txtAdvancedAmount.Name = "txtAdvancedAmount";
             this.txtAdvancedAmount.Size = new System.Drawing.Size(195, 28);
@@ -657,7 +661,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(317, 35);
+            this.label29.Location = new System.Drawing.Point(317, 128);
             this.label29.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(97, 21);
@@ -752,6 +756,28 @@
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // txtPaymentDeliveryCharge
+            // 
+            this.txtPaymentDeliveryCharge.Location = new System.Drawing.Point(477, 29);
+            this.txtPaymentDeliveryCharge.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPaymentDeliveryCharge.Name = "txtPaymentDeliveryCharge";
+            this.txtPaymentDeliveryCharge.Size = new System.Drawing.Size(195, 28);
+            this.txtPaymentDeliveryCharge.TabIndex = 151;
+            this.txtPaymentDeliveryCharge.Text = "0";
+            this.txtPaymentDeliveryCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPaymentDeliveryCharge.TextChanged += new System.EventHandler(this.txtPaymentDeliveryCharge_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(317, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 21);
+            this.label3.TabIndex = 169;
+            this.label3.Text = "Delivery Charge";
+            // 
             // FormProductPurchase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -835,5 +861,7 @@
         internal System.Windows.Forms.Label label27;
         internal System.Windows.Forms.TextBox txtAdditionalDiscount;
         internal System.Windows.Forms.Label label9;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.TextBox txtPaymentDeliveryCharge;
     }
 }

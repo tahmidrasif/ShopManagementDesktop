@@ -46,6 +46,7 @@ namespace ShopManagement.DAL.Model
         public Nullable<decimal> TotalDue { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> AdditionalDiscount { get; set; }
+        public string Remarks { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
