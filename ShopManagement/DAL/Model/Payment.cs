@@ -18,11 +18,7 @@ namespace ShopManagement.DAL.Model
         public Nullable<long> PaymentType { get; set; }
         public Nullable<long> PaymentMethod { get; set; }
         public Nullable<long> OrderId { get; set; }
-        public Nullable<decimal> TotalAmount { get; set; }
-        public Nullable<decimal> PaidAmount { get; set; }
-        public Nullable<bool> IsDue { get; set; }
-        public Nullable<decimal> DueAmount { get; set; }
-        public Nullable<decimal> ChangeAmount { get; set; }
+        public Nullable<decimal> Amount { get; set; }
         public string CardNo { get; set; }
         public string ChqueNo { get; set; }
         public Nullable<bool> IsChequeCleared { get; set; }
@@ -32,6 +28,7 @@ namespace ShopManagement.DAL.Model
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string Status { get; set; }
     
         public virtual Order Order { get; set; }
     }

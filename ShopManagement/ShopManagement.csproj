@@ -228,6 +228,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SuperShopDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogue\DialoguePOProcessing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogue\DialoguePOProcessing.Designer.cs">
+      <DependentUpon>DialoguePOProcessing.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogue\DialoguePOProductList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,6 +311,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Reports\Receipt.rdlc" />
+    <EmbeddedResource Include="UI\Dialogue\DialoguePOProcessing.resx">
+      <DependentUpon>DialoguePOProcessing.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Dialogue\DialoguePOProductList.resx">
       <DependentUpon>DialoguePOProductList.cs</DependentUpon>
     </EmbeddedResource>

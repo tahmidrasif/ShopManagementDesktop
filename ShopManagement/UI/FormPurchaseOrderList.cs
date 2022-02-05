@@ -246,5 +246,30 @@ namespace ShopManagement.UI
                 }
             }
         }
+
+        private void btnPOProcess_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Do you Want to Start Processing?", "Alert", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    {
+                        if (dgvPO.SelectedRows.Count == 1)
+                        {
+                            DataGridViewRow currentRow = dgvPO.SelectedRows[0];
+                            string purchaseOrderId = this.dgvPO.SelectedRows[0].Cells["POrderID"].Value?.ToString();
+                            if (string.IsNullOrEmpty(purchaseOrderId))
+                            {
+                                MessageBox.Show("Please select correct Item");
+                                return;
+                            }
+                            
+                        }
+                    }
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+        }
     }
 }

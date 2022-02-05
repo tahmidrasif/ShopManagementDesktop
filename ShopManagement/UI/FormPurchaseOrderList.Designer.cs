@@ -41,6 +41,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dgvPO = new System.Windows.Forms.DataGridView();
             this.btnAddNewPO = new System.Windows.Forms.Button();
+            this.btnPOProcess = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPO)).BeginInit();
             this.SuspendLayout();
@@ -189,11 +190,26 @@
             this.btnAddNewPO.UseVisualStyleBackColor = false;
             this.btnAddNewPO.Click += new System.EventHandler(this.btnAddNewPO_Click);
             // 
+            // btnPOProcess
+            // 
+            this.btnPOProcess.BackColor = System.Drawing.Color.Orchid;
+            this.btnPOProcess.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
+            this.btnPOProcess.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnPOProcess.Location = new System.Drawing.Point(247, 13);
+            this.btnPOProcess.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPOProcess.Name = "btnPOProcess";
+            this.btnPOProcess.Size = new System.Drawing.Size(215, 49);
+            this.btnPOProcess.TabIndex = 164;
+            this.btnPOProcess.Text = "Process";
+            this.btnPOProcess.UseVisualStyleBackColor = false;
+            this.btnPOProcess.Click += new System.EventHandler(this.btnPOProcess_Click);
+            // 
             // FormPurchaseOrderList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1055);
+            this.Controls.Add(this.btnPOProcess);
             this.Controls.Add(this.btnAddNewPO);
             this.Controls.Add(this.dgvPO);
             this.Controls.Add(this.panel1);
@@ -222,5 +238,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DataGridView dgvPO;
         private System.Windows.Forms.Button btnAddNewPO;
+        private System.Windows.Forms.Button btnPOProcess;
     }
 }

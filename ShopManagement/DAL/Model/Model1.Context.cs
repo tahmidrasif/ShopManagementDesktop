@@ -36,7 +36,6 @@ namespace ShopManagement.DAL.Model
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<OrderLog> OrderLog { get; set; }
-        public virtual DbSet<Payment> Payment { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductPrice> ProductPrice { get; set; }
         public virtual DbSet<ProductPriceLog> ProductPriceLog { get; set; }
@@ -49,5 +48,6 @@ namespace ShopManagement.DAL.Model
         public virtual DbSet<Vendor> Vendor { get; set; }
         public virtual DbSet<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        public virtual DbSet<Payment> Payment { get; set; }
     }
 }

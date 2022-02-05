@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="ShopDBEntities.Order" Width="1.5" PointX="5.25" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDBEntities.OrderDetails" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDBEntities.OrderLog" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopDBEntities.Payment" Width="1.5" PointX="7.5" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDBEntities.Product" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDBEntities.ProductPrice" Width="1.5" PointX="7.5" PointY="18.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopDBEntities.ProductPriceLog" Width="1.5" PointX="9.75" PointY="18.75" IsExpanded="true" />
@@ -30,7 +29,6 @@
         <AssociationConnector Association="ShopDBEntities.FK_Product_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDBEntities.FK_SubCategory_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopDBEntities.FK_Payment_Order" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Product" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDBEntities.FK_OrderDetails_Unit" ManuallyRouted="false" />
         <AssociationConnector Association="ShopDBEntities.FK_Product_SubCategory" ManuallyRouted="false" />
@@ -42,6 +40,8 @@
         <AssociationConnector Association="ShopDBEntities.FK_PurchaseOrderDetails_Product" />
         <EntityTypeShape EntityType="ShopDBEntities.PurchaseOrder" Width="1.5" PointX="14.375" PointY="5.125" />
         <AssociationConnector Association="ShopDBEntities.FK_PurchaseOrderDetails_PurchaseOrder" />
+        <EntityTypeShape EntityType="ShopDBEntities.Payment" Width="1.5" PointX="7.5" PointY="6.75" />
+        <AssociationConnector Association="ShopDBEntities.FK_Payment_Order" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

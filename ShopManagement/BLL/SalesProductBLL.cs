@@ -280,11 +280,7 @@ namespace ShopManagement.BLL
                 //Payment Start
                 oPayment.PaymentType = pr.PaymentType;
                 oPayment.PaymentMethod = pr.PaymentMethod;
-                oPayment.TotalAmount = pr.TotalAmount;
-                oPayment.PaidAmount = pr.PaidAmount;
-                oPayment.IsDue = pr.IsDue;
-                oPayment.DueAmount = pr.DueAmount;
-                oPayment.ChangeAmount = pr.ChangeAmount;
+                oPayment.Amount = pr.TotalAmount;
                 oPayment.CrDr = "CR";
                 oPayment.CreatedBy = createdBy;
                 oPayment.CreatedOn = createdOn;
