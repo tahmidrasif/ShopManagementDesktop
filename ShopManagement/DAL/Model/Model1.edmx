@@ -158,6 +158,7 @@
           <Property Name="DiscountPercent" Type="decimal" Precision="18" Scale="2" />
           <Property Name="TotalDiscount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SubTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -319,6 +320,7 @@
           <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AdditionalDiscount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -426,6 +428,41 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionType" Type="bigint" />
+          <Property Name="TransactionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionDate" Type="datetime" />
+          <Property Name="PaymentType" Type="bigint" />
+          <Property Name="PaymentMethod" Type="bigint" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CrDr" Type="nvarchar" MaxLength="50" />
+          <Property Name="CardNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsChequeCleared" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TransactionsMapper">
+          <Key>
+            <PropertyRef Name="TMapperID" />
+          </Key>
+          <Property Name="TMapperID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionType" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionName" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="CrDr" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Unit">
           <Key>
             <PropertyRef Name="UnitID" />
@@ -452,6 +489,30 @@
           <Property Name="OfficePhone" Type="nvarchar" MaxLength="20" />
           <Property Name="ContactPerson" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="SubCategoryID" />
+          </Key>
+          <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar(max)" />
+          <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitID" Type="bigint" />
+          <Property Name="UnitName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryID" Type="bigint" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+          <Property Name="SubCategoryID" Type="bigint" Nullable="false" />
+          <Property Name="SubCategoryName" Type="nvarchar(max)" />
+          <Property Name="SaleUnitPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaleVat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaleOtherCharge" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaleTotalPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SaleDiscount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AvaliableQty" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <Association Name="FK_OrderDetails_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
@@ -632,8 +693,30 @@
           <EntitySet Name="StockLog" EntityType="Self.StockLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubCategory" EntityType="Self.SubCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionsMapper" EntityType="Self.TransactionsMapper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendor" EntityType="Self.Vendor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_Product" EntityType="Self.vw_Product" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Product].[ProductID] AS [ProductID], 
+    [vw_Product].[ProductName] AS [ProductName], 
+    [vw_Product].[ProductCode] AS [ProductCode], 
+    [vw_Product].[UnitID] AS [UnitID], 
+    [vw_Product].[UnitName] AS [UnitName], 
+    [vw_Product].[CategoryID] AS [CategoryID], 
+    [vw_Product].[CategoryName] AS [CategoryName], 
+    [vw_Product].[SubCategoryID] AS [SubCategoryID], 
+    [vw_Product].[SubCategoryName] AS [SubCategoryName], 
+    [vw_Product].[SaleUnitPrice] AS [SaleUnitPrice], 
+    [vw_Product].[SaleVat] AS [SaleVat], 
+    [vw_Product].[SaleOtherCharge] AS [SaleOtherCharge], 
+    [vw_Product].[SaleTotalPrice] AS [SaleTotalPrice], 
+    [vw_Product].[SaleDiscount] AS [SaleDiscount], 
+    [vw_Product].[AvaliableQty] AS [AvaliableQty], 
+    [vw_Product].[IsActive] AS [IsActive]
+    FROM [dbo].[vw_Product] AS [vw_Product]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_OrderDetails_Order" Association="Self.FK_OrderDetails_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -848,6 +931,7 @@
           <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Order" FromRole="Order" ToRole="OrderDetails" />
           <NavigationProperty Name="Payment" Relationship="ShopDBEntities.FK_Payment_Order" FromRole="Order" ToRole="Payment" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -1281,6 +1365,9 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
+          <EntitySet Name="Transactions" EntityType="ShopDBEntities.Transactions" />
+          <EntitySet Name="TransactionsMapper" EntityType="ShopDBEntities.TransactionsMapper" />
+          <EntitySet Name="vw_Product" EntityType="ShopDBEntities.vw_Product" />
         </EntityContainer>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -1353,6 +1440,7 @@
           <Property Name="AdditionalDiscount" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="PurchaseOrderDetails" Relationship="ShopDBEntities.FK_PurchaseOrderDetails_PurchaseOrder" FromRole="PurchaseOrder" ToRole="PurchaseOrderDetails" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PurchaseOrderDetails_PurchaseOrder">
           <End Type="ShopDBEntities.PurchaseOrder" Role="PurchaseOrder" Multiplicity="0..1" />
@@ -1399,6 +1487,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionType" Type="Int64" />
+          <Property Name="TransactionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentType" Type="Int64" />
+          <Property Name="PaymentMethod" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsChequeCleared" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TransactionsMapper">
+          <Key>
+            <PropertyRef Name="TMapperID" />
+          </Key>
+          <Property Name="TMapperID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="SubCategoryID" />
+          </Key>
+          <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitID" Type="Int64" />
+          <Property Name="UnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="Int64" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubCategoryID" Type="Int64" Nullable="false" />
+          <Property Name="SubCategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SaleUnitPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaleVat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaleOtherCharge" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaleTotalPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SaleDiscount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AvaliableQty" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1541,6 +1686,7 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="ShopDBEntities.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
                 <ScalarProperty Name="OrderType" ColumnName="OrderType" />
@@ -1826,6 +1972,7 @@
           <EntitySetMapping Name="PurchaseOrder">
             <EntityTypeMapping TypeName="ShopDBEntities.PurchaseOrder">
               <MappingFragment StoreEntitySet="PurchaseOrder">
+                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="AdditionalDiscount" ColumnName="AdditionalDiscount" />
                 <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
@@ -1874,6 +2021,65 @@
                 <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
                 <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
                 <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="ShopDBEntities.Transactions">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsChequeCleared" ColumnName="IsChequeCleared" />
+                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionsMapper">
+            <EntityTypeMapping TypeName="ShopDBEntities.TransactionsMapper">
+              <MappingFragment StoreEntitySet="TransactionsMapper">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
+                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
+                <ScalarProperty Name="TransactionName" ColumnName="TransactionName" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="TMapperID" ColumnName="TMapperID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Product">
+            <EntityTypeMapping TypeName="ShopDBEntities.vw_Product">
+              <MappingFragment StoreEntitySet="vw_Product">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="AvaliableQty" ColumnName="AvaliableQty" />
+                <ScalarProperty Name="SaleDiscount" ColumnName="SaleDiscount" />
+                <ScalarProperty Name="SaleTotalPrice" ColumnName="SaleTotalPrice" />
+                <ScalarProperty Name="SaleOtherCharge" ColumnName="SaleOtherCharge" />
+                <ScalarProperty Name="SaleVat" ColumnName="SaleVat" />
+                <ScalarProperty Name="SaleUnitPrice" ColumnName="SaleUnitPrice" />
+                <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
+                <ScalarProperty Name="SubCategoryID" ColumnName="SubCategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

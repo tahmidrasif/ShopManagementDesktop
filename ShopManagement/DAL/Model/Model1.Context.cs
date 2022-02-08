@@ -49,5 +49,8 @@ namespace ShopManagement.DAL.Model
         public virtual DbSet<PurchaseOrderDetails> PurchaseOrderDetails { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         public virtual DbSet<Payment> Payment { get; set; }
+        public virtual DbSet<Transactions> Transactions { get; set; }
+        public virtual DbSet<TransactionsMapper> TransactionsMapper { get; set; }
+        public virtual DbSet<vw_Product> vw_Product { get; set; }
     }
 }

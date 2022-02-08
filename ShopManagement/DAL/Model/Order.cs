@@ -45,6 +45,7 @@ namespace ShopManagement.DAL.Model
         public Nullable<decimal> DiscountPercent { get; set; }
         public Nullable<decimal> TotalDiscount { get; set; }
         public Nullable<decimal> SubTotal { get; set; }
+        public string ReferenceNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }

@@ -69,7 +69,9 @@ namespace ShopManagement.BLL
             var pOrder = _unitOfWork.repoPurchaseOrder.GetById(orderId);
             if (pOrder != null)
             {
+                Vendor vendor = _unitOfWork.repoVendor.GetById(pOrder.VendorID);
                 oPo = MappingConfig.Mapper.Map<PurchaseOrder, PurchaseOrderVM>(pOrder);
+                oPo.VendorName = vendor?.Name;
             }
             return oPo;
 

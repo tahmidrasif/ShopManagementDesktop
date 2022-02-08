@@ -263,7 +263,8 @@ namespace ShopManagement.UI
                                 MessageBox.Show("Please select correct Item");
                                 return;
                             }
-                            
+                            DialoguePOProcessing dPO = new DialoguePOProcessing(Convert.ToInt64(purchaseOrderId));
+                            dPO.ShowDialog();
                         }
                     }
                     break;
