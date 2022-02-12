@@ -42,9 +42,9 @@
         <AssociationConnector Association="ShopDBEntities.FK_PurchaseOrderDetails_PurchaseOrder" />
         <EntityTypeShape EntityType="ShopDBEntities.Payment" Width="1.5" PointX="7.5" PointY="6.75" />
         <AssociationConnector Association="ShopDBEntities.FK_Payment_Order" />
-        <EntityTypeShape EntityType="ShopDBEntities.Transactions" Width="1.5" PointX="15.375" PointY="12.75" />
-        <EntityTypeShape EntityType="ShopDBEntities.TransactionsMapper" Width="1.5" PointX="16.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShopDBEntities.vw_Product" Width="1.5" PointX="16.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ShopDBEntities.TransactionsMapper" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopDBEntities.Transactions" Width="1.5" PointX="15.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

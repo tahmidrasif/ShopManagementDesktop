@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -87,6 +88,63 @@ namespace ShopManagement.BLL
                 oPo = MappingConfig.Mapper.Map<List<PurchaseOrder>, List<PurchaseOrderVM>>(poList);
             }
             return oPo;
+        }
+
+        public  string  POSendToVendor(PurchaseOrderVM po,long paymentType)
+        {
+            try
+            {
+                _unitOfWork = new UnitOfWork();
+                PurchaseOrder objPo = new PurchaseOrder();
+                objPo = MappingConfig.Mapper.Map<PurchaseOrderVM, PurchaseOrder>(po);
+                _unitOfWork.BeginTrnsaction();
+
+                _unitOfWork.repoPurchaseOrder.Update(objPo);
+                if (po.TotalAdvance > 0)
+                {
+                    Transactions tran = new Transactions();
+                    TransactionsMapper tmapper = _unitOfWork.repoTransactions.GetByTransactionName("Purchase Order");
+                    Enumaration oEnum = _unitOfWork.repoEnum.GetAllByTypeDescription("TransactionStatus").FirstOrDefault(x => x.Name == "Authorized");
+                    if (tmapper == null)
+                    {
+                        _unitOfWork.RollbackTransaction();
+                        return "Internal Error";
+                    }
+                    if (oEnum == null)
+                    {
+                        _unitOfWork.RollbackTransaction();
+                        return "Internal Error";
+                    }
+                    tran.Amount = po.TotalAdvance;
+                    tran.TransactionType = "Purchase Order";
+                    tran.TransactionCode = tmapper.TypeCode;
+                    tran.CrDr = tmapper.CrDr;
+                    tran.ReferenceNo = po.ReferenceNo;
+                    tran.TransactionDate = DateTime.Now;
+                    tran.PaymentType = paymentType;
+                    tran.PaymentMethod = 0;
+                    tran.CreatedBy = "tahmid";
+                    tran.CreatedOn = DateTime.Now;
+                    tran.IsActive = true;
+                    tran.Status = oEnum.Name;
+                    tran.Narration = "Paid";
+                    tran.TransactionCode= DateTime.UtcNow.ToString("yyyyMMddHHmmssfff",CultureInfo.InvariantCulture)+GetRandomThreeDigit();
+                    
+                }
+                return "";
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+           
+        }
+
+        private string GetRandomThreeDigit()
+        {
+            Random generator = new Random();
+            String r = generator.Next(99999, 10000000).ToString("D3");
+            return r;
         }
     }
 }

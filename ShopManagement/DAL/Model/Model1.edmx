@@ -434,7 +434,7 @@
           </Key>
           <Property Name="TransactionID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ReferenceNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="TransactionType" Type="bigint" />
+          <Property Name="TransactionType" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionCode" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionDate" Type="datetime" />
           <Property Name="PaymentType" Type="bigint" />
@@ -450,6 +450,7 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Narration" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TransactionsMapper">
           <Key>
@@ -458,7 +459,7 @@
           <Property Name="TMapperID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TransactionType" Type="nvarchar" MaxLength="50" />
           <Property Name="TransactionName" Type="nvarchar" MaxLength="50" />
-          <Property Name="TransactionCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TypeCode" Type="nvarchar" MaxLength="50" />
           <Property Name="CrDr" Type="nvarchar" MaxLength="50" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -1365,9 +1366,9 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
             <End Role="Order" EntitySet="Order" />
             <End Role="Payment" EntitySet="Payment" />
           </AssociationSet>
-          <EntitySet Name="Transactions" EntityType="ShopDBEntities.Transactions" />
-          <EntitySet Name="TransactionsMapper" EntityType="ShopDBEntities.TransactionsMapper" />
           <EntitySet Name="vw_Product" EntityType="ShopDBEntities.vw_Product" />
+          <EntitySet Name="TransactionsMapper" EntityType="ShopDBEntities.TransactionsMapper" />
+          <EntitySet Name="Transactions" EntityType="ShopDBEntities.Transactions" />
         </EntityContainer>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -1487,41 +1488,6 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Transactions">
-          <Key>
-            <PropertyRef Name="TransactionID" />
-          </Key>
-          <Property Name="TransactionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionType" Type="Int64" />
-          <Property Name="TransactionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
-          <Property Name="PaymentType" Type="Int64" />
-          <Property Name="PaymentMethod" Type="Int64" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsChequeCleared" Type="Boolean" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="TransactionsMapper">
-          <Key>
-            <PropertyRef Name="TMapperID" />
-          </Key>
-          <Property Name="TMapperID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TransactionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="vw_Product">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -1543,6 +1509,42 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
           <Property Name="SaleDiscount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AvaliableQty" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="TransactionsMapper">
+          <Key>
+            <PropertyRef Name="TMapperID" />
+          </Key>
+          <Property Name="TMapperID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReferenceNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+          <Property Name="PaymentType" Type="Int64" />
+          <Property Name="PaymentMethod" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CrDr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChequeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsChequeCleared" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Narration" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2024,43 +2026,6 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Transactions">
-            <EntityTypeMapping TypeName="ShopDBEntities.Transactions">
-              <MappingFragment StoreEntitySet="Transactions">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsChequeCleared" ColumnName="IsChequeCleared" />
-                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
-                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
-                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
-                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
-                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
-                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
-                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TransactionsMapper">
-            <EntityTypeMapping TypeName="ShopDBEntities.TransactionsMapper">
-              <MappingFragment StoreEntitySet="TransactionsMapper">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
-                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
-                <ScalarProperty Name="TransactionName" ColumnName="TransactionName" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="TMapperID" ColumnName="TMapperID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_Product">
             <EntityTypeMapping TypeName="ShopDBEntities.vw_Product">
               <MappingFragment StoreEntitySet="vw_Product">
@@ -2080,6 +2045,44 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionsMapper">
+            <EntityTypeMapping TypeName="ShopDBEntities.TransactionsMapper">
+              <MappingFragment StoreEntitySet="TransactionsMapper">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="TransactionName" ColumnName="TransactionName" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="TMapperID" ColumnName="TMapperID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="ShopDBEntities.Transactions">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="Narration" ColumnName="Narration" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsChequeCleared" ColumnName="IsChequeCleared" />
+                <ScalarProperty Name="ChequeNo" ColumnName="ChequeNo" />
+                <ScalarProperty Name="CardNo" ColumnName="CardNo" />
+                <ScalarProperty Name="CrDr" ColumnName="CrDr" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="TransactionCode" ColumnName="TransactionCode" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="ReferenceNo" ColumnName="ReferenceNo" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -21,6 +21,7 @@ namespace ShopManagement.UI
         private UnitBLL _serviceUnit = null;
         private VendorBLL _serviceVendor = null;
         private ProductPurchaseBLL _serviceProdPurchase = null;
+        private UtilityBLL _serviceUtility = null;
         List<CartVM> cartVMList = new List<CartVM>();
         EnumarationBLL _serviceEnum = null;
         DataTable dtCart;
@@ -36,6 +37,7 @@ namespace ShopManagement.UI
             _serviceVendor = new VendorBLL();
             _serviceEnum = new EnumarationBLL();
             _serviceProdPurchase = new ProductPurchaseBLL();
+            _serviceUtility = new UtilityBLL();
             LoadSearchProductCombo();
             LoadPaymentTypeCombo();
             LoadVendorCombo();
@@ -502,11 +504,13 @@ namespace ShopManagement.UI
                     if (existingOrderId == 0)
                     {
                         opvm = new PurchaseOrderVM();
-                        opvm.POrderCode = "PO-" + DateTime.Now.ToString("yyMMddhhmmss");
+                        var currDate= DateTime.Now.ToString("yyMMddhhmmss"); 
+                        opvm.POrderCode = "PO-" + currDate;
                         opvm.OrderType = "In-House";
                         opvm.OrderDate = DateTime.Now;
                         opvm.CreatedBy = "tahmid";
                         opvm.CreatedOn = DateTime.Now;
+                        opvm.ReferenceNo = "0001/"+ currDate +"/"+ _serviceUtility.GetSixDigitRandomNumbr();
                         opvm.IsActive = true;
                     }
                     else

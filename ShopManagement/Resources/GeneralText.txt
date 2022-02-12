@@ -1,0 +1,42 @@
+﻿Purchase from X 1000 Taka
+Purchase Account Debit to Cash Account Credit
+
+Sell Product to X 1000 taka
+Sales
+
+
+(Real Account) → Records asset
+Debit What comes in to the business
+Credit what goes goes out from the business
+
+(Personal Account) → Involves with person or institution or organization
+Debit the Receiver
+Credit the Giver
+
+(Nominal Account) → Records Expanses, Loses, Incomes, Gains
+Debit all expenses and loses
+Credit all incomes and gains
+
+Goods purchased for cash 10000
+Date	Particular			LedgerFolio	Debit	Credit	
+9		Purchase A/c Dr		9			10000	0			Debit all expenses and loses 
+9		To Cash A/c			9			0		10000		Credit what goes goes out from the business
+Goods sold for cash 10000
+10		Cash A/c Dr			10			10000	0			Debit What comes in to the business
+10		To Sales A/c		10			0		10000		Credit all incomes and gains
+
+Credit Type Transaction
+Goods Purchased from X 10000
+11		Purchase A/c Dr		11			10000	0			
+11		To X's A/c			11			0		10000	
+Goods sold to X 10000
+12		X's A/c Dr			12			10000	0	
+12		To Sales A/c		12			0		10000	
+
+Salary Paid 10000
+7		Salary A/c Dr		7			10000	0	
+7		To Cash A/c			7			0		10000	
+
+Furniture Purchased for cash 10000
+2		Furniture A/c Dr	2			10000	0		
+2		To Cash A/c			2			0		10000	

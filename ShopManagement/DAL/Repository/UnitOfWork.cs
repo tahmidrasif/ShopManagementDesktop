@@ -105,6 +105,13 @@ namespace ShopManagement.DAL.Repository
                 return new PurchaseOrderRepository(context);
             }
         }
+        public TransactionsRepository repoTransactions
+        {
+            get
+            {
+                return new TransactionsRepository(context);
+            }
+        }
 
         public UnitOfWork()
         {

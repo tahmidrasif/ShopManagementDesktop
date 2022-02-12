@@ -38,6 +38,7 @@ namespace ShopManagement.BLL.ViewModel
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> AdditionalDiscount { get; set; }
         public string Remarks { get; set; }
+        public string ReferenceNo { get; set; }
         public List<PurchaseOrderDetailsVM> PurchaseOrderDetails { get; set; }
     }
 }

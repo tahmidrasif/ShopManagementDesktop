@@ -66,6 +66,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.txtPaymentDue = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.cmbPaymentType = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -75,6 +76,7 @@
             this.btnOrder = new System.Windows.Forms.Button();
             this.txtPaymentRemarks = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
+            this.txtPaymentDeliveryCharge = new System.Windows.Forms.TextBox();
             this.txtAdvancedAmount = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -85,8 +87,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
-            this.txtPaymentDeliveryCharge = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.txtRefNo = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -95,6 +97,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtRefNo);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtTotalUnit);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.txtQty);
@@ -551,6 +555,17 @@
             this.txtPaymentDue.Text = "0";
             this.txtPaymentDue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(317, 32);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(126, 21);
+            this.label3.TabIndex = 169;
+            this.label3.Text = "Delivery Charge";
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -621,7 +636,7 @@
             this.btnOrder.Name = "btnOrder";
             this.btnOrder.Size = new System.Drawing.Size(163, 49);
             this.btnOrder.TabIndex = 159;
-            this.btnOrder.Text = "Order";
+            this.btnOrder.Text = "Save";
             this.btnOrder.UseVisualStyleBackColor = false;
             this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
             // 
@@ -645,6 +660,17 @@
             this.label30.Size = new System.Drawing.Size(72, 21);
             this.label30.TabIndex = 157;
             this.label30.Text = "Remarks";
+            // 
+            // txtPaymentDeliveryCharge
+            // 
+            this.txtPaymentDeliveryCharge.Location = new System.Drawing.Point(477, 29);
+            this.txtPaymentDeliveryCharge.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPaymentDeliveryCharge.Name = "txtPaymentDeliveryCharge";
+            this.txtPaymentDeliveryCharge.Size = new System.Drawing.Size(195, 28);
+            this.txtPaymentDeliveryCharge.TabIndex = 151;
+            this.txtPaymentDeliveryCharge.Text = "0";
+            this.txtPaymentDeliveryCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPaymentDeliveryCharge.TextChanged += new System.EventHandler(this.txtPaymentDeliveryCharge_TextChanged);
             // 
             // txtAdvancedAmount
             // 
@@ -756,27 +782,25 @@
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // txtPaymentDeliveryCharge
+            // txtRefNo
             // 
-            this.txtPaymentDeliveryCharge.Location = new System.Drawing.Point(477, 29);
-            this.txtPaymentDeliveryCharge.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPaymentDeliveryCharge.Name = "txtPaymentDeliveryCharge";
-            this.txtPaymentDeliveryCharge.Size = new System.Drawing.Size(195, 28);
-            this.txtPaymentDeliveryCharge.TabIndex = 151;
-            this.txtPaymentDeliveryCharge.Text = "0";
-            this.txtPaymentDeliveryCharge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtPaymentDeliveryCharge.TextChanged += new System.EventHandler(this.txtPaymentDeliveryCharge_TextChanged);
+            this.txtRefNo.Location = new System.Drawing.Point(165, 396);
+            this.txtRefNo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRefNo.Name = "txtRefNo";
+            this.txtRefNo.ReadOnly = true;
+            this.txtRefNo.Size = new System.Drawing.Size(168, 26);
+            this.txtRefNo.TabIndex = 179;
             // 
-            // label3
+            // label4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(317, 32);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(126, 21);
-            this.label3.TabIndex = 169;
-            this.label3.Text = "Delivery Charge";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(11, 396);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(133, 25);
+            this.label4.TabIndex = 178;
+            this.label4.Text = "Reference No.";
             // 
             // FormProductPurchase
             // 
@@ -863,5 +887,7 @@
         internal System.Windows.Forms.Label label9;
         internal System.Windows.Forms.Label label3;
         internal System.Windows.Forms.TextBox txtPaymentDeliveryCharge;
+        private System.Windows.Forms.TextBox txtRefNo;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -53,8 +53,13 @@
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.btnProceed = new System.Windows.Forms.Button();
+            this.txtCurrentStatus = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbPaymentType = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -350,32 +355,89 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Order Details";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(156, 352);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(156, 22);
-            this.textBox1.TabIndex = 215;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(33, 353);
+            this.label1.Location = new System.Drawing.Point(33, 395);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 21);
             this.label1.TabIndex = 214;
             this.label1.Text = "Status";
             // 
+            // cmbStatus
+            // 
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(156, 392);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(156, 24);
+            this.cmbStatus.TabIndex = 244;
+            // 
+            // btnProceed
+            // 
+            this.btnProceed.BackColor = System.Drawing.Color.DarkCyan;
+            this.btnProceed.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
+            this.btnProceed.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnProceed.Location = new System.Drawing.Point(526, 410);
+            this.btnProceed.Margin = new System.Windows.Forms.Padding(4);
+            this.btnProceed.Name = "btnProceed";
+            this.btnProceed.Size = new System.Drawing.Size(156, 49);
+            this.btnProceed.TabIndex = 245;
+            this.btnProceed.Text = "Proceed";
+            this.btnProceed.UseVisualStyleBackColor = false;
+            this.btnProceed.Click += new System.EventHandler(this.btnProceed_Click);
+            // 
+            // txtCurrentStatus
+            // 
+            this.txtCurrentStatus.Location = new System.Drawing.Point(156, 345);
+            this.txtCurrentStatus.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCurrentStatus.Name = "txtCurrentStatus";
+            this.txtCurrentStatus.ReadOnly = true;
+            this.txtCurrentStatus.Size = new System.Drawing.Size(156, 22);
+            this.txtCurrentStatus.TabIndex = 214;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(33, 348);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(115, 21);
+            this.label2.TabIndex = 213;
+            this.label2.Text = "Current Status";
+            // 
+            // cmbPaymentType
+            // 
+            this.cmbPaymentType.FormattingEnabled = true;
+            this.cmbPaymentType.Location = new System.Drawing.Point(156, 435);
+            this.cmbPaymentType.Name = "cmbPaymentType";
+            this.cmbPaymentType.Size = new System.Drawing.Size(156, 24);
+            this.cmbPaymentType.TabIndex = 247;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Bold);
+            this.label4.Location = new System.Drawing.Point(33, 438);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(110, 21);
+            this.label4.TabIndex = 246;
+            this.label4.Text = "Payment Type";
+            // 
             // DialoguePOProcessing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 616);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(732, 472);
+            this.Controls.Add(this.cmbPaymentType);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtCurrentStatus);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnProceed);
+            this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "DialoguePOProcessing";
@@ -414,7 +476,12 @@
         internal System.Windows.Forms.Label label26;
         internal System.Windows.Forms.TextBox txtPaymentTotal;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Button btnProceed;
+        private System.Windows.Forms.TextBox txtCurrentStatus;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbPaymentType;
+        private System.Windows.Forms.Label label4;
     }
 }
