@@ -82,6 +82,17 @@ namespace ShopManagement.UI
                     txtPaymentDue.Text = poVM.TotalDue.ToString();
                     cmbVendor.SelectedValue = poVM.VendorID;
                     txtPaymentRemarks.Text = poVM.Remarks;
+                    txtRefNo.Text = poVM.ReferenceNo;
+
+                    var statusEnum = _serviceEnum.GetAllByTypeDescription("PO Status");
+                    if (poVM.Status != statusEnum.FirstOrDefault(x => x.Name == "Pending").EnumID)
+                    {
+                        btnSearch.Enabled = false;
+                        btnAdd.Enabled = false;
+                        btnRemove.Enabled = false;
+                        btnClear.Enabled = false;
+                        btnOrder.Enabled = false;
+                    }
                 }
             }
         }
@@ -523,7 +534,7 @@ namespace ShopManagement.UI
 
 
                     opvm.VendorID = Convert.ToInt64(cmbVendor.SelectedValue);
-                    var status = _serviceEnum.GetAllByTypeDescription("PO Status")?.FirstOrDefault(x => x.Name == "Pendig")?.EnumID;
+                    var status = _serviceEnum.GetAllByTypeDescription("PO Status")?.FirstOrDefault(x => x.Name == "Pending")?.EnumID;
                     opvm.Status = status == null ? 0 : status;
 
 

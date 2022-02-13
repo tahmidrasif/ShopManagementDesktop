@@ -69,6 +69,26 @@ namespace ShopManagement.BLL
             return objRespList;
         }
 
+        public EnumarationResponse GetSingleByName(string name)
+        {
+            _unitOfWork = new UnitOfWork();
+            var objEnum = _unitOfWork.repoEnum.GetSingleByName(name);
+            EnumarationResponse objRespList = null;
+            if (objEnum != null)
+            {
+
+                EnumarationResponse objEnumBLL = new EnumarationResponse()
+                {
+                    EnumID = objEnum.EnumID,
+                    Name = objEnum.Name,
+                    Type = objEnum.Type,
+                    TypeDecscription = objEnum.TypeDecscription,
+                    Remarks = objEnum.Remarks
+                };
+            }
+            return objRespList;
+        }
+
         public EnumarationResponse GetById(long? status)
         {
             _unitOfWork = new UnitOfWork();

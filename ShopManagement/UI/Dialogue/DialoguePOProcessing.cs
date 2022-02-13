@@ -43,8 +43,8 @@ namespace ShopManagement.UI.Dialogue
         {
             var paymentTypes = _serviceEnum.GetAllByTypeDescription("PaymentType");
             cmbPaymentType.DataSource = paymentTypes;
-            cmbStatus.DisplayMember = "Name";
-            cmbStatus.ValueMember = "EnumID";
+            cmbPaymentType.DisplayMember = "Name";
+            cmbPaymentType.ValueMember = "EnumID";
         }
 
         private void LoadExistingOrder(long? orderId)
@@ -98,7 +98,7 @@ namespace ShopManagement.UI.Dialogue
             List<EnumarationResponse> copyList = list;
 
             var statusEnum = copyList.FirstOrDefault(x => x.EnumID == status);
-            if (statusEnum.Name == "Pendig")
+            if (statusEnum.Name == "Pending")
             {
                 copyList = copyList.Where(x => x.Name == "Sent To Vendor").ToList();
                 cmbStatus.DataSource = copyList;
@@ -108,7 +108,7 @@ namespace ShopManagement.UI.Dialogue
             }
             if (statusEnum.Name == "Sent To Vendor")
             {
-                copyList = copyList.Where(x => x.Name == "Received" || x.Name == "Return" || x.Name == "Partial Received").ToList();
+                copyList = copyList.Where(x => x.Name == "Received" || x.Name == "Partial Received").ToList();
                 cmbStatus.DataSource = copyList;
                 cmbStatus.DisplayMember = "Name";
                 cmbStatus.ValueMember = "EnumID";
@@ -119,49 +119,103 @@ namespace ShopManagement.UI.Dialogue
 
         private void btnProceed_Click(object sender, EventArgs e)
         {
-            if (poVM == null)
+            try
             {
-                MessageBox.Show("No Order is found");
-                this.Close();
-                return;
-            }
-            var statusEnum = _serviceEnum.GetAllByTypeDescription("PO Status");
-            if (statusEnum == null)
-            {
-                MessageBox.Show("Internal Error");
-                this.Close();
-                return;
-            }
-            if (poVM.Status == statusEnum.FirstOrDefault(x => x.Name == "Pending").EnumID)
-            {
-                //_service
-                DialogResult dr = MessageBox.Show("Do you Want to Proceed?", "Alert", MessageBoxButtons.YesNo);
-                switch (dr)
+
+                if (poVM == null)
                 {
-                    case DialogResult.Yes:
-                        {
+                    MessageBox.Show("No Order is found");
+                    this.Close();
+                    return;
+                }
+                var statusEnum = _serviceEnum.GetAllByTypeDescription("PO Status");
+                if (statusEnum == null)
+                {
+                    MessageBox.Show("Internal Error");
+                    this.Close();
+                    return;
+                }
 
-                            poVM.Status = statusEnum.FirstOrDefault(x => x.Name == "Sent To Vendor").EnumID;
-                            poVM.UpdatedBy = "tahmid";
-                            poVM.UpdatedOn = DateTime.Now;
-
-                            long paymentType = (long)cmbPaymentType.SelectedValue;
-                            string msg=_serviceProdPurchase.POSendToVendor(poVM, paymentType);
-                            if (msg == "Success")
+                if (poVM.Status == statusEnum.FirstOrDefault(x => x.Name == "Pending").EnumID)
+                {
+                    //_service
+                    DialogResult dr = MessageBox.Show("Do you Want to Proceed?", "Alert", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
                             {
-                                MessageBox.Show("Order Sent to Vendor: " + poVM.VendorName + " successfully");
-                            }
-                        }
-                        break;
+                                var paymentTypes = _serviceEnum.GetAllByTypeDescription("PaymentType");
+                                if (poVM.TotalAdvance > 0 && Convert.ToInt64(cmbPaymentType.SelectedValue) == paymentTypes.FirstOrDefault(x => x.Name == "No Payment").EnumID)
+                                {
+                                    MessageBox.Show("Please Select a  payment Type: ");
+                                    return;
+                                }
 
+                                poVM.Status = statusEnum.FirstOrDefault(x => x.Name == "Sent To Vendor").EnumID;
+                                poVM.UpdatedBy = "tahmid";
+                                poVM.UpdatedOn = DateTime.Now;
+
+                                long paymentType = (long)cmbPaymentType.SelectedValue;
+                                string msg = _serviceProdPurchase.POSendToVendor(poVM, paymentType);
+                                if (msg == "Success")
+                                {
+                                    MessageBox.Show("Order Sent to Vendor: " + poVM.VendorName + " successfully");
+                                }
+                                this.Close();
+                            }
+                            break;
+
+
+                    }
+                }
+                if (poVM.Status == statusEnum.FirstOrDefault(x => x.Name == "Sent To Vendor").EnumID)
+                {
+                    var receiveStatus = cmbStatus.SelectedValue;
+                    var objEnumResoonse = _serviceEnum.GetSingleByName("Received");
+                    if (objEnumResoonse != null && Convert.ToInt64(receiveStatus) == objEnumResoonse.EnumID)
+                    {
+                        DialogResult dr = MessageBox.Show("Have you received the products?", "Alert", MessageBoxButtons.YesNo);
+                        switch (dr)
+                        {
+                            case DialogResult.Yes:
+                                {
+                                    var paymentTypes = _serviceEnum.GetAllByTypeDescription("PaymentType");
+                                    if (poVM.TotalAdvance > 0 && Convert.ToInt64(cmbPaymentType.SelectedValue) == paymentTypes.FirstOrDefault(x => x.Name == "No Payment").EnumID)
+                                    {
+                                        MessageBox.Show("Please Select a  payment Type: ");
+                                        return;
+                                    }
+
+                                    poVM.Status = statusEnum.FirstOrDefault(x => x.Name == "Sent To Vendor").EnumID;
+                                    poVM.UpdatedBy = "tahmid";
+                                    poVM.UpdatedOn = DateTime.Now;
+
+                                    long paymentType = (long)cmbPaymentType.SelectedValue;
+                                    string msg = _serviceProdPurchase.POSendToVendor(poVM, paymentType);
+                                    if (msg == "Success")
+                                    {
+                                        MessageBox.Show("Order Sent to Vendor: " + poVM.VendorName + " successfully");
+                                    }
+                                    this.Close();
+                                }
+                                break;
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Internal Error");
+                    }
 
                 }
-            }
-            if (poVM.Status == statusEnum.FirstOrDefault(x => x.Name == "Sent To Vendor").EnumID)
-            {
 
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+
 
 
     }

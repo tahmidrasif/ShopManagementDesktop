@@ -90,7 +90,7 @@ namespace ShopManagement.BLL
             return oPo;
         }
 
-        public  string  POSendToVendor(PurchaseOrderVM po,long paymentType)
+        public string POSendToVendor(PurchaseOrderVM po, long paymentType)
         {
             try
             {
@@ -116,8 +116,8 @@ namespace ShopManagement.BLL
                         return "Internal Error";
                     }
                     tran.Amount = po.TotalAdvance;
-                    tran.TransactionType = "Purchase Order";
-                    tran.TransactionCode = tmapper.TypeCode;
+                    tran.TransactionType = tmapper.TypeCode;
+                    //tran.TransactionCode = tmapper.TypeCode;
                     tran.CrDr = tmapper.CrDr;
                     tran.ReferenceNo = po.ReferenceNo;
                     tran.TransactionDate = DateTime.Now;
@@ -128,16 +128,22 @@ namespace ShopManagement.BLL
                     tran.IsActive = true;
                     tran.Status = oEnum.Name;
                     tran.Narration = "Paid";
-                    tran.TransactionCode= DateTime.UtcNow.ToString("yyyyMMddHHmmssfff",CultureInfo.InvariantCulture)+GetRandomThreeDigit();
-                    
+                    tran.TransactionCode = DateTime.UtcNow.ToString("yyyyMMddHHmmssfff", CultureInfo.InvariantCulture) + GetRandomThreeDigit();
+
+                    _unitOfWork.repoTransactions.InsertTransaction(tran);
+
                 }
-                return "";
+                _unitOfWork.Save();
+                _unitOfWork.CommitTransaction();
+
+                return "Success";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                _unitOfWork.RollbackTransaction();
                 return ex.Message;
             }
-           
+
         }
 
         private string GetRandomThreeDigit()

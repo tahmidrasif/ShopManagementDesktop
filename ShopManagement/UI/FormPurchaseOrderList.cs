@@ -186,7 +186,7 @@ namespace ShopManagement.UI
             string orderCode = "";
             long venodrId = 0;
             dgvPO.DataSource = null;
-            if (cmbSrcOrderStatus.SelectedValue != "0")
+            if (cmbSrcOrderStatus.SelectedValue.ToString() != "0")
             {
                 orderStatus = Convert.ToInt64(cmbSrcOrderStatus.SelectedValue);
             }
@@ -203,7 +203,7 @@ namespace ShopManagement.UI
             {
                 orderCode = txtSrcOrderCode.Text;
             }
-            if (cmbSrcOrderStatus.SelectedValue != "0")
+            if (cmbSrcVendor.SelectedValue.ToString() != "0")
             {
                 venodrId = Convert.ToInt64(cmbSrcVendor.SelectedValue);
             }

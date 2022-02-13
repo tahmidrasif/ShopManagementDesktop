@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtRefNo = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtTotalUnit = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.txtQty = new System.Windows.Forms.TextBox();
@@ -87,8 +89,6 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.txtPaymentTotal = new System.Windows.Forms.TextBox();
-            this.txtRefNo = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.groupBox5.SuspendLayout();
@@ -131,6 +131,26 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input";
+            // 
+            // txtRefNo
+            // 
+            this.txtRefNo.Location = new System.Drawing.Point(165, 396);
+            this.txtRefNo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtRefNo.Name = "txtRefNo";
+            this.txtRefNo.ReadOnly = true;
+            this.txtRefNo.Size = new System.Drawing.Size(308, 26);
+            this.txtRefNo.TabIndex = 179;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(11, 396);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(133, 25);
+            this.label4.TabIndex = 178;
+            this.label4.Text = "Reference No.";
             // 
             // txtTotalUnit
             // 
@@ -781,26 +801,6 @@
             this.txtPaymentTotal.TabIndex = 130;
             this.txtPaymentTotal.Text = "0";
             this.txtPaymentTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtRefNo
-            // 
-            this.txtRefNo.Location = new System.Drawing.Point(165, 396);
-            this.txtRefNo.Margin = new System.Windows.Forms.Padding(4);
-            this.txtRefNo.Name = "txtRefNo";
-            this.txtRefNo.ReadOnly = true;
-            this.txtRefNo.Size = new System.Drawing.Size(168, 26);
-            this.txtRefNo.TabIndex = 179;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(11, 396);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 25);
-            this.label4.TabIndex = 178;
-            this.label4.Text = "Reference No.";
             // 
             // FormProductPurchase
             // 

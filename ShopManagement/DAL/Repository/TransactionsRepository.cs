@@ -28,5 +28,17 @@ namespace ShopManagement.DAL.Repository
         {
             return db.TransactionsMapper.FirstOrDefault(x => x.TransactionName == name && x.IsActive==true);
         }
+
+        public void InsertTransaction(Transactions tran)
+        {
+            try
+            {
+                db.Transactions.Add(tran);   
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
