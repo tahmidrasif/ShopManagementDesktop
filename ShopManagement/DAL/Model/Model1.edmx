@@ -83,6 +83,8 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="EnumOrder" Type="int" />
+          <Property Name="EnumSteps" Type="int" />
         </EntityType>
         <EntityType Name="GroupProduct">
           <Key>
@@ -855,6 +857,8 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
+          <Property Name="EnumOrder" Type="Int32" />
+          <Property Name="EnumSteps" Type="Int32" />
         </EntityType>
         <EntityType Name="GroupProduct">
           <Key>
@@ -1623,6 +1627,8 @@ warning 6002: The table/view 'ShopDB.dbo.vw_Product' does not have a primary key
           <EntitySetMapping Name="Enumaration">
             <EntityTypeMapping TypeName="ShopDBEntities.Enumaration">
               <MappingFragment StoreEntitySet="Enumaration">
+                <ScalarProperty Name="EnumSteps" ColumnName="EnumSteps" />
+                <ScalarProperty Name="EnumOrder" ColumnName="EnumOrder" />
                 <ScalarProperty Name="EnumID" ColumnName="EnumID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Type" ColumnName="Type" />

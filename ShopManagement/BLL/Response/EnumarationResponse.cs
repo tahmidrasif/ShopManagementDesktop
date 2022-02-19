@@ -13,5 +13,7 @@ namespace ShopManagement.BLL.Response
         public string Type { get; set; }
         public string TypeDecscription { get; set; }
         public string Remarks { get; set; }
+        public Nullable<int> EnumOrder { get; set; }
+        public Nullable<int> EnumSteps { get; set; }
     }
 }

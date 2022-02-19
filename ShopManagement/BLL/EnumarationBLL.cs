@@ -33,7 +33,10 @@ namespace ShopManagement.BLL
                         Name = item.Name,
                         Type = item.Type,
                         TypeDecscription = item.TypeDecscription,
-                        Remarks = item.Remarks
+                        Remarks = item.Remarks,
+                        EnumOrder = item.EnumOrder,
+                        EnumSteps=item.EnumSteps
+                       
                     };
 
                     objRespList.Add(objEnumBLL);
@@ -59,7 +62,9 @@ namespace ShopManagement.BLL
                         Name = item.Name,
                         Type = item.Type,
                         TypeDecscription = item.TypeDecscription,
-                        Remarks = item.Remarks
+                        Remarks = item.Remarks,
+                        EnumOrder = item.EnumOrder,
+                        EnumSteps = item.EnumSteps
                     };
 
                     objRespList.Add(objEnumBLL);
@@ -83,7 +88,9 @@ namespace ShopManagement.BLL
                     Name = objEnum.Name,
                     Type = objEnum.Type,
                     TypeDecscription = objEnum.TypeDecscription,
-                    Remarks = objEnum.Remarks
+                    Remarks = objEnum.Remarks,
+                    EnumOrder = objEnum.EnumOrder,
+                    EnumSteps = objEnum.EnumSteps
                 };
             }
             return objRespList;
@@ -102,7 +109,9 @@ namespace ShopManagement.BLL
                     Name = objEnum.Name,
                     Type = objEnum.Type,
                     TypeDecscription = objEnum.TypeDecscription,
-                    Remarks = objEnum.Remarks
+                    Remarks = objEnum.Remarks,
+                    EnumOrder = objEnum.EnumOrder,
+                    EnumSteps = objEnum.EnumSteps
                 };
             }
             return objEnumBLL;

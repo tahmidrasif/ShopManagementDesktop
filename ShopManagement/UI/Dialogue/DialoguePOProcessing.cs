@@ -32,11 +32,26 @@ namespace ShopManagement.UI.Dialogue
             _serviceProdPurchase = new ProductPurchaseBLL();
             _transactionBLL = new TransactionBLL();
 
+            btnProceed.Enabled = false;
+            btnProductReceived.Enabled = false;
+            btnPayFull.Enabled = false;
+            btnPayPartial.Enabled = false;
+            txtOtherCharge.ReadOnly = true;
+            txtAdditionalDiscount.ReadOnly = true;
+            txtDelivaryCharge.ReadOnly = true;
+            txtAmount.ReadOnly = true;
+
             if (poId != null && poId > 0)
             {
                 LoadExistingOrder(poId);
+                LoadPaymentTypeCombo();
             }
-            LoadPaymentTypeCombo();
+            else
+            {
+                MessageBox.Show("Internal Error");
+                this.Close();
+            }
+            
         }
 
         private void LoadPaymentTypeCombo()

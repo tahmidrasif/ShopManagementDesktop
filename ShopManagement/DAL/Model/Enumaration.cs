@@ -24,5 +24,7 @@ namespace ShopManagement.DAL.Model
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> EnumOrder { get; set; }
+        public Nullable<int> EnumSteps { get; set; }
     }
 }
